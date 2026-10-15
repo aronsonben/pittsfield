@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aero">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pittsfield.Online - Digital Home of the Berkshires' City</title>
+<style>
+/* ---------- THEMES: p1..p5 = dither palette, dark to light ---------- */
+:root, [data-theme="aero"] {
+  --p1:#06304f; --p2:#0a6aa1; --p3:#2bb3c0; --p4:#7fd36e; --p5:#e8fbff;
+  --ink:#0b2a3d; --link:#0a5fa8; --visited:#5a3d9a; --accent:#2e9e3f; --accent2:#0a88d0;
+  --glass:rgba(240,252,255,.78); --edge:rgba(255,255,255,.9); --shadow:rgba(5,50,80,.4);
+  --h1:#5fd0ff; --h2:#0a6aa1; --b1:#e9fbff; --b2:#8fd8f0; --btnink:#06304f; --radius:14px; --gloss:.55;
+}
+[data-theme="ge"] {
+  --p1:#222426; --p2:#555a5e; --p3:#989ea2; --p4:#e8731a; --p5:#f1eee7;
+  --ink:#1f2123; --link:#c2560a; --visited:#6b5b4b; --accent:#e8731a; --accent2:#555a5e;
+  --glass:rgba(240,238,232,.84); --edge:rgba(255,255,255,.85); --shadow:rgba(0,0,0,.5);
+  --h1:#ff9a3d; --h2:#9a4608; --b1:#f6f4ee; --b2:#b9bec2; --btnink:#222; --radius:8px; --gloss:.4;
+}
+[data-theme="fall"] {
+  --p1:#3a1c10; --p2:#8c2f12; --p3:#d9741a; --p4:#e8b83a; --p5:#fdf1d0;
+  --ink:#3a1c10; --link:#a8320c; --visited:#6e4a2a; --accent:#c9561a; --accent2:#7a8a2a;
+  --glass:rgba(255,246,222,.84); --edge:rgba(255,255,240,.9); --shadow:rgba(58,28,16,.5);
+  --h1:#f0a030; --h2:#8c2f12; --b1:#fff4d6; --b2:#efc063; --btnink:#3a1c10; --radius:16px; --gloss:.5;
+}
+[data-theme="night"] {
+  --p1:#0c0a2a; --p2:#2b2a6b; --p3:#6a4fb3; --p4:#b9a5f0; --p5:#f0ecff;
+  --ink:#ece8ff; --link:#a9c4ff; --visited:#d6a8ff; --accent:#ff7ad9; --accent2:#6fe3ff;
+  --glass:rgba(22,18,66,.78); --edge:rgba(190,170,255,.55); --shadow:rgba(0,0,20,.7);
+  --h1:#8a6cff; --h2:#1b1650; --b1:#5d4bb8; --b2:#2a2270; --btnink:#fff; --radius:14px; --gloss:.3;
+}
+[data-theme="retro"] {
+  --p1:#003f3f; --p2:#008080; --p3:#8aa8a8; --p4:#c0c0c0; --p5:#f4f4f4;
+  --ink:#000; --link:#0000ee; --visited:#551a8b; --accent:#008080; --accent2:#800000;
+  --glass:#c0c0c0; --edge:#fff; --shadow:rgba(0,0,0,.6);
+  --h1:#000080; --h2:#1084d0; --b1:#dfdfdf; --b2:#c0c0c0; --btnink:#000; --radius:0px; --gloss:0;
+}
+
+* { box-sizing:border-box; }
+body {
+  margin:0; color:var(--ink); min-height:100vh;
+  font:15px/1.5 "Trebuchet MS","Lucida Grande",Verdana,sans-serif;
+}
+#bg { position:fixed; inset:0; width:100vw; height:100vh; z-index:-2; image-rendering:pixelated; background:var(--p2); }
+#bg.smooth { image-rendering:auto; }
+#scan { position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.12;
+  background:repeating-linear-gradient(0deg,#000 0 1px,transparent 1px 3px); }
+a { color:var(--link); } a:visited { color:var(--visited); }
+h2,h3 { margin:.2em 0 .4em; }
+.wrap { max-width:1100px; margin:0 auto; padding:10px; }
+
+/* glass panels */
+.panel, header.top, nav.tabs, footer, .ctl {
+  background:var(--glass); border:1px solid var(--edge); border-radius:var(--radius);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7), 0 6px 18px var(--shadow);
+  backdrop-filter:blur(5px) saturate(1.3);
+}
+[data-theme="retro"] .panel, [data-theme="retro"] header.top, [data-theme="retro"] nav.tabs,
+[data-theme="retro"] footer, [data-theme="retro"] .ctl {
+  backdrop-filter:none; box-shadow:inset -1px -1px #808080, inset 1px 1px #fff, 2px 2px 0 #000; border:1px solid #000;
+}
+.panel { padding:14px 16px; margin-bottom:12px; position:relative; }
+.panel > h2 { margin:-14px -16px 12px; padding:6px 16px; color:#fff; font-size:1.05rem; letter-spacing:.03em;
+  background:linear-gradient(180deg,var(--h1),var(--h2)); border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+  text-shadow:0 1px 2px rgba(0,0,0,.6); position:relative; overflow:hidden; }
+.panel > h2::after { content:""; position:absolute; left:0; right:0; top:0; height:50%;
+  background:linear-gradient(180deg,rgba(255,255,255,var(--gloss)),rgba(255,255,255,.05)); pointer-events:none; }
+
+header.top { margin-top:6px; padding:12px 18px; display:flex; flex-wrap:wrap; align-items:center; gap:14px;
+  background:linear-gradient(180deg,var(--h1),var(--h2)); color:#fff; position:relative; overflow:hidden; }
+header.top::after { content:""; position:absolute; left:0; right:0; top:0; height:50%;
+  background:linear-gradient(180deg,rgba(255,255,255,var(--gloss)),rgba(255,255,255,0)); pointer-events:none; }
+header.top h1 { margin:0; font-size:2rem; letter-spacing:.02em; text-shadow:0 2px 4px rgba(0,0,0,.55); position:relative; z-index:1; }
+header.top p { margin:0; position:relative; z-index:1; text-shadow:0 1px 2px rgba(0,0,0,.6); }
+.orb { width:56px; height:56px; border-radius:50%; flex:none; position:relative; z-index:1;
+  background:radial-gradient(circle at 35% 30%,#fff 0 12%,var(--accent2) 45%,var(--p1) 100%);
+  box-shadow:0 3px 8px rgba(0,0,0,.5), inset 0 -6px 10px rgba(255,255,255,.35); }
+[data-theme="retro"] .orb { border-radius:0; background:var(--p2); box-shadow:inset -2px -2px #003f3f, inset 2px 2px #fff; }
+.spacer { flex:1; }
+.ticker { overflow:hidden; white-space:nowrap; margin-top:8px; border-radius:var(--radius); background:var(--p1); color:var(--p5);
+  border:1px solid var(--edge); font-family:"Courier New",monospace; padding:3px 0; }
+.ticker span { display:inline-block; padding-left:100%; animation:scroll 38s linear infinite; }
+.ticker:hover span { animation-play-state:paused; }
+@keyframes scroll { to { transform:translateX(-100%); } }
+
+nav.tabs { margin:10px 0; padding:6px; display:flex; flex-wrap:wrap; gap:6px; }
+button, select, input, textarea { font:inherit; color:var(--btnink); }
+button, .btn {
+  cursor:pointer; padding:5px 13px; border-radius:calc(var(--radius) + 6px); border:1px solid rgba(0,0,0,.4);
+  background:linear-gradient(180deg,var(--b1),var(--b2)); box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 2px 4px rgba(0,0,0,.3);
+  text-shadow:0 1px 0 rgba(255,255,255,.3);
+}
+[data-theme="night"] button, [data-theme="night"] .btn { text-shadow:0 1px 2px #000; }
+[data-theme="retro"] button, [data-theme="retro"] .btn { border-radius:0; box-shadow:inset -1px -1px #808080, inset 1px 1px #fff; background:#c0c0c0; border:1px solid #000; text-shadow:none; }
+button:hover { filter:brightness(1.1); } button:active { transform:translateY(1px); }
+button.on, button[aria-selected="true"] { background:linear-gradient(180deg,var(--accent),var(--h2)); color:#fff; text-shadow:0 1px 2px #000; }
+input[type=text], textarea, select {
+  padding:5px 8px; border-radius:calc(var(--radius) / 2); border:1px solid rgba(0,0,0,.45); background:rgba(255,255,255,.92); width:100%; color:#111;
+}
+[data-theme="retro"] input[type=text], [data-theme="retro"] textarea, [data-theme="retro"] select { box-shadow:inset 1px 1px #808080; background:#fff; }
+select { width:auto; }
+label { font-weight:bold; font-size:.9rem; }
+
+.tab { display:none; } .tab.active { display:block; }
+.grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+.grid > .panel { margin:0; }
+.links { list-style:none; margin:0; padding:0; }
+.links li { padding:4px 0; border-bottom:1px dotted rgba(128,128,128,.5); }
+.links li:last-child { border:0; }
+.big311 { display:block; text-align:center; font-size:1.4rem; font-weight:bold; padding:10px; margin:6px 0; text-decoration:none; color:#fff !important;
+  border-radius:var(--radius); background:linear-gradient(180deg,var(--accent),var(--h2)); box-shadow:inset 0 1px rgba(255,255,255,.6),0 3px 8px var(--shadow); text-shadow:0 1px 3px #000; }
+.small { font-size:.82rem; opacity:.85; }
+.blink { animation:blink 1.1s steps(2,start) infinite; } @keyframes blink { to { visibility:hidden; } }
+.counter { display:inline-flex; gap:2px; font-family:"Courier New",monospace; }
+.counter b { background:#000; color:#3f3; padding:1px 5px; border:1px inset #888; }
+.rainbow { height:5px; border:0; margin:10px 0; background:linear-gradient(90deg,var(--p1),var(--p2),var(--p3),var(--p4),var(--p5)); }
+.under { display:inline-block; padding:2px 8px; border:2px dashed var(--accent); font-weight:bold; }
+
+/* dither control bar */
+.ctl { padding:8px 12px; margin-bottom:10px; display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; }
+.ctl .grp { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+
+/* timeline */
+.timeline { border-left:4px solid var(--accent); margin-left:8px; padding-left:14px; }
+.timeline div { margin-bottom:10px; position:relative; }
+.timeline div::before { content:""; position:absolute; left:-23px; top:5px; width:12px; height:12px; border-radius:50%; background:var(--accent2); border:2px solid #fff; }
+.timeline b { color:var(--accent); }
+[data-theme="night"] .timeline b { color:var(--accent2); }
+
+/* town square */
+#square { position:relative; height:340px; border-radius:var(--radius); overflow:hidden; border:2px solid var(--edge); cursor:crosshair;
+  background:radial-gradient(circle at 50% 50%,var(--p4) 0 8%,transparent 8.5%),
+    repeating-conic-gradient(var(--p3) 0 25%,var(--p4) 0 50%) 0 0/40px 40px; box-shadow:inset 0 0 30px var(--shadow); }
+#square::after { content:"Gazebo"; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:.7rem; color:var(--p1); opacity:.6; pointer-events:none; }
+.av { position:absolute; transform:translate(-50%,-50%); transition:left 1.4s ease, top 1.4s ease; text-align:center; pointer-events:none; z-index:2; }
+.av i { display:block; width:26px; height:26px; margin:0 auto; border-radius:50%; border:2px solid #fff; box-shadow:0 2px 5px rgba(0,0,0,.55), inset 0 -5px 8px rgba(255,255,255,.35); }
+.av.me i { outline:3px solid var(--accent); }
+.av em { font-style:normal; font-size:.72rem; background:rgba(0,0,0,.65); color:#fff; padding:0 5px; border-radius:6px; white-space:nowrap; }
+.av .bub { position:absolute; bottom:48px; left:50%; transform:translateX(-50%); background:#fff; color:#111; border:1px solid #000; border-radius:10px;
+  padding:2px 8px; font-size:.8rem; max-width:180px; width:max-content; }
+#chatlog { height:130px; overflow:auto; background:rgba(255,255,255,.85); color:#111; border:1px solid rgba(0,0,0,.4); border-radius:6px; padding:4px 8px; margin:8px 0; font-size:.85rem; }
+.who { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0; }
+.who span { padding:1px 9px; border-radius:12px; background:rgba(255,255,255,.7); color:#111; border:1px solid rgba(0,0,0,.3); font-size:.82rem; }
+.who span::before { content:"\25CF "; color:var(--c); }
+
+/* forum */
+table.f { width:100%; border-collapse:collapse; }
+table.f th { background:linear-gradient(180deg,var(--h1),var(--h2)); color:#fff; text-align:left; padding:4px 8px; }
+table.f td { padding:6px 8px; border-bottom:1px solid rgba(128,128,128,.4); vertical-align:top; }
+.post { border:1px solid rgba(128,128,128,.5); border-radius:calc(var(--radius) / 2); margin:8px 0; background:rgba(255,255,255,.35); }
+[data-theme="night"] .post { background:rgba(0,0,40,.35); }
+.post .ph { padding:3px 10px; font-size:.82rem; background:rgba(128,128,128,.25); }
+.post .pb { padding:8px 10px; white-space:pre-wrap; word-wrap:break-word; }
+.crumbs { margin-bottom:8px; }
+form.stack { display:grid; gap:6px; margin-top:10px; }
+
+footer { margin:12px 0 30px; padding:10px 14px; text-align:center; font-size:.85rem; }
+.ring { display:inline-flex; gap:8px; align-items:center; padding:3px 12px; border:2px outset var(--edge); border-radius:var(--radius); background:var(--p1); color:var(--p5); }
+.ring a { color:var(--p5); }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas><div id="scan"></div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="orb"></div>
+    <div>
+      <h1>Pittsfield.Online</h1>
+      <p>The unofficial digital home of Pittsfield, Massachusetts &mdash; Heart of the Berkshires</p>
+    </div>
+    <div class="spacer"></div>
+    <div style="position:relative;z-index:1;text-align:right">
+      <div class="small">Neighbors on the Square now: <b id="onlineCount">1</b></div>
+      <div class="small" id="clock"></div>
+    </div>
+  </header>
+  <div class="ticker"><span>*** WELCOME TO PITTSFIELD.ONLINE *** Est. 1761 (the town, not the website) *** Dial 311 for non-emergency city services; 911 for emergencies *** Chat live in the Town Square *** Try the dither buttons below to re-texture your world *** Best viewed in any browser at 800x600 or better ***</span></div>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button data-tab="home">Home</button>
+    <button data-tab="services">Town Services</button>
+    <button data-tab="square">Town Square</button>
+    <button data-tab="forum">Forum Board</button>
+    <button data-tab="history">History</button>
+    <button data-tab="culture">Culture</button>
+    <button data-tab="politics">Politics</button>
+  </nav>
+
+  <!-- STYLE + DITHER CONTROLS -->
+  <div class="ctl" aria-label="Appearance controls">
+    <div class="grp"><label for="themeSel">Style:</label>
+      <select id="themeSel">
+        <option value="aero">Berkshire Aero (blue/green)</option>
+        <option value="ge">Electric City (gray/orange)</option>
+        <option value="fall">Foliage Season (rust/gold)</option>
+        <option value="night">Tanglewood Night (violet)</option>
+        <option value="retro">Classic '96 (teal/silver)</option>
+      </select></div>
+    <div class="grp"><label for="ditherSel">Dither:</label>
+      <select id="ditherSel">
+        <option value="bayer">Ordered (Bayer 8x8)</option>
+        <option value="fs">Floyd-Steinberg</option>
+        <option value="noise">Noise</option>
+        <option value="off">Off (smooth)</option>
+      </select>
+      <label for="pxSel">Pixel:</label>
+      <select id="pxSel"><option>2</option><option selected>3</option><option>4</option><option>6</option></select>
+      <button id="ditherToggle" title="Toggle dithering on/off">Dither: ON</button></div>
+    <div class="grp">
+      <button id="reroll">Re-roll scene</button>
+      <label class="btn" for="upl" style="display:inline-block">Dither my image...</label>
+      <input type="file" id="upl" accept="image/*" hidden>
+      <button id="resetImg">Default scene</button>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <section class="tab" id="tab-home">
+    <div class="panel"><h2>Welcome, Neighbor!</h2>
+      <p>You've reached the web's friendliest corner of the Berkshires. Pittsfield &mdash; the county seat of Berkshire County, home to roughly 43,000 people, two lakes, a baseball park from 1919, and a long memory &mdash; is more than the sum of its (many) transformers.</p>
+      <p>Use the tabs above to find <a href="#" data-go="services">city services</a>, hang out in the <a href="#" data-go="square">Town Square</a>, start a thread on the <a href="#" data-go="forum">Forum Board</a>, or read up on our <a href="#" data-go="history">history</a>, <a href="#" data-go="culture">culture</a> and <a href="#" data-go="politics">politics</a>.</p>
+      <p><span class="under">&#9874; Always under construction &#9874;</span> &nbsp; <span class="blink">NEW!</span> Live Town Square chat</p>
+    </div>
+    <div class="grid">
+      <div class="panel"><h2>Quick Dial</h2>
+        <a class="big311" href="tel:311">Call 311</a>
+        <p class="small">Non-emergency city information and service requests. If 311 doesn't connect from your phone, call City Hall or visit cityofpittsfield.org. For emergencies, always dial <b>911</b>.</p>
+      </div>
+      <div class="panel"><h2>Next Trash Day</h2>
+        <div id="trashMini" class="small">Pick your day in Town Services.</div>
+        <p><button data-go="services">Open pickup calculator</button></p>
+      </div>
+      <div class="panel"><h2>Site Stats</h2>
+        <p>You are visitor #<span class="counter" id="hits"></span><br><span class="small">(counted in this browser)</span></p>
+        <hr class="rainbow">
+        <div class="ring">Berkshire Webring: <a href="#" data-go="culture">&lt; prev</a> | <a href="#" data-go="history">random</a> | <a href="#" data-go="politics">next &gt;</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="tab" id="tab-services">
+    <div class="grid">
+      <div class="panel"><h2>Get Help</h2>
+        <a class="big311" href="tel:311">311 &mdash; City Hotline</a>
+        <ul class="links">
+          <li><b>Emergency:</b> <a href="tel:911">911</a></li>
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Official City of Pittsfield website</a></li>
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Report a problem (potholes, streetlights, graffiti)</a></li>
+        </ul>
+        <p class="small">This is an unofficial community site. Confirm numbers and schedules with the City.</p>
+      </div>
+      <div class="panel"><h2>Garbage &amp; Recycling</h2>
+        <label for="dayPick">My pickup day:</label>
+        <select id="dayPick"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option></select>
+        <div id="trashOut" style="margin-top:8px"></div>
+        <p class="small">Illustrative calculator only (weekly trash, alternating recycling). Holidays can delay pickup. Look up your real zone calendar with the Department of Public Services via cityofpittsfield.org.</p>
+      </div>
+      <div class="panel"><h2>City Departments</h2>
+        <ul class="links">
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Mayor's Office &amp; City Council</a></li>
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Department of Public Services (streets, water, sewer)</a></li>
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Police &amp; Fire Departments</a></li>
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">City Clerk (licenses, vital records, voter info)</a></li>
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Assessor &amp; Treasurer (taxes and bills)</a></li>
+          <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Community Development &amp; Permits</a></li>
+        </ul>
+      </div>
+      <div class="panel"><h2>Getting Around &amp; Learning</h2>
+        <ul class="links">
+          <li><a href="https://berkshirerta.com" target="_blank" rel="noopener">Berkshire Regional Transit Authority (buses)</a></li>
+          <li><a href="https://www.pittsfield.net" target="_blank" rel="noopener">Pittsfield Public Schools</a></li>
+          <li><a href="https://www.berkshireathenaeum.org" target="_blank" rel="noopener">Berkshire Athenaeum (public library)</a></li>
+          <li><a href="https://www.mass.gov" target="_blank" rel="noopener">Mass.gov (state services, RMV, voting)</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOWN SQUARE -->
+  <section class="tab" id="tab-square">
+    <div class="panel"><h2>The Town Square &mdash; Live</h2>
+      <p class="small">Click anywhere to walk there. Everyone with this page open in another tab or window on this browser appears here instantly (no server &mdash; presence is shared locally). Resident bots keep you company.</p>
+      <div class="grp" style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+        <label for="nick">Your name:</label>
+        <input type="text" id="nick" maxlength="16" style="max-width:180px">
+      </div>
+      <div id="square" aria-label="Town square map"></div>
+      <div class="who" id="who"></div>
+      <div id="chatlog" aria-live="polite"></div>
+      <form id="chatForm" style="display:flex;gap:6px"><input type="text" id="chatIn" maxlength="120" placeholder="Say something to the Square..." autocomplete="off"><button>Say</button></form>
+    </div>
+  </section>
+
+  <!-- FORUM -->
+  <section class="tab" id="tab-forum">
+    <div class="panel"><h2>The Forum Board</h2>
+      <div id="forum"></div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section class="tab" id="tab-history">
+    <div class="panel"><h2>A Short History of Pittsfield</h2>
+      <div class="timeline">
+        <div><b>Before 1700s</b> &mdash; The Mohican (Muh-he-con-ne-ok) people live, farm and fish in the upper Housatonic valley.</div>
+        <div><b>1750s</b> &mdash; Settlers establish "Pontoosuc Plantation" around the Pontoosuc Lake and the Housatonic's west branch.</div>
+        <div><b>1761</b> &mdash; Incorporated as Pittsfield, named for British statesman William Pitt the Elder.</div>
+        <div><b>1791</b> &mdash; A town bylaw bans baseball within 80 yards of the new meeting house &mdash; one of the earliest written references to baseball in America.</div>
+        <div><b>1810</b> &mdash; Elkanah Watson holds the Berkshire Cattle Show here, a landmark in the American agricultural fair tradition.</div>
+        <div><b>1850&ndash;51</b> &mdash; Herman Melville lives at Arrowhead farm and writes <i>Moby-Dick</i> looking at Mount Greylock.</div>
+        <div><b>1891</b> &mdash; Pittsfield becomes a city.</div>
+        <div><b>1890s&ndash;1903</b> &mdash; William Stanley's electrical works arrive and become part of General Electric; Pittsfield becomes the "Electric City" building transformers.</div>
+        <div><b>1903</b> &mdash; Zenas Crane founds the Berkshire Museum.</div>
+        <div><b>1919</b> &mdash; Wahconah Park opens; baseball is still played there today.</div>
+        <div><b>1980s</b> &mdash; GE downsizes dramatically; the city reinvents itself around healthcare, arts and small business. PCB contamination of the Housatonic leads to decades of cleanup.</div>
+        <div><b>2000s</b> &mdash; The Colonial Theatre reopens (2006) and cultural tourism takes root downtown.</div>
+      </div>
+      <p class="small">Dates summarized from general local history; consult the Berkshire Athenaeum's Local History collection for sources.</p>
+    </div>
+  </section>
+
+  <!-- CULTURE -->
+  <section class="tab" id="tab-culture">
+    <div class="grid">
+      <div class="panel"><h2>Arts &amp; Letters</h2>
+        <ul class="links">
+          <li><a href="https://www.berkshiremuseum.org" target="_blank" rel="noopener">Berkshire Museum</a> &mdash; art, natural history, an aquarium, since 1903.</li>
+          <li><b>Colonial Theatre</b> &mdash; restored 1903 theatre on Pittsfield's Berkshire Theatre Group stage circuit.</li>
+          <li><b>Barrington Stage Company</b> &mdash; Tony-honored regional theatre on Union Street.</li>
+          <li><b>Arrowhead</b> &mdash; Melville's home, run by the Berkshire County Historical Society.</li>
+          <li><a href="https://www.berkshireathenaeum.org" target="_blank" rel="noopener">Berkshire Athenaeum</a> &mdash; the public library, with Melville collections.</li>
+        </ul></div>
+      <div class="panel"><h2>Out &amp; About</h2>
+        <ul class="links">
+          <li><b>Onota Lake</b> &amp; <b>Pontoosuc Lake</b> &mdash; boating, fishing, summer sunsets.</li>
+          <li><b>Pittsfield State Forest</b> &mdash; trails, Berry Pond, the mountain laurel in June.</li>
+          <li><b>Springside Park</b> &mdash; in-town woods and playgrounds.</li>
+          <li><b>Wahconah Park</b> &mdash; wooden grandstand baseball under the evening sun.</li>
+          <li><b>Third Thursdays</b> &mdash; downtown summer street festival on North Street.</li>
+        </ul></div>
+      <div class="panel"><h2>Neighbors</h2>
+        <p>Pittsfield sits between Tanglewood to the south, Jacob's Pillow to the southeast, MASS MoCA to the north, and the ski hills of the Berkshires all around. It is a working city with a strong labor heritage, a diverse community of Irish, Italian, Polish, French-Canadian and newer immigrant families, and a growing creative economy.</p></div>
+    </div>
+  </section>
+
+  <!-- POLITICS -->
+  <section class="tab" id="tab-politics">
+    <div class="grid">
+      <div class="panel"><h2>How the City Is Run</h2>
+        <ul class="links">
+          <li><b>Form:</b> Mayor-council city charter (since 1891).</li>
+          <li><b>Mayor:</b> Elected citywide to a two-year term. Currently Peter Marchetti.</li>
+          <li><b>City Council:</b> Eleven members &mdash; four at-large and seven by ward.</li>
+          <li><b>School Committee:</b> Elected members plus the mayor as chair.</li>
+          <li><b>Elections:</b> Municipal elections in odd-numbered years.</li>
+        </ul>
+        <p class="small">Verify current officeholders at cityofpittsfield.org.</p></div>
+      <div class="panel"><h2>Get Involved</h2>
+        <ul class="links">
+          <li>City Council meets regularly at City Hall, 70 Allen Street; meetings are open to the public.</li>
+          <li>Register to vote through the <a href="https://www.mass.gov" target="_blank" rel="noopener">state elections portal</a> or the City Clerk.</li>
+          <li>Boards and commissions regularly seek volunteer residents.</li>
+          <li><a href="#" data-go="forum">Talk it over on the Forum Board.</a></li>
+        </ul></div>
+      <div class="panel"><h2>Civic Themes</h2>
+        <p>Recurring local conversations: downtown revitalization, the William Stanley Business Park, housing costs, Housatonic River cleanup, schools, and how to attract young families while honoring a proud industrial past. Weigh in on the board &mdash; politely, this is a small city.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    Made with HTML, CSS &amp; vanilla JavaScript &mdash; no servers, no frameworks. Unofficial; not affiliated with the City of Pittsfield.<br>
+    <span class="small">Best viewed with eyes. &copy; 1996&ndash;<span id="yr"></span> Pittsfield.Online</span>
+  </footer>
+</div>
+
+<script>
+(() => {
+"use strict";
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+function el(tag, props = {}, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
+  }
+  for (const c of kids) n.append(c);
+  return n;
+}
+
+/* ---------- tabs ---------- */
+function showTab(id) {
+  $$(".tab").forEach(t => t.classList.toggle("active", t.id === "tab-" + id));
+  $$("#tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === id));
+  store.set("pf-tab", id);
+  if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+}
+$("#tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (b) showTab(b.dataset.tab); });
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]");
+  if (g) { e.preventDefault(); showTab(g.dataset.go); window.scrollTo(0, 0); }
+});
+
+/* ---------- footer, clock, counter ---------- */
+$("#yr").textContent = new Date().getFullYear();
+setInterval(() => { $("#clock").textContent = new Date().toLocaleString([], { timeZone: "America/New_York", weekday: "short", hour: "numeric", minute: "2-digit", second: "2-digit" }) + " ET"; }, 1000);
+const hits = store.get("pf-hits", 41000) + 1; store.set("pf-hits", hits);
+$("#hits").replaceChildren(...String(hits).padStart(6, "0").split("").map(d => el("b", {}, d)));
+
+/* ---------- trash calculator ---------- */
+function isoWeek(d) {
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
+  return Math.ceil(((t - Date.UTC(t.getUTCFullYear(), 0, 1)) / 864e5 + 1) / 7);
+}
+function nextPickup(day) {
+  const d = new Date(); d.setHours(0, 0, 0, 0);
+  while (d.getDay() !== day) d.setDate(d.getDate() + 1);
+  return d;
+}
+function updateTrash() {
+  const day = +$("#dayPick").value; store.set("pf-day", day);
+  const d = nextPickup(day), rec = isoWeek(d) % 2 === 0;
+  const fmt = d.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" });
+  $("#trashOut").replaceChildren(el("div", {}, "Next pickup: ", el("b", {}, fmt)),
+    el("div", {}, "Trash: yes. Recycling: ", el("b", {}, rec ? "YES - put out the blue bin" : "not this week")));
+  $("#trashMini").textContent = `${fmt} - recycling ${rec ? "yes" : "no"} (sample schedule)`;
+}
+$("#dayPick").value = store.get("pf-day", 1);
+$("#dayPick").addEventListener("change", updateTrash); updateTrash();
+
+/* ---------- theme + dither background ---------- */
+const bgc = $("#bg"), bctx = bgc.getContext("2d", { willReadFrequently: true });
+const cfg = Object.assign({ theme: "aero", mode: "bayer", px: 3, seed: 7, upload: false }, store.get("pf-cfg", {}));
+let userImg = null;
+
+function palette() {
+  const cs = getComputedStyle(document.documentElement);
+  return [1, 2, 3, 4, 5].map(i => {
+    const h = cs.getPropertyValue("--p" + i).trim().replace("#", "");
+    return [0, 2, 4].map(o => parseInt(h.slice(o, o + 2), 16));
+  });
+}
+function rng(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function bayer(n) {
+  if (n === 1) return [[0]];
+  const m = bayer(n / 2), s = n / 2, o = Array.from({ length: n }, () => Array(n));
+  for (let y = 0; y < s; y++) for (let x = 0; x < s; x++) {
+    const v = 4 * m[y][x];
+    o[y][x] = v; o[y][x + s] = v + 2; o[y + s][x] = v + 3; o[y + s][x + s] = v + 1;
+  }
+  return o;
+}
+const B8 = bayer(8);
+const gray = v => { const c = Math.round(v * 255); return `rgb(${c},${c},${c})`; };
+
+function drawScene(ctx, w, h, seed) {
+  const r = rng(seed);
+  let g = ctx.createLinearGradient(0, 0, 0, h);
+  g.addColorStop(0, gray(.62)); g.addColorStop(.55, gray(.95)); g.addColorStop(1, gray(.85));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  const sx = w * (.15 + .7 * r()), sy = h * (.15 + .2 * r());
+  g = ctx.createRadialGradient(sx, sy, 0, sx, sy, h * .45);
+  g.addColorStop(0, "rgba(255,255,255,1)"); g.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  for (let k = 0; k < 4; k++) {
+    const base = h * (.48 + .13 * k), amp = h * (.14 - .015 * k);
+    const f1 = (6.28 / w) * (1 + 2 * r()), f2 = (6.28 / w) * (3 + 3 * r()), p1 = r() * 6, p2 = r() * 6;
+    ctx.fillStyle = gray(.62 - .15 * k);
+    ctx.beginPath(); ctx.moveTo(0, h);
+    for (let x = 0; x <= w; x += 2) ctx.lineTo(x, base - amp * (Math.sin(x * f1 + p1) * .6 + Math.sin(x * f2 + p2) * .4));
+    ctx.lineTo(w, h); ctx.fill();
+  }
+  for (let i = 0; i < 9; i++) {
+    const x = r() * w, y = r() * h, rad = h * (.03 + .09 * r());
+    g = ctx.createRadialGradient(x - rad * .3, y - rad * .3, rad * .1, x, y, rad);
+    g.addColorStop(0, "rgba(255,255,255,.95)"); g.addColorStop(.7, "rgba(200,200,200,.25)"); g.addColorStop(1, "rgba(255,255,255,.65)");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, rad, 0, 6.283); ctx.fill();
+  }
+}
+function drawCover(ctx, img, w, h) {
+  const s = Math.max(w / img.width, h / img.height), dw = img.width * s, dh = img.height * s;
+  ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+}
+function renderBG() {
+  const px = +cfg.px, w = Math.ceil(innerWidth / px), h = Math.ceil(innerHeight / px);
+  bgc.width = w; bgc.height = h;
+  if (cfg.upload && userImg) drawCover(bctx, userImg, w, h); else drawScene(bctx, w, h, cfg.seed);
+  const img = bctx.getImageData(0, 0, w, h), d = img.data, pal = palette(), n = pal.length;
+  const lum = new Float32Array(w * h);
+  for (let i = 0; i < w * h; i++) lum[i] = .299 * d[i * 4] + .587 * d[i * 4 + 1] + .114 * d[i * 4 + 2];
+  const put = (i, idx) => { const c = pal[idx]; d[i * 4] = c[0]; d[i * 4 + 1] = c[1]; d[i * 4 + 2] = c[2]; d[i * 4 + 3] = 255; };
+  if (cfg.mode === "off") {
+    for (let i = 0; i < w * h; i++) {
+      const v = lum[i] / 255 * (n - 1), a = Math.min(n - 2, Math.floor(v)), t = v - a;
+      for (let c = 0; c < 3; c++) d[i * 4 + c] = pal[a][c] * (1 - t) + pal[a + 1][c] * t;
+      d[i * 4 + 3] = 255;
+    }
+  } else if (cfg.mode === "fs") {
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const i = y * w + x, old = lum[i], idx = Math.max(0, Math.min(n - 1, Math.round(old / 255 * (n - 1))));
+      const err = old - idx * 255 / (n - 1);
+      if (x + 1 < w) lum[i + 1] += err * 7 / 16;
+      if (y + 1 < h) { if (x > 0) lum[i + w - 1] += err * 3 / 16; lum[i + w] += err * 5 / 16; if (x + 1 < w) lum[i + w + 1] += err / 16; }
+      put(i, idx);
+    }
+  } else {
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const i = y * w + x, t = cfg.mode === "bayer" ? (B8[y & 7][x & 7] + .5) / 64 : Math.random();
+      put(i, Math.max(0, Math.min(n - 1, Math.floor(lum[i] / 255 * (n - 1) + t))));
+    }
+  }
+  bctx.putImageData(img, 0, 0);
+  bgc.classList.toggle("smooth", cfg.mode === "off");
+}
+function syncCtl() {
+  document.documentElement.dataset.theme = cfg.theme;
+  $("#themeSel").value = cfg.theme; $("#ditherSel").value = cfg.mode; $("#pxSel").value = cfg.px;
+  const on = cfg.mode !== "off"; $("#ditherToggle").textContent = "Dither: " + (on ? "ON" : "OFF"); $("#ditherToggle").classList.toggle("on", on);
+}
+let lastMode = cfg.mode === "off" ? "bayer" : cfg.mode;
+function apply() { store.set("pf-cfg", cfg); syncCtl(); renderBG(); }
+$("#themeSel").addEventListener("change", e => { cfg.theme = e.target.value; apply(); });
+$("#ditherSel").addEventListener("change", e => { cfg.mode = e.target.value; if (cfg.mode !== "off") lastMode = cfg.mode; apply(); });
+$("#pxSel").addEventListener("change", e => { cfg.px = +e.target.value; apply(); });
+$("#ditherToggle").addEventListener("click", () => { cfg.mode = cfg.mode === "off" ? lastMode : (lastMode = cfg.mode, "off"); apply(); });
+$("#reroll").addEventListener("click", () => { cfg.seed = Math.floor(Math.random() * 1e6); cfg.upload = false; apply(); });
+$("#resetImg").addEventListener("click", () => { cfg.upload = false; apply(); });
+$("#upl").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const im = new Image(), url = URL.createObjectURL(f);
+  im.onload = () => { userImg = im; cfg.upload = true; apply(); URL.revokeObjectURL(url); };
+  im.src = url;
+});
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(renderBG, 200); });
+cfg.upload = false; apply();
+
+/* ---------- Town Square (BroadcastChannel presence) ---------- */
+const me = {
+  id: Math.random().toString(36).slice(2, 10),
+  name: store.get("pf-nick", "Neighbor" + Math.floor(Math.random() * 900 + 100)),
+  color: `hsl(${Math.floor(Math.random() * 360)} 75% 55%)`,
+  x: 30 + Math.random() * 40, y: 30 + Math.random() * 40
+};
+const peers = new Map(), bots = [];
+const botLines = ["Lovely day for Onota Lake.", "Anyone going to Third Thursday?", "Has anyone seen the Colonial's new show?", "Wahconah tonight, who's in?", "Leaf peeping on Route 7 is wild this week.", "Reminder: recycling goes out Wednesday!"];
+["Melville_Bot", "TransformerTed", "LaurelLady"].forEach((n, i) => bots.push({ id: "bot" + i, name: n + " (bot)", color: `hsl(${i * 110 + 20} 60% 50%)`, x: 20 + Math.random() * 60, y: 20 + Math.random() * 60, bot: true }));
+const bc = "BroadcastChannel" in window ? new BroadcastChannel("pittsfield-square") : null;
+const send = m => bc && bc.postMessage(Object.assign({ id: me.id, name: me.name, color: me.color, x: me.x, y: me.y }, m));
+const sq = $("#square"), nodes = new Map();
+
+function logChat(name, text) {
+  const l = $("#chatlog"), p = el("div", {}, el("b", {}, name + ": "), text);
+  l.append(p); while (l.children.length > 80) l.firstChild.remove(); l.scrollTop = l.scrollHeight;
+}
+function bubble(id, text) {
+  const n = nodes.get(id); if (!n) return;
+  n.querySelector(".bub")?.remove();
+  const b = el("div", { class: "bub" }, text); n.append(b); setTimeout(() => b.remove(), 6000);
+}
+function renderSquare() {
+  const now = Date.now();
+  for (const [id, p] of peers) if (now - p.t > 7000) { peers.delete(id); nodes.get(id)?.remove(); nodes.delete(id); }
+  const all = [Object.assign({}, me, { me: true }), ...peers.values(), ...bots];
+  for (const p of all) {
+    let n = nodes.get(p.id);
+    if (!n) { n = el("div", { class: "av" + (p.me ? " me" : "") }, el("i"), el("em")); nodes.set(p.id, n); sq.append(n); }
+    n.style.left = p.x + "%"; n.style.top = p.y + "%";
+    n.querySelector("i").style.background = p.color; n.querySelector("em").textContent = p.name;
+  }
+  const real = [me, ...peers.values()];
+  $("#onlineCount").textContent = real.length;
+  $("#who").replaceChildren(...real.concat(bots).map(p => { const s = el("span", {}, p.name + (p === me ? " (you)" : "")); s.style.setProperty("--c", p.color); return s; }));
+}
+if (bc) bc.onmessage = ({ data: m }) => {
+  if (!m || typeof m.id !== "string") return;
+  if (m.type === "bye") { peers.delete(m.id); nodes.get(m.id)?.remove(); nodes.delete(m.id); return renderSquare(); }
+  const p = { id: m.id, name: String(m.name).slice(0, 16), color: /^hsl\([\d. %]+\)$/.test(m.color) ? m.color : "gray", x: +m.x || 50, y: +m.y || 50, t: Date.now() };
+  const fresh = !peers.has(m.id); peers.set(m.id, p);
+  if (fresh) send({ type: "pos" });
+  if (m.type === "chat") { const t = String(m.text).slice(0, 120); logChat(p.name, t); bubble(p.id, t); }
+  renderSquare();
+};
+sq.addEventListener("click", e => {
+  const r = sq.getBoundingClientRect();
+  me.x = Math.max(3, Math.min(97, (e.clientX - r.left) / r.width * 100));
+  me.y = Math.max(5, Math.min(95, (e.clientY - r.top) / r.height * 100));
+  send({ type: "pos" }); renderSquare();
+});
+$("#chatForm").addEventListener("submit", e => {
+  e.preventDefault(); const t = $("#chatIn").value.trim().slice(0, 120); if (!t) return;
+  $("#chatIn").value = ""; logChat(me.name + " (you)", t); bubble(me.id, t); send({ type: "chat", text: t });
+});
+$("#nick").value = me.name;
+$("#nick").addEventListener("change", e => { me.name = e.target.value.trim().slice(0, 16) || me.name; store.set("pf-nick", me.name); send({ type: "pos" }); renderSquare(); });
+setInterval(() => { send({ type: "pos" }); renderSquare(); }, 2000);
+setInterval(() => {
+  const b = bots[Math.floor(Math.random() * bots.length)];
+  b.x = 8 + Math.random() * 84; b.y = 12 + Math.random() * 76;
+  if (Math.random() < .3) { const t = botLines[Math.floor(Math.random() * botLines.length)]; logChat(b.name, t); bubble(b.id, t); }
+  renderSquare();
+}, 3500);
+addEventListener("pagehide", () => send({ type: "bye" }));
+send({ type: "pos" }); renderSquare(); logChat("Town Crier", "Welcome to the Square! Click to wander, chat below.");
+
+/* ---------- Forum ---------- */
+const BOARDS = [
+  { id: "gen", name: "General Discussion", desc: "Anything Pittsfield." },
+  { id: "events", name: "Events & Happenings", desc: "What's on this weekend." },
+  { id: "food", name: "Food & Drink", desc: "Where to eat, where to brew." },
+  { id: "sports", name: "Sports & Outdoors", desc: "Wahconah, the lakes, the trails." },
+  { id: "civic", name: "City Hall Watch", desc: "Politics and public works, civilly." }
+];
+const now0 = Date.now();
+const SEED = [
+  { id: "t1", board: "gen", title: "Welcome to Pittsfield.Online!", author: "Webmaster", ts: now0 - 864e5 * 5, posts: [{ author: "Webmaster", ts: now0 - 864e5 * 5, text: "Say hello, introduce yourself, and tell us your favorite spot in the city." }, { author: "LaurelLady", ts: now0 - 864e5 * 4, text: "Pittsfield State Forest in June, no contest." }] },
+  { id: "t2", board: "events", title: "Third Thursday this month?", author: "Downtowner", ts: now0 - 864e5 * 2, posts: [{ author: "Downtowner", ts: now0 - 864e5 * 2, text: "Anyone know the street closure plan for North Street?" }] },
+  { id: "t3", board: "sports", title: "Wahconah Park: best seat in the house?", author: "TransformerTed", ts: now0 - 864e5, posts: [{ author: "TransformerTed", ts: now0 - 864e5, text: "I say third-base side so the sun's behind you." }] },
+  { id: "t4", board: "civic", title: "Potholes: what's the best way to report them?", author: "Neighbor", ts: now0 - 36e5 * 6, posts: [{ author: "Neighbor", ts: now0 - 36e5 * 6, text: "Call 311 or use the city site - post your street here too so folks can see." }] }
+];
+let threads = store.get("pf-forum", null);
+if (!threads) { threads = SEED; store.set("pf-forum", threads); }
+const fv = { board: null, thread: null };
+const when = ts => new Date(ts).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+const lastTs = t => t.posts[t.posts.length - 1].ts;
+
+function renderForum() {
+  const root = $("#forum"); root.replaceChildren();
+  const go = (b, t) => () => { fv.board = b; fv.thread = t; renderForum(); };
+  if (!fv.board) {
+    const tbl = el("table", { class: "f" }, el("tr", {}, ...["Board", "Threads", "Last post"].map(h => el("th", {}, h))));
+    for (const b of BOARDS) {
+      const ts = threads.filter(t => t.board === b.id), last = ts.length ? Math.max(...ts.map(lastTs)) : 0;
+      const a = el("a", { href: "#" }, b.name); a.onclick = e => { e.preventDefault(); go(b.id, null)(); };
+      tbl.append(el("tr", {}, el("td", {}, el("b", {}, a), el("br"), el("span", { class: "small" }, b.desc)), el("td", {}, String(ts.length)), el("td", {}, last ? when(last) : "-")));
+    }
+    root.append(tbl); return;
+  }
+  const board = BOARDS.find(b => b.id === fv.board);
+  const home = el("a", { href: "#" }, "Boards"); home.onclick = e => { e.preventDefault(); go(null, null)(); };
+  const crumbs = el("div", { class: "crumbs" }, home, " > ");
+  if (!fv.thread) {
+    crumbs.append(board.name); root.append(crumbs);
+    const list = threads.filter(t => t.board === board.id).sort((a, b) => lastTs(b) - lastTs(a));
+    const tbl = el("table", { class: "f" }, el("tr", {}, ...["Topic", "Replies", "Last post"].map(h => el("th", {}, h))));
+    for (const t of list) {
+      const a = el("a", { href: "#" }, t.title); a.onclick = e => { e.preventDefault(); go(board.id, t.id)(); };
+      tbl.append(el("tr", {}, el("td", {}, el("b", {}, a), el("br"), el("span", { class: "small" }, "by " + t.author)), el("td", {}, String(t.posts.length - 1)), el("td", {}, when(lastTs(t)))));
+    }
+    if (!list.length) tbl.append(el("tr", {}, el("td", { colspan: "3" }, "No threads yet - start one!")));
+    root.append(tbl);
+    const title = el("input", { type: "text", maxlength: "80", placeholder: "Thread title", required: "" });
+    const body = el("textarea", { rows: "4", maxlength: "2000", placeholder: "Your message", required: "" });
+    const form = el("form", { class: "stack" }, el("h3", {}, "Start a new thread"), title, body, el("button", {}, "Post thread"));
+    form.onsubmit = e => {
+      e.preventDefault();
+      const t = { id: "t" + Date.now() + Math.random().toString(36).slice(2, 5), board: board.id, title: title.value.trim(), author: me.name, ts: Date.now(), posts: [{ author: me.name, ts: Date.now(), text: body.value.trim() }] };
+      threads.push(t); store.set("pf-forum", threads); go(board.id, t.id)();
+    };
+    root.append(form); return;
+  }
+  const t = threads.find(x => x.id === fv.thread);
+  if (!t) return go(board.id, null)();
+  const bl = el("a", { href: "#" }, board.name); bl.onclick = e => { e.preventDefault(); go(board.id, null)(); };
+  crumbs.append(bl, " > " + t.title); root.append(crumbs, el("h3", {}, t.title));
+  for (const p of t.posts) root.append(el("div", { class: "post" }, el("div", { class: "ph" }, el("b", {}, p.author), " - " + when(p.ts)), el("div", { class: "pb" }, p.text)));
+  const body = el("textarea", { rows: "3", maxlength: "2000", placeholder: "Write a reply", required: "" });
+  const form = el("form", { class: "stack" }, el("h3", {}, "Reply as " + me.name), body, el("button", {}, "Post reply"));
+  form.onsubmit = e => { e.preventDefault(); t.posts.push({ author: me.name, ts: Date.now(), text: body.value.trim() }); store.set("pf-forum", threads); renderForum(); };
+  root.append(form);
+}
+addEventListener("storage", e => {
+  if (e.key !== "pf-forum") return;
+  threads = store.get("pf-forum", threads);
+  if (!$("#forum textarea:focus, #forum input:focus")) renderForum();
+});
+renderForum();
+
+showTab((location.hash || "").slice(1) && $("#tab-" + location.hash.slice(1)) ? location.hash.slice(1) : store.get("pf-tab", "home"));
+})();
+</script>
+</body>
+</html>

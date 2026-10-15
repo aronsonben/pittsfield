@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aero">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pittsfield, MA — Digital Town Hall</title>
+<meta name="description" content="The digital home of Pittsfield, Massachusetts: town services, garbage and recycling routes, 311, the community message board, the live Town Square, and Berkshire County history and culture.">
+<style>
+/* ============================================================
+   PITTSFIELD DIGITAL TOWN HALL
+   Theme tokens
+   ============================================================ */
+:root{
+  --font-display:"Trebuchet MS","Arial",sans-serif;
+  --font-body:Arial,Helvetica,sans-serif;
+  --font-data:"Courier New",Courier,monospace;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:80px; --s9:128px;
+
+  --r-control:4px; --r-module:12px;
+  --shadow:0 8px 24px rgba(7,58,74,.12);
+  --shadow-lg:0 16px 48px rgba(7,58,74,.18);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html[data-theme="aero"]{
+  --bg:#d9f1f2; --bg2:#bfe7ea; --surface:#f7fbf8; --surface-2:#ffffff;
+  --deep:#073a4a; --deep-2:#0b5364;
+  --green:#8ecf67; --green-ink:#2c5c1e;
+  --signal:#f05a3c;
+  --ink:#102a31; --muted:#63777a;
+  --line:rgba(7,58,74,.18); --link:#0b5364;
+  --on-deep:#eaf7f7; --on-deep-muted:#9fc6cc;
+  --glass:rgba(255,255,255,.72); --glass-2:rgba(255,255,255,.42);
+  --sc-sky1:#bfeaf0; --sc-sky2:#f4fcf8; --sc-sun:#ffe9a8;
+  --sc-far:#8fc9c2; --sc-mid:#4f9d7e; --sc-near:#2f6b4f;
+  --sc-water:#7fc3cf; --sc-town:#1d4c52;
+}
+html[data-theme="slate"]{
+  --bg:#c6cac8; --bg2:#a9aeac; --surface:#eef0ee; --surface-2:#ffffff;
+  --deep:#22282a; --deep-2:#39413f;
+  --green:#93a099; --green-ink:#2b342f;
+  --signal:#e8622c;
+  --ink:#191d1c; --muted:#5b6462;
+  --line:rgba(25,29,28,.22); --link:#2f3b3d;
+  --on-deep:#f2f3f0; --on-deep-muted:#b3bab6;
+  --glass:rgba(255,255,255,.66); --glass-2:rgba(255,255,255,.36);
+  --sc-sky1:#b3bbbd; --sc-sky2:#e9edeb; --sc-sun:#f2c9a0;
+  --sc-far:#8e9694; --sc-mid:#5e6664; --sc-near:#39413f;
+  --sc-water:#7f8c8c; --sc-town:#20262a;
+}
+html[data-theme="river"]{
+  --bg:#e7d9e0; --bg2:#cdb3c2; --surface:#fbf4f3; --surface-2:#ffffff;
+  --deep:#22345c; --deep-2:#34507d;
+  --green:#6fa8a5; --green-ink:#1f4c4a;
+  --signal:#f2704f;
+  --ink:#222c4b; --muted:#6a6480;
+  --line:rgba(34,44,75,.2); --link:#2b5a8f;
+  --on-deep:#eef3fb; --on-deep-muted:#b0c0dd;
+  --glass:rgba(255,255,255,.7); --glass-2:rgba(255,255,255,.4);
+  --sc-sky1:#2f4d80; --sc-sky2:#f4b79c; --sc-sun:#ffd3ab;
+  --sc-far:#6c7fb0; --sc-mid:#3c5280; --sc-near:#22304f;
+  --sc-water:#8189b4; --sc-town:#16203c;
+}
+html[data-theme="terminal"]{
+  --bg:#0e241c; --bg2:#081711; --surface:#12352a; --surface-2:#164233;
+  --deep:#081711; --deep-2:#164233;
+  --green:#7fd39a; --green-ink:#0e2c20;
+  --signal:#f2b23c;
+  --ink:#d9f4e4; --muted:#8ab69f;
+  --line:rgba(127,211,154,.24); --link:#a6e8bd;
+  --on-deep:#dff6e6; --on-deep-muted:#8ab69f;
+  --glass:rgba(18,53,42,.82); --glass-2:rgba(22,66,51,.55);
+  --sc-sky1:#12352a; --sc-sky2:#2f7a55; --sc-sun:#cfe8a8;
+  --sc-far:#1f5a3c; --sc-mid:#16422f; --sc-near:#0c2a1e;
+  --sc-water:#2c7350; --sc-town:#082017;
+}
+html[data-theme="winter"]{
+  --bg:#eef6fb; --bg2:#d3e6f3; --surface:#ffffff; --surface-2:#ffffff;
+  --deep:#12314f; --deep-2:#1c4a72;
+  --green:#4fa3c7; --green-ink:#123a52;
+  --signal:#e8452f;
+  --ink:#0b2233; --muted:#4a6376;
+  --line:rgba(18,49,79,.18); --link:#12456e;
+  --on-deep:#f2f8fd; --on-deep-muted:#a8c4dc;
+  --glass:rgba(255,255,255,.78); --glass-2:rgba(255,255,255,.46);
+  --sc-sky1:#cfe6f4; --sc-sky2:#fcfeff; --sc-sun:#e7f2ff;
+  --sc-far:#a8c6dc; --sc-mid:#7ea6c4; --sc-near:#47718f;
+  --sc-water:#b9d6e8; --sc-town:#26455f;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-body); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img,canvas{display:block; max-width:100%}
+a{color:var(--link); text-decoration:none}
+a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--signal); outline-offset:2px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--deep);color:var(--on-deep);padding:10px 16px}
+.skip:focus{left:8px;top:8px}
+h1,h2,h3,h4{font-family:var(--font-display); margin:0; line-height:1.1}
+p{margin:0 0 var(--s3)}
+
+/* Textured background: contour bands + dot grid + aero ripples */
+.texture{
+  position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    repeating-linear-gradient(102deg, rgba(255,255,255,.5) 0 2px, rgba(255,255,255,0) 2px 13px),
+    repeating-linear-gradient(-14deg, rgba(7,58,74,.07) 0 1px, rgba(7,58,74,0) 1px 9px),
+    radial-gradient(circle at 20% 12%, rgba(255,255,255,.75), rgba(255,255,255,0) 55%),
+    radial-gradient(circle at 82% 78%, rgba(255,255,255,.5), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  background-size:auto, auto, auto, auto, auto;
+  opacity:.96;
+}
+.texture::after{
+  content:""; position:absolute; inset:0;
+  background-image:radial-gradient(var(--deep) .7px, transparent .8px);
+  background-size:4px 4px; opacity:.08;
+}
+html[data-theme="terminal"] .texture{opacity:.85}
+
+/* ============================================================
+   Utility rail
+   ============================================================ */
+.rail{
+  position:sticky; top:0; z-index:80;
+  min-height:64px; display:flex; align-items:center; gap:var(--s4);
+  padding:var(--s2) var(--s5);
+  background:var(--glass); backdrop-filter:blur(12px) saturate(1.25);
+  -webkit-backdrop-filter:blur(12px) saturate(1.25);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 1px 0 rgba(255,255,255,.7), 0 6px 18px rgba(7,58,74,.07);
+  flex-wrap:wrap;
+}
+.brand{display:flex; align-items:center; gap:var(--s3); text-decoration:none; color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand svg{width:38px; height:26px; flex:none}
+.brand-txt{display:flex; flex-direction:column; line-height:1.02}
+.brand-txt b{font-family:var(--font-display); font-size:19px; letter-spacing:.02em}
+.brand-txt em{font-family:var(--font-data); font-size:10px; font-style:normal; letter-spacing:.16em; color:var(--muted)}
+.brand-txt i{font-family:var(--font-data); font-size:9px; font-style:normal; letter-spacing:.14em; color:var(--link)}
+.rail-status{display:flex; align-items:center; gap:var(--s3); margin-left:auto}
+.chip{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-data); font-size:11px; letter-spacing:.08em;
+  padding:5px 9px; border:1px solid var(--line); border-radius:var(--r-control);
+  background:var(--surface-2); color:var(--ink); white-space:nowrap;
+}
+.chip-ok{border-color:color-mix(in srgb, var(--green) 55%, transparent)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green); box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 28%,transparent); animation:pulse 2.6s ease-in-out infinite}
+.dot.amber{background:var(--signal); box-shadow:0 0 0 3px color-mix(in srgb,var(--signal) 28%,transparent)}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.75}}
+.mono{font-family:var(--font-data); font-size:12px; letter-spacing:.05em; color:var(--muted)}
+
+.themes{display:flex; gap:6px; align-items:flex-end}
+.sw{
+  width:52px; padding:3px; background:var(--surface-2); border:1px solid var(--line);
+  border-radius:var(--r-control); cursor:pointer; display:flex; flex-direction:column; gap:3px;
+  transition:transform .14s ease, border-color .14s ease;
+}
+.sw:hover{transform:translateY(-2px)}
+.sw-strip{height:14px; border-radius:2px; border:1px solid rgba(0,0,0,.14)}
+.sw-lab{font-family:var(--font-data); font-size:8px; letter-spacing:.08em; color:var(--muted)}
+.sw[aria-pressed="true"]{border:2px solid var(--signal); padding:2px}
+.sw[aria-pressed="true"] .sw-lab{color:var(--ink); font-weight:700}
+
+.search{display:flex; gap:0; align-items:stretch}
+.search input{
+  width:190px; padding:8px 10px; font-family:var(--font-data); font-size:12px;
+  background:var(--surface-2); border:1px solid var(--line); border-right:0;
+  border-radius:var(--r-control) 0 0 var(--r-control);
+}
+.search button{
+  padding:0 12px; background:var(--deep-2); color:var(--on-deep); border:1px solid var(--deep-2);
+  border-radius:0 var(--r-control) var(--r-control) 0; cursor:pointer; font-family:var(--font-data);
+  font-size:11px; letter-spacing:.1em;
+}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; justify-content:center;
+  padding:11px 18px; border-radius:var(--r-control); border:1px solid var(--line);
+  background:var(--surface-2); color:var(--ink); font-family:var(--font-data);
+  font-size:12px; font-weight:700; letter-spacing:.09em; cursor:pointer; text-transform:uppercase;
+  transition:transform .14s ease, box-shadow .14s ease, background .14s ease, color .14s ease;
+}
+.btn:hover{transform:translateY(-2px); box-shadow:var(--shadow); text-decoration:none}
+.btn-signal{background:var(--signal); border-color:var(--signal); color:#fff}
+.btn-deep{background:var(--deep); border-color:var(--deep); color:var(--on-deep)}
+.btn-green{background:var(--green); border-color:var(--green); color:var(--green-ink)}
+.btn-ghost{background:transparent}
+.btn svg{width:16px;height:16px}
+.btn-sm{padding:7px 12px; font-size:11px}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.wrap{max-width:1440px; margin:0 auto; padding:0 var(--s5)}
+main{padding-bottom:var(--s8)}
+.section{padding-top:var(--s8); scroll-margin-top:88px}
+.sec-head{display:flex; align-items:flex-end; gap:var(--s5); flex-wrap:wrap; margin-bottom:var(--s5)}
+.sec-head h2{font-size:clamp(28px,3.4vw,48px); letter-spacing:-1px; max-width:16ch}
+.sec-head p{max-width:52ch; margin:0; color:var(--muted)}
+.sec-tag{
+  font-family:var(--font-data); font-size:11px; letter-spacing:.14em; color:var(--link);
+  border-top:2px solid var(--signal); padding-top:6px; margin-bottom:var(--s2); display:block;
+}
+.hr{height:1px; background:var(--line); border:0; margin:0}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero{padding-top:var(--s6)}
+.ticker{
+  overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  background:color-mix(in srgb, var(--signal) 12%, transparent);
+  padding:6px 0; margin:0 0 var(--s5);
+}
+.ticker span{
+  display:inline-block; white-space:nowrap; font-family:var(--font-data);
+  font-size:11px; letter-spacing:.22em; color:var(--ink);
+  animation:slide 26s linear infinite; padding-left:100%;
+}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+.hero-grid{
+  display:grid; grid-template-columns:5fr 4fr 3fr; gap:var(--s4); align-items:stretch;
+}
+.hero-lede{padding:var(--s2) var(--s3) var(--s2) 0}
+.hero-lede h1{
+  font-family:var(--font-display); font-size:clamp(42px,5.6vw,72px); line-height:.92;
+  letter-spacing:-3px; margin-bottom:var(--s4);
+}
+.hero-lede .lede{font-size:18px; max-width:38ch; color:var(--ink)}
+.lede-actions{display:flex; gap:var(--s3); flex-wrap:wrap; margin:var(--s5) 0}
+.stat-row{display:flex; gap:var(--s5); flex-wrap:wrap; margin:var(--s5) 0 0; padding-top:var(--s4); border-top:1px solid var(--line)}
+.stat-row div{min-width:96px}
+.stat-row dt{font-family:var(--font-data); font-size:10px; letter-spacing:.12em; color:var(--muted)}
+.stat-row dd{margin:2px 0 0; font-family:var(--font-data); font-size:30px; font-weight:700; line-height:1}
+
+/* Glass image stage */
+.glass-stage{
+  position:relative; margin:0; border-radius:var(--r-module); overflow:hidden;
+  border:1px solid rgba(255,255,255,.65); box-shadow:var(--shadow-lg);
+  background:var(--sc-sky1); min-height:340px; display:flex; flex-direction:column;
+}
+.glass-stage canvas{width:100%; height:100%; object-fit:cover; flex:1}
+.glass-stage::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,0) 32%, rgba(255,255,255,0) 62%, rgba(0,0,0,.28) 100%);
+}
+.glass-strip{
+  position:absolute; left:var(--s3); right:var(--s3); bottom:44px; z-index:2;
+  background:var(--glass-2); backdrop-filter:blur(9px) saturate(1.3);
+  -webkit-backdrop-filter:blur(9px) saturate(1.3);
+  border:1px solid rgba(255,255,255,.55); border-radius:var(--r-module);
+  padding:10px 14px; display:flex; gap:var(--s4); flex-wrap:wrap; justify-content:space-between;
+}
+.glass-strip .k{font-family:var(--font-data); font-size:10px; letter-spacing:.12em; color:var(--on-deep); opacity:.85; display:block}
+.glass-strip .v{font-family:var(--font-data); font-size:15px; font-weight:700; color:#fff}
+.glass-stage figcaption{
+  position:relative; z-index:2; margin-top:auto;
+  font-family:var(--font-data); font-size:11px; letter-spacing:.12em;
+  color:#fff; padding:10px var(--s4); background:rgba(7,58,74,.55);
+  display:flex; justify-content:space-between; gap:var(--s3); align-items:center;
+}
+.dither-btn{
+  position:absolute; top:var(--s3); right:var(--s3); z-index:3;
+  font-family:var(--font-data); font-size:10px; letter-spacing:.1em; font-weight:700;
+  padding:7px 11px; border-radius:var(--r-control); cursor:pointer;
+  background:var(--glass); border:1px solid rgba(255,255,255,.7); color:var(--ink);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  transition:transform .14s ease, background .14s ease;
+}
+.dither-btn:hover{transform:translateY(-2px); background:var(--surface-2)}
+.dither-btn[data-on="1"]{background:var(--signal); color:#fff; border-color:var(--signal)}
+
+/* Route stack */
+.route-stack{display:flex; flex-direction:column; gap:var(--s3)}
+.route-title{font-family:var(--font-data); font-size:11px; letter-spacing:.14em; color:var(--muted); margin-bottom:2px}
+.route{
+  display:flex; align-items:center; gap:var(--s3); padding:var(--s3) var(--s4);
+  background:var(--glass); border:1px solid var(--line); border-left:3px solid var(--deep-2);
+  border-radius:var(--r-module); min-height:48px;
+  transition:transform .14s ease, box-shadow .14s ease, border-left-color .14s ease;
+}
+.route:hover{transform:translateX(3px); box-shadow:var(--shadow); text-decoration:none}
+.route:hover .route-lab{text-decoration:underline}
+.route svg{width:22px; height:22px; flex:none; color:var(--link)}
+.route-lab{font-family:var(--font-data); font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--ink); flex:1}
+.route .arrow{color:var(--signal); font-family:var(--font-data); font-size:12px}
+.route.r-1{border-left-color:var(--deep-2)} .route.r-2{border-left-color:var(--green)}
+.route.r-3{border-left-color:var(--signal)} .route.r-4{border-left-color:var(--muted)}
+.route.r-5{border-left-color:var(--deep)}
+.emergency{
+  margin-top:var(--s2); padding:var(--s4); border-radius:var(--r-module);
+  background:var(--deep); color:var(--on-deep); border:1px solid var(--deep-2);
+}
+.emergency .big{font-family:var(--font-display); font-size:26px; letter-spacing:-.5px; line-height:1.05}
+.emergency p{font-family:var(--font-data); font-size:11px; letter-spacing:.08em; color:var(--on-deep-muted); margin:var(--s2) 0 var(--s3)}
+.emergency .btn{width:100%}
+
+/* ============================================================
+   Service bands
+   ============================================================ */
+.svc-band{
+  display:grid; grid-template-columns:2fr 5fr 3fr 2fr; gap:var(--s5);
+  padding:var(--s5) 0; border-top:1px solid var(--line); align-items:start;
+}
+.svc-band:last-of-type{border-bottom:1px solid var(--line)}
+.svc-band.is-hidden{display:none}
+.svc-name{display:flex; align-items:center; gap:var(--s3)}
+.svc-name svg{width:26px; height:26px; color:var(--link); flex:none}
+.svc-name h3{font-family:var(--font-data); font-size:13px; font-weight:700; letter-spacing:.12em}
+.svc-band p{margin:0; color:var(--ink); max-width:52ch}
+.svc-meta{font-family:var(--font-data); font-size:12px; color:var(--muted); line-height:1.35}
+.svc-meta b{color:var(--ink); font-size:13px; letter-spacing:.06em; display:block; margin-bottom:4px}
+.svc-action{display:flex; flex-direction:column; gap:var(--s2)}
+.svc-open{
+  margin-top:var(--s3); grid-column:1/-1; background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--r-module); padding:var(--s4); display:none;
+}
+.svc-open.is-open{display:block}
+.svc-open h4{font-family:var(--font-data); font-size:12px; letter-spacing:.12em; margin-bottom:var(--s2)}
+.svc-open ul{margin:0 0 var(--s3); padding-left:18px; font-family:var(--font-data); font-size:13px; line-height:1.6}
+.svc-open .row{display:flex; gap:var(--s2); flex-wrap:wrap; margin-top:var(--s3)}
+.day-picker{display:flex; gap:5px; flex-wrap:wrap; margin:var(--s3) 0}
+.day-picker button{
+  font-family:var(--font-data); font-size:11px; font-weight:700; letter-spacing:.08em;
+  padding:7px 10px; min-width:46px; background:var(--surface-2); color:var(--ink);
+  border:1px solid var(--line); border-radius:var(--r-control); cursor:pointer;
+  transition:transform .14s ease, background .14s ease;
+}
+.day-picker button:hover{transform:translateY(-2px)}
+.day-picker button[aria-pressed="true"]{background:var(--deep-2); color:var(--on-deep); border-color:var(--deep-2)}
+.sched-out{
+  background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--green);
+  padding:var(--s3) var(--s4); font-family:var(--font-data); font-size:13px; line-height:1.6;
+}
+.sched-out .warn{
+  display:inline-block; margin-top:6px; padding:3px 8px; font-size:10px; letter-spacing:.12em;
+  border:1px solid var(--signal); color:var(--signal); border-radius:var(--r-control);
+}
+.field{display:flex; gap:var(--s2); flex-wrap:wrap; margin-top:var(--s3)}
+.field input,.field select,.field textarea{
+  padding:10px 12px; background:var(--surface-2); border:1px solid var(--line);
+  border-radius:var(--r-control); font-family:var(--font-data); font-size:13px; min-width:180px;
+}
+.field textarea{width:100%; min-height:92px; resize:vertical}
+
+/* ============================================================
+   Forum
+   ============================================================ */
+.forum-shell{
+  background:var(--glass); border:1px solid rgba(255,255,255,.5); border-radius:var(--r-module);
+  box-shadow:var(--shadow); overflow:hidden;
+}
+.forum-bar{
+  display:flex; gap:var(--s4); align-items:center; flex-wrap:wrap;
+  background:var(--deep-2); color:var(--on-deep); padding:var(--s3) var(--s5);
+}
+.forum-bar .t{font-family:var(--font-data); font-size:12px; letter-spacing:.14em; font-weight:700}
+.forum-bar .m{font-family:var(--font-data); font-size:11px; letter-spacing:.08em; color:var(--on-deep-muted); margin-left:auto}
+.thread-head,.thread-row{
+  display:grid; grid-template-columns:3fr 1fr 1fr 2fr 24px; gap:var(--s4); align-items:center;
+  padding:var(--s3) var(--s5);
+}
+.thread-head{
+  font-family:var(--font-data); font-size:10px; letter-spacing:.14em; color:var(--muted);
+  border-bottom:1px solid var(--line); background:var(--surface-2);
+}
+.thread-row{
+  border-bottom:1px solid var(--line); min-height:56px; cursor:pointer;
+  border-left:3px solid transparent; background:transparent; width:100%; text-align:left;
+  font-family:var(--font-body); color:var(--ink);
+  transition:transform .14s ease, background .14s ease, border-left-color .14s ease;
+}
+.thread-row:hover{transform:translateX(3px); background:var(--surface); border-left-color:var(--signal)}
+.thread-row.is-hidden{display:none}
+.th-title{font-family:var(--font-display); font-size:17px; font-weight:700; display:flex; gap:var(--s2); align-items:center; flex-wrap:wrap}
+.tag{
+  font-family:var(--font-data); font-size:9px; letter-spacing:.12em; padding:3px 7px;
+  border:1px solid var(--line); border-radius:var(--r-control); color:var(--muted);
+}
+.tag.official{border-color:var(--deep-2); color:var(--deep-2)}
+.tag.new{border-color:var(--signal); color:var(--signal)}
+.tag.pin{border-color:var(--green); color:var(--green-ink)}
+.th-name{font-family:var(--font-data); font-size:12px; color:var(--ink)}
+.th-count{font-family:var(--font-data); font-size:22px; font-weight:700}
+.th-time{font-family:var(--font-data); font-size:12px; color:var(--muted)}
+.th-go{color:var(--signal); font-family:var(--font-data)}
+.thread-detail{
+  display:none; padding:var(--s5); background:var(--surface); border-bottom:1px solid var(--line);
+}
+.thread-detail.is-open{display:block}
+.post{border-left:2px solid var(--line); padding:var(--s2) 0 var(--s2) var(--s4); margin-bottom:var(--s4)}
+.post .meta{font-family:var(--font-data); font-size:11px; letter-spacing:.08em; color:var(--muted); margin-bottom:4px}
+.post p{margin:0; font-size:15px}
+.mod-note{
+  display:flex; gap:var(--s2); align-items:flex-start; padding:var(--s3) var(--s5);
+  background:var(--surface-2); border-top:1px solid var(--line);
+  font-family:var(--font-data); font-size:11px; letter-spacing:.06em; color:var(--muted);
+}
+.mod-note svg{width:16px;height:16px;flex:none;color:var(--muted)}
+.forum-compose{padding:var(--s5); border-top:1px solid var(--line); background:var(--surface)}
+.forum-compose h3{font-family:var(--font-data); font-size:12px; letter-spacing:.14em; margin-bottom:var(--s3)}
+
+/* ============================================================
+   Town square (signature moment)
+   ============================================================ */
+.square-stage{
+  position:relative; overflow:hidden; border-radius:var(--r-module);
+  height:min(460px,62vh); min-height:320px; background:var(--deep);
+  box-shadow:var(--shadow-lg); border:1px solid rgba(255,255,255,.22);
+  transition:height .68s var(--ease);
+}
+.square-stage.is-open{height:min(760px,78vh)}
+.square-bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.72}
+.square-glass{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(7,58,74,.1) 0%, rgba(7,58,74,.42) 55%, rgba(7,58,74,.86) 100%);
+}
+.glass-horizon{
+  position:absolute; left:0; right:0; top:52%; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+}
+.drift{
+  position:absolute; inset:0; overflow:hidden; opacity:.5;
+  background:repeating-linear-gradient(90deg, rgba(255,255,255,.16) 0 1px, transparent 1px 42px);
+  animation:drift 22s linear infinite;
+}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-42px)}}
+.square-top{
+  position:relative; z-index:4; display:flex; gap:var(--s3); align-items:center;
+  padding:var(--s4) var(--s5); flex-wrap:wrap;
+}
+.square-top .k{font-family:var(--font-data); font-size:11px; letter-spacing:.14em; color:#fff}
+.square-top .spacer{margin-left:auto}
+.presence{
+  position:relative; z-index:4; display:flex; gap:var(--s2); align-items:center;
+  padding:0 var(--s5) var(--s3); overflow-x:auto; scrollbar-width:thin;
+}
+.pres-strip{
+  display:flex; gap:var(--s2); align-items:center; padding:8px;
+  border:1px solid rgba(255,255,255,.35); border-radius:var(--r-module);
+  background:rgba(255,255,255,.12); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+}
+.av{
+  width:38px; height:38px; border-radius:50%; display:grid; place-items:center;
+  font-family:var(--font-data); font-size:12px; font-weight:700; color:#fff;
+  border:2px solid rgba(255,255,255,.7); flex:none;
+  transition:transform .22s ease;
+}
+.av.enter{animation:pop .22s ease-out}
+@keyframes pop{from{transform:scale(.4); opacity:0}to{transform:scale(1); opacity:1}}
+.plus{font-family:var(--font-data); font-size:11px; color:#fff; padding:0 var(--s2); white-space:nowrap}
+.square-body{
+  position:relative; z-index:4; padding:0 var(--s5) var(--s5);
+  display:grid; grid-template-columns:1fr 300px; gap:var(--s5);
+  height:calc(100% - 128px); overflow:auto;
+}
+.visitor-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(178px,1fr)); gap:var(--s3); align-content:start}
+.visitor{
+  display:flex; gap:var(--s3); align-items:center; padding:var(--s3);
+  background:rgba(255,255,255,.9); border:1px solid rgba(7,58,74,.14); border-radius:var(--r-module);
+  animation:pop .22s ease-out;
+}
+.visitor .av{width:34px;height:34px;border-color:rgba(255,255,255,.9)}
+.visitor .n{font-family:var(--font-data); font-size:13px; font-weight:700; color:var(--ink); line-height:1.2}
+.visitor .h{font-family:var(--font-data); font-size:10px; letter-spacing:.08em; color:var(--muted)}
+.log{
+  background:rgba(7,58,74,.72); border:1px solid rgba(255,255,255,.25);
+  border-radius:var(--r-module); padding:var(--s4); color:#eaf7f7;
+  align-self:start; max-height:100%; overflow:auto;
+}
+.log h4{font-family:var(--font-data); font-size:11px; letter-spacing:.14em; color:#fff; margin-bottom:var(--s3)}
+.log li{font-family:var(--font-data); font-size:11px; line-height:1.6; list-style:none; padding:3px 0; border-bottom:1px dashed rgba(255,255,255,.18)}
+.log ul{margin:0; padding:0}
+.log .t{color:var(--green)}
+.handshake{
+  position:absolute; inset:0; z-index:6; display:grid; place-items:center;
+  background:var(--deep); color:#fff; text-align:center;
+}
+.handshake p{font-family:var(--font-data); font-size:13px; letter-spacing:.22em; margin:0 0 var(--s2)}
+.handshake .sub{font-family:var(--font-data); font-size:10px; letter-spacing:.16em; color:var(--on-deep-muted)}
+.handshake.hide{display:none}
+.bars{display:flex; gap:5px; justify-content:center; margin-top:var(--s4)}
+.bars i{width:26px; height:5px; background:rgba(255,255,255,.25); border-radius:2px; animation:bar 1.1s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.12s} .bars i:nth-child(3){animation-delay:.24s}
+.bars i:nth-child(4){animation-delay:.36s} .bars i:nth-child(5){animation-delay:.48s}
+@keyframes bar{0%,100%{background:rgba(255,255,255,.22)}50%{background:var(--green)}}
+.cursor{
+  position:absolute; z-index:5; display:flex; align-items:center; gap:5px; pointer-events:none;
+  opacity:.85;
+}
+.cursor svg{width:15px; height:15px}
+.cursor span{font-family:var(--font-data); font-size:9px; letter-spacing:.1em; color:#fff; background:rgba(7,58,74,.7); padding:2px 6px; border-radius:3px}
+.c1{animation:dr1 17s ease-in-out infinite} .c2{animation:dr2 21s ease-in-out infinite}
+.c3{animation:dr3 25s ease-in-out infinite} .c4{animation:dr4 19s ease-in-out infinite}
+@keyframes dr1{0%,100%{transform:translate(8%,12%)}25%{transform:translate(46%,22%)}50%{transform:translate(28%,48%)}75%{transform:translate(62%,40%)}}
+@keyframes dr2{0%,100%{transform:translate(70%,64%)}33%{transform:translate(30%,72%)}66%{transform:translate(58%,18%)}}
+@keyframes dr3{0%,100%{transform:translate(16%,70%)}50%{transform:translate(76%,30%)}}
+@keyframes dr4{0%,100%{transform:translate(52%,52%)}25%{transform:translate(22%,24%)}75%{transform:translate(80%,74%)}}
+.square-note{
+  margin-top:var(--s3); font-family:var(--font-data); font-size:10px; letter-spacing:.12em;
+  color:var(--muted); display:flex; gap:var(--s4); flex-wrap:wrap;
+}
+.sq-actions{display:flex; gap:var(--s3); flex-wrap:wrap; margin:var(--s4) 0 var(--s5)}
+
+/* ============================================================
+   Timeline
+   ============================================================ */
+.tl-item{
+  display:grid; grid-template-columns:4fr 8fr; gap:var(--s7);
+  padding:var(--s7) 0; border-top:1px solid var(--line); min-height:128px;
+}
+.tl-item:last-child{border-bottom:1px solid var(--line)}
+.tl-marker{
+  font-family:var(--font-display); font-size:clamp(34px,4vw,58px); letter-spacing:-2px;
+  line-height:.95; margin-left:-24px;
+}
+.tl-item .kicker{font-family:var(--font-data); font-size:11px; letter-spacing:.16em; color:var(--signal); display:block; margin-bottom:var(--s2)}
+.tl-body{display:grid; grid-template-columns:1fr 220px; gap:var(--s5); align-items:start}
+.tl-body h3{font-family:var(--font-display); font-size:26px; margin-bottom:var(--s3)}
+.tl-body p{max-width:56ch; margin:0}
+.tl-photo{
+  margin:0; width:220px; height:170px; overflow:hidden; border:1px solid var(--line);
+  transition:transform .16s ease, filter .16s ease;
+}
+.tl-photo canvas{width:100%; height:100%; object-fit:cover}
+.tl-photo:hover{transform:translateY(-4px); filter:saturate(1.25)}
+.tl-photo figcaption{display:none}
+.tl-list{margin:var(--s3) 0 0; padding-left:18px; font-family:var(--font-data); font-size:12px; line-height:1.8; color:var(--muted)}
+
+/* ============================================================
+   Local life
+   ============================================================ */
+.life-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s4)}
+.life-col{background:var(--surface); border:1px solid var(--line); padding:var(--s5)}
+.life-col h3{font-family:var(--font-data); font-size:12px; letter-spacing:.16em; margin-bottom:var(--s3); padding-bottom:var(--s2); border-bottom:1px solid var(--line)}
+.life-link{
+  display:flex; align-items:center; gap:var(--s2); padding:var(--s2) 0;
+  border-bottom:1px dashed var(--line); color:var(--link); font-family:var(--font-data); font-size:13px;
+}
+.life-link:last-child{border-bottom:0}
+.life-link svg{width:14px; height:14px; flex:none; color:var(--muted)}
+.life-link.is-hidden{display:none}
+.life-col p{font-family:var(--font-data); font-size:12px; color:var(--muted); margin:var(--s3) 0 0}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer{
+  background:var(--deep); color:var(--on-deep); padding:var(--s8) 0 var(--s5); margin-top:var(--s8);
+}
+.foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:var(--s5)}
+footer h4{font-family:var(--font-data); font-size:11px; letter-spacing:.16em; color:var(--on-deep-muted); margin-bottom:var(--s3)}
+footer a{color:var(--on-deep); font-family:var(--font-data); font-size:13px; display:block; padding:5px 0}
+footer .big{font-family:var(--font-display); font-size:clamp(26px,3vw,38px); letter-spacing:-1px; line-height:1.05; margin-bottom:var(--s3)}
+.foot-close{
+  margin-top:var(--s7); padding-top:var(--s5); border-top:1px solid rgba(255,255,255,.2);
+  display:flex; gap:var(--s4); flex-wrap:wrap; align-items:center; justify-content:space-between;
+  font-family:var(--font-data); font-size:11px; letter-spacing:.12em; color:var(--on-deep-muted);
+}
+
+/* Mobile quick nav */
+.quicknav{
+  display:none; position:fixed; left:0; right:0; bottom:0; z-index:90;
+  background:var(--glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-top:1px solid var(--line); padding:6px 4px;
+}
+.quicknav div{display:flex; justify-content:space-around}
+.quicknav a{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  font-family:var(--font-data); font-size:9px; letter-spacing:.06em; color:var(--ink); padding:4px;
+}
+.quicknav svg{width:20px; height:20px; color:var(--link)}
+
+/* ============================================================
+   Reveal / boot
+   ============================================================ */
+.reveal{opacity:0; transform:translateY(20px); transition:opacity .42s var(--ease), transform .42s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+.toast{
+  position:fixed; right:var(--s5); bottom:var(--s5); z-index:120; max-width:320px;
+  background:var(--deep); color:var(--on-deep); padding:var(--s4) var(--s5);
+  border-radius:var(--r-module); box-shadow:var(--shadow-lg); border-left:3px solid var(--green);
+  font-family:var(--font-data); font-size:12px; line-height:1.6;
+  opacity:0; transform:translateY(14px); pointer-events:none; transition:all .3s var(--ease);
+}
+.toast.show{opacity:1; transform:none}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width:1200px){
+  .hero-grid{grid-template-columns:5fr 4fr}
+  .route-stack{grid-column:1/-1; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .route-stack .route-title{grid-column:1/-1}
+  .emergency{grid-column:1/-1}
+  .thread-head,.thread-row{grid-template-columns:3fr 1fr 1fr 24px}
+  .th-time{display:none}
+}
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .glass-stage{min-height:320px; order:2}
+  .hero-lede{order:1}
+  .route-stack{order:3}
+  .svc-band{grid-template-columns:1fr 1fr; gap:var(--s4)}
+  .svc-action{align-items:flex-start}
+  .life-grid{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .square-body{grid-template-columns:1fr}
+  .log{order:2}
+}
+@media (max-width:760px){
+  .rail{min-height:56px; padding:var(--s2) var(--s4); gap:var(--s3)}
+  .rail-status{margin-left:0; width:100%; order:3}
+  .themes{order:4}
+  .search{order:5; flex:1}
+  .search input{width:100%}
+  .brand-txt i{display:none}
+}
+@media (max-width:640px){
+  .wrap{padding:0 var(--s4)}
+  .section{padding-top:var(--s7)}
+  .hero-lede h1{letter-spacing:-1.5px}
+  .svc-band{grid-template-columns:1fr}
+  .thread-head{display:none}
+  .thread-row{grid-template-columns:1fr 44px 20px; padding:var(--s3) var(--s4); gap:var(--s2)}
+  .th-name{grid-column:1/2; font-size:11px}
+  .th-count{font-size:16px}
+  .tl-item{grid-template-columns:1fr; gap:var(--s4)}
+  .tl-marker{margin-left:0}
+  .tl-body{grid-template-columns:1fr}
+  .tl-photo{width:100%; height:180px}
+  .life-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .quicknav{display:block}
+  main{padding-bottom:96px}
+  .glass-strip{bottom:52px}
+  .square-stage{height:min(520px,70vh)}
+  .btn{padding:11px 14px; font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important}
+  .reveal{opacity:1; transform:none}
+}
+</style>
+</head>
+<body>
+<div class="texture" aria-hidden="true"></div>
+<a class="skip" href="#services">Skip to services</a>
+
+<!-- ================= UTILITY RAIL ================= -->
+<header class="rail" id="top">
+  <a class="brand" href="#top" aria-label="Pittsfield Massachusetts Digital Town Hall — home">
+    <svg viewBox="0 0 76 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M2 46h72" stroke-linecap="round"/>
+      <path d="M6 46V28h10v18M18 46V22h9v24M29 46V33h11v13" stroke-linejoin="round"/>
+      <path d="M42 46V18l6-11 6 11v28" stroke-linejoin="round"/>
+      <path d="M56 46V30h12v16" stroke-linejoin="round"/>
+      <path d="M2 51c10-3 22-3 34 0s26 3 38 0" stroke-linecap="round" opacity=".6"/>
+    </svg>
+    <span class="brand-txt">
+      <b>PITTSFIELD</b>
+      <em>MASSACHUSETTS</em>
+      <i>DIGITAL TOWN HALL</i>
+    </span>
+  </a>
+
+  <div class="rail-status">
+    <span class="chip chip-ok"><span class="dot" id="statusDot"></span>TOWN STATUS / VERIFIED</span>
+    <span class="mono">LAST UPDATED <span id="clock">--:--</span> ET</span>
+  </div>
+
+  <div class="themes" role="group" aria-label="Page style">
+    <button class="sw" data-set-theme="aero" aria-pressed="true" title="Aero Green — lakes, hills, light manufacturing">
+      <span class="sw-strip" style="background:linear-gradient(90deg,#d9f1f2,#8ecf67,#073a4a)"></span>
+      <span class="sw-lab">AERO</span>
+    </button>
+    <button class="sw" data-set-theme="slate" aria-pressed="false" title="Berkshire Slate — gray and orange, a working town in November">
+      <span class="sw-strip" style="background:linear-gradient(90deg,#c6cac8,#5e6664,#e8622c)"></span>
+      <span class="sw-lab">SLATE</span>
+    </button>
+    <button class="sw" data-set-theme="river" aria-pressed="false" title="Sunset on the Housatonic — dusk blue and pink over the river">
+      <span class="sw-strip" style="background:linear-gradient(90deg,#2f4d80,#f4b79c,#6fa8a5)"></span>
+      <span class="sw-lab">RIVER</span>
+    </button>
+    <button class="sw" data-set-theme="terminal" aria-pressed="false" title="Library Terminal — pale green CRT and amber">
+      <span class="sw-strip" style="background:linear-gradient(90deg,#0e241c,#7fd39a,#f2b23c)"></span>
+      <span class="sw-lab">TERMINAL</span>
+    </button>
+    <button class="sw" data-set-theme="winter" aria-pressed="false" title="Winter Glass — white and ice blue, high contrast">
+      <span class="sw-strip" style="background:linear-gradient(90deg,#eef6fb,#4fa3c7,#12314f)"></span>
+      <span class="sw-lab">WINTER</span>
+    </button>
+  </div>
+
+  <form class="search" role="search" onsubmit="return false;">
+    <label class="vh" for="q">Search services and the board</label>
+    <input id="q" type="search" placeholder="SEARCH SERVICES / BOARD" autocomplete="off">
+    <button type="submit" id="qBtn">GO</button>
+  </form>
+
+  <a class="btn btn-signal" href="tel:311" title="Call the Pittsfield 311 hotline">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 5h4l2 5-2.5 1.5a12 12 0 0 0 5 5L14 14l5 2v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3 6.1 1 1 0 0 1 4 5Z" stroke-linejoin="round"/>
+    </svg>
+    Dial 311
+  </a>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero wrap">
+  <div class="ticker" aria-hidden="true"><span>PITTSFIELD / BERKSHIRE COUNTY / LOCAL SERVICES &nbsp;•&nbsp; TOWN HALL OPEN MON–FRI &nbsp;•&nbsp; DIAL 311 FOR NON-EMERGENCY SERVICES &nbsp;•&nbsp; 911 FOR EMERGENCIES &nbsp;•&nbsp; PONTOOSUC · ONOTA · HOUSATONIC &nbsp;•&nbsp; TOWN SQUARE OPEN TO ALL &nbsp;•&nbsp;</span></div>
+
+  <div class="hero-grid">
+    <div class="hero-lede reveal">
+      <h1>Good morning,<br>Pittsfield.</h1>
+      <p class="lede">Find town services, local updates, and the people who keep this place moving.</p>
+      <div class="lede-actions">
+        <button class="btn btn-deep" id="openSquare">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 20v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/><circle cx="8" cy="8" r="3"/><path d="M15 20v-1a4 4 0 0 1 4-4h.5"/><circle cx="17" cy="8" r="2.5"/></svg>
+          Open the Town Square
+        </button>
+        <a class="btn btn-ghost" href="#services">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+          City services ↓
+        </a>
+      </div>
+      <dl class="stat-row">
+        <div><dt>RESIDENTS</dt><dd>~43K</dd></div>
+        <div><dt>INCORPORATED</dt><dd>1761</dd></div>
+        <div><dt>IN TOWN SQUARE</dt><dd id="statVisitors">—</dd></div>
+        <div><dt>BOARD THREADS</dt><dd id="statThreads">—</dd></div>
+      </dl>
+    </div>
+
+    <figure class="glass-stage reveal">
+      <canvas data-scene="hills" data-seed="11" width="1000" height="620" role="img" aria-label="Pixel scene of the Berkshire hills rising behind Pittsfield, with the Housatonic valley and a glass horizon line."></canvas>
+      <button class="dither-btn" data-dither-single data-on="1" title="Toggle the dither layer on this image">DITHER: ON</button>
+      <div class="glass-strip">
+        <div><span class="k">TOWN SQUARE</span><span class="v" id="glassVisitors">CONNECTING…</span></div>
+        <div><span class="k">LOCAL TIME</span><span class="v" id="glassClock">--:--</span></div>
+        <div><span class="k">POSITION</span><span class="v">42.45N 73.24W</span></div>
+      </div>
+      <figcaption><span>PITTSFIELD PARK SQUARE / PIXEL SCENE</span><span>DITHER LAYER / 4×4 ORDERED</span></figcaption>
+    </figure>
+
+    <aside class="route-stack reveal">
+      <p class="route-title">ESSENTIAL ROUTES / JUMP STRAIGHT IN</p>
+
+      <a class="route r-1" href="#services" data-focus="garbage">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13M10 11v6M14 11v6" stroke-linecap="round"/></svg>
+        <span class="route-lab">GARBAGE &amp; RECYCLING</span><span class="arrow">open route →</span>
+      </a>
+
+      <a class="route r-2" href="#services" data-focus="311">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="13" width="4" height="6" rx="1.5"/><rect x="18" y="13" width="4" height="6" rx="1.5"/><path d="M20 19a3 3 0 0 1-3 3h-3"/></svg>
+        <span class="route-lab">311 HOTLINE</span><span class="arrow">open route →</span>
+      </a>
+
+      <a class="route r-3" href="#forum">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke-linecap="round"/></svg>
+        <span class="route-lab">COMMUNITY BOARD</span><span class="arrow">open route →</span>
+      </a>
+
+      <a class="route r-4" href="#square">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 20v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/><circle cx="8" cy="8" r="3"/><path d="M15 20v-1a4 4 0 0 1 4-4h.5"/><circle cx="17" cy="8" r="2.5"/></svg>
+        <span class="route-lab">TOWN SQUARE</span><span class="arrow">open route →</span>
+      </a>
+
+      <a class="route r-5" href="#history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6" stroke-linejoin="round"/></svg>
+        <span class="route-lab">LOCAL HISTORY</span><span class="arrow">open route →</span>
+      </a>
+
+      <div class="emergency">
+        <div class="big">Need help now?</div>
+        <p>USE 911 FOR EMERGENCIES / USE 311 FOR NON-EMERGENCY SERVICES</p>
+        <a class="btn btn-signal" href="tel:911">Call 911</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="section wrap" id="services">
+  <div class="sec-head">
+    <div>
+      <span class="sec-tag">SERVICE DESK / 01</span>
+      <h2>Town services, without the runaround.</h2>
+    </div>
+    <p>Every route below opens the action it describes. Where a figure has not been confirmed against the city's published schedule, this page says so instead of guessing.</p>
+  </div>
+
+  <!-- Garbage -->
+  <article class="svc-band" id="svc-garbage" data-search="garbage recycling trash pickup yard waste compost collection">
+    <div class="svc-name">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13M10 11v6M14 11v6" stroke-linecap="round"/></svg>
+      <h3>GARBAGE &amp; RECYCLING</h3>
+    </div>
+    <div>
+      <p>Find your pickup day, holiday changes, and what goes where. Choose a weekday below to see how that route runs.</p>
+      <div class="day-picker" role="group" aria-label="Choose a weekday for the collection route">
+        <button data-day="Mon" aria-pressed="false">MON</button>
+        <button data-day="Tue" aria-pressed="false">TUE</button>
+        <button data-day="Wed" aria-pressed="false">WED</button>
+        <button data-day="Thu" aria-pressed="true">THU</button>
+        <button data-day="Fri" aria-pressed="false">FRI</button>
+        <button data-day="Sat" aria-pressed="false">SAT</button>
+        <button data-day="Sun" aria-pressed="false">SUN</button>
+      </div>
+      <div class="sched-out" id="schedOut" aria-live="polite">
+        THU / ROUTE WINDOW: 6:00 AM – 7:00 PM · CARTS CURBSIDE BY 6:00 AM<br>
+        RECYCLING: SAME DAY, ALTERNATING WEEKS · YARD WASTE: SEASONAL
+        <span class="warn">SCHEDULE PENDING VERIFICATION AT 311</span>
+      </div>
+    </div>
+    <div class="svc-meta">
+      <b>MON–SAT / 6:00 AM – 7:00 PM</b>
+      Holidays shift the route by one day. Missed pickup? Report it inside 24 hours so the crew can loop back.
+    </div>
+    <div class="svc-action">
+      <button class="btn btn-green btn-sm" data-open="open-garbage">View full schedule →</button>
+      <button class="btn btn-sm" data-scroll="svc-report">Report a missed pickup</button>
+      <button class="btn btn-sm btn-ghost" data-print>Print this week's sheet</button>
+    </div>
+    <div class="svc-open" id="open-garbage">
+      <h4>WHAT GOES WHERE / QUICK REFERENCE</h4>
+      <ul>
+        <li>TRASH — carts curbside by 6:00 AM on your route day, lids closed.</li>
+        <li>RECYCLING — paper, flattened cardboard, cans, and #1–#2 plastics. No bags in the cart.</li>
+        <li>YARD WASTE — seasonal collection; leaves and brush in paper bags or open barrels.</li>
+        <li>BULK — furniture and appliances need a scheduled pickup. Ask 311 for the next open slot.</li>
+        <li>HAZARDOUS — paint, solvents, batteries, and bulbs go to a household hazardous waste drop-off, never the cart.</li>
+      </ul>
+      <div class="row">
+        <a class="btn btn-sm" href="tel:311">Confirm my collection day at 311</a>
+        <a class="btn btn-sm btn-ghost" href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Open city portal ↗</a>
+      </div>
+      <p class="mono" style="margin:12px 0 0">CART-SIZE, BAG-LIMIT AND FEE FIGURES ARE WITHHELD UNTIL CONFIRMED AGAINST THE CITY'S CURRENT SOLID WASTE ORDINANCE.</p>
+    </div>
+  </article>
+
+  <!-- 311 -->
+  <article class="svc-band" id="svc-311" data-search="311 hotline call request service report pothole streetlight help">
+    <div class="svc-name">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="13" width="4" height="6" rx="1.5"/><rect x="18" y="13" width="4" height="6" rx="1.5"/><path d="M20 19a3 3 0 0 1-3 3h-3"/></svg>
+      <h3>311 HOTLINE</h3>
+    </div>
+    <div>
+      <p>Call 311 for potholes, streetlights, sidewalk repairs, missed pickups, and questions about town services. One number, tracked requests, no department switchboard.</p>
+      <div class="sched-out">
+        ONE NUMBER FOR NON-EMERGENCY SERVICES<br>
+        REQUEST TYPES: STREET · SANITATION · WATER · PARKS · BUILDINGS · ANIMAL CONTROL
+      </div>
+    </div>
+    <div class="svc-meta">
+      <b>CALL ANY DAY / 24 HOURS</b>
+      311 is for non-emergency requests only. For fire, police, or medical emergencies, call 911.
+    </div>
+    <div class="svc-action">
+      <a class="btn btn-signal btn-sm" href="tel:311">Dial 311</a>
+      <button class="btn btn-sm btn-ghost" data-scroll="svc-report">File a written request</button>
+    </div>
+    <div class="svc-open" id="open-311"></div>
+  </article>
+
+  <!-- Parking & transit -->
+  <article class="svc-band" id="svc-transit" data-search="parking transit bus barta downtown shuttle permit meter">
+    <div class="svc-name">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M4 10h16M7 20v-2M17 20v-2"/><circle cx="8" cy="13.5" r="1"/><circle cx="16" cy="13.5" r="1"/></svg>
+      <h3>PARKING &amp; TRANSIT</h3>
+    </div>
+    <div>
+      <p>Find downtown parking, permits, and regional transit routes. North Street meters, municipal lots, and the regional bus network all meet within a few blocks of Park Square.</p>
+      <div class="sched-out">
+        DOWNTOWN: METERS + MUNICIPAL LOTS · PERMITS VIA THE PARKS &amp; RECREATION / CLERK'S OFFICE<br>
+        REGIONAL TRANSIT: BERKSHIRE REGIONAL TRANSIT AUTHORITY ROUTES SERVE THE CITY
+      </div>
+    </div>
+    <div class="svc-meta">
+      <b>DOWNTOWN / 8:00 AM – 6:00 PM</b>
+      Evening and Sunday street parking downtown is generally unrestricted — confirm posted signs before leaving a vehicle.
+    </div>
+    <div class="svc-action">
+      <a class="btn btn-sm" href="https://www.berkrta.com" target="_blank" rel="noopener">Regional transit ↗</a>
+      <a class="btn btn-sm btn-ghost" href="tel:311">Parking question at 311</a>
+    </div>
+    <div class="svc-open" id="open-transit"></div>
+  </article>
+
+  <!-- Property & tax -->
+  <article class="svc-band" id="svc-property" data-search="property tax assessor collector bill water sewer assessment permit building">
+    <div class="svc-name">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3h8l4 4v14H6V3Z" stroke-linejoin="round"/><path d="M14 3v4h4M9 12h6M9 16h6" stroke-linecap="round"/></svg>
+      <h3>PROPERTY &amp; TAX</h3>
+    </div>
+    <div>
+      <p>Assessments, tax bills, water and sewer accounts, and building permits. Have your parcel ID or account number ready — it is printed in the top right of every bill.</p>
+      <div class="sched-out">
+        TAX BILLS: QUARTERLY · WATER / SEWER: QUARTERLY · ASSESSMENT RECORDS: AVAILABLE FOR PUBLIC INSPECTION<br>
+        PERMITS: BUILDING · ELECTRICAL · PLUMBING · GAS · SIGN
+      </div>
+    </div>
+    <div class="svc-meta">
+      <b>CITY HALL / MON–FRI</b>
+      Abatement applications follow the statutory deadline on your assessment notice. Do not miss it — 311 can tell you the current date.
+    </div>
+    <div class="svc-action">
+      <a class="btn btn-sm" href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Open city portal ↗</a>
+      <a class="btn btn-sm btn-ghost" href="tel:311">Account question at 311</a>
+    </div>
+    <div class="svc-open" id="open-property"></div>
+  </article>
+
+  <!-- Report -->
+  <article class="svc-band" id="svc-report" data-search="report issue pothole streetlight graffiti snow sidewalk noise complaint">
+    <div class="svc-name">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <h3>REPORT AN ISSUE</h3>
+    </div>
+    <div>
+      <p>Send a maintenance request to the right town crew. Describe the location as precisely as you can — an intersection or the nearest street number gets a crew there fastest.</p>
+      <form class="field" id="reportForm">
+        <input type="text" name="where" placeholder="WHERE? e.g. North St &amp; Wahconah" required aria-label="Location of the issue">
+        <select name="kind" aria-label="Kind of issue">
+          <option>Pothole / street surface</option>
+          <option>Streetlight out</option>
+          <option>Missed trash pickup</option>
+          <option>Sidewalk or snow issue</option>
+          <option>Water / sewer</option>
+          <option>Parks &amp; trees</option>
+          <option>Other</option>
+        </select>
+        <textarea name="detail" placeholder="WHAT SHOULD THE CREW KNOW?" aria-label="Details"></textarea>
+        <button class="btn btn-signal btn-sm" type="submit">Send request</button>
+      </form>
+      <div class="sched-out" id="reportOut" aria-live="polite" style="margin-top:12px">
+        REQUESTS FILED HERE ARE STORED IN THIS BROWSER ONLY FOR THIS BUILD — CALL 311 FOR A LIVE TICKET.
+      </div>
+    </div>
+    <div class="svc-meta">
+      <b>TRACKED / REFERENCE NUMBERS</b>
+      A 311 operator confirms each ticket. For emergencies — fire, police, medical, or a hazardous condition — call 911 instead.
+    </div>
+    <div class="svc-action">
+      <a class="btn btn-signal btn-sm" href="tel:311">Dial 311</a>
+      <a class="btn btn-sm btn-ghost" href="tel:911">Emergency: 911</a>
+    </div>
+    <div class="svc-open" id="open-report"></div>
+  </article>
+</section>
+
+<!-- ================= FORUM ================= -->
+<section class="section wrap" id="forum">
+  <div class="sec-head">
+    <div>
+      <span class="sec-tag">COMMUNITY BOARD / 02</span>
+      <h2>The community board is open.</h2>
+    </div>
+    <p>Ask a neighbor, share a notice, or find the latest discussion about life in Pittsfield. Threads persist in your browser so the board feels like a board, not a form.</p>
+  </div>
+
+  <div class="forum-shell">
+    <div class="forum-bar">
+      <span class="t">PITTSFIELD COMMUNITY BOARD</span>
+      <span class="chip" style="background:transparent;border-color:rgba(255,255,255,.35);color:#fff">PUBLIC NOTICE / COMMUNITY BOARD</span>
+      <span class="m">ACTIVE THREADS <b id="threadCount">0</b> · LAST ACTIVITY <b id="lastActivity">—</b></span>
+    </div>
+
+    <div class="thread-head" aria-hidden="true">
+      <span>TOPIC</span><span>POSTED BY</span><span>REPLIES</span><span>LAST ACTIVITY</span><span></span>
+    </div>
+
+    <div id="threadList"></div>
+
+    <div class="thread-detail" id="threadDetail" aria-live="polite"></div>
+
+    <div class="mod-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3l8 3v6c0 4.4-3.2 8-8 9-4.8-1-8-4.6-8-9V6l8-3Z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round"/></svg>
+      <span>BE KIND, STAY ON TOPIC, AND DO NOT POST PERSONAL INFORMATION. POSTS ARE MODERATED FOR SAFETY AND LOCAL RELEVANCE.</span>
+    </div>
+
+    <div class="forum-compose">
+      <h3>START A NEW TOPIC</h3>
+      <form class="field" id="postForm">
+        <input type="text" name="title" placeholder="TOPIC TITLE" required aria-label="Topic title">
+        <input type="text" name="who" placeholder="YOUR NAME OR INITIALS" required aria-label="Your name or initials">
+        <textarea name="body" placeholder="WHAT WOULD YOU LIKE THE TOWN TO KNOW?" required aria-label="Message"></textarea>
+        <button class="btn btn-deep btn-sm" type="submit">Post to the board</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TOWN SQUARE ================= -->
+<section class="section wrap" id="square">
+  <div class="sec-head">
+    <div>
+      <span class="sec-tag">TOWN SQUARE / 03</span>
+      <h2>See who's around. Say hello.</h2>
+    </div>
+    <p>The Town Square is a live view of neighbors visiting Pittsfield's digital home right now. Watch the square pulse, then join a conversation or open a service route.</p>
+  </div>
+
+  <div class="sq-actions">
+    <button class="btn btn-deep" id="toggleSquare">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 20v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/><circle cx="8" cy="8" r="3"/><path d="M15 20v-1a4 4 0 0 1 4-4h.5"/><circle cx="17" cy="8" r="2.5"/></svg>
+      <span id="toggleSquareLabel">Open the Town Square</span>
+    </button>
+    <button class="btn btn-ghost" data-scroll="forum">Open the message board</button>
+    <button class="btn btn-ghost" data-scroll="services">Browse town services</button>
+  </div>
+
+  <div class="square-stage" id="squareStage">
+    <canvas class="square-bg" data-scene="town" data-seed="23" width="1400" height="700" role="img" aria-label="Pixel scene of Pittsfield at dusk: church spires, mill buildings and the Berkshire ridgeline reflected in still water."></canvas>
+    <div class="square-glass" aria-hidden="true"></div>
+    <div class="drift" aria-hidden="true"></div>
+    <div class="glass-horizon" aria-hidden="true"></div>
+
+    <div class="cursor c1" style="left:6%;top:22%" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M5 2l14 9-6 1 3.5 7-3 1.5L10 13 5 17z"/></svg><span>W. Housatonic</span>
+    </div>
+    <div class="cursor c2" style="left:62%;top:30%" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M5 2l14 9-6 1 3.5 7-3 1.5L10 13 5 17z"/></svg><span>North St</span>
+    </div>
+    <div class="cursor c3" style="left:30%;top:56%" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M5 2l14 9-6 1 3.5 7-3 1.5L10 13 5 17z"/></svg><span>Pontoosuc</span>
+    </div>
+    <div class="cursor c4" style="left:78%;top:62%" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M5 2l14 9-6 1 3.5 7-3 1.5L10 13 5 17z"/></svg><span>Stearns Sq</span>
+    </div>
+
+    <div class="square-top">
+      <span class="k">TOWN SQUARE / LIVE</span>
+      <span class="chip" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff">
+        <span class="dot" id="sqDot"></span>OPEN TO ALL
+      </span>
+      <span class="spacer"></span>
+      <span class="k">VISITORS NOW: <b id="sqCount">0</b></span>
+      <button class="dither-btn" data-dither-single data-on="1" data-target=".square-bg" title="Toggle the dither layer on this scene">DITHER: ON</button>
+    </div>
+
+    <div class="presence">
+      <div class="pres-strip" id="presenceStrip" role="list" aria-label="Neighbors currently in the Town Square"></div>
+      <span class="plus" id="presenceMore"></span>
+    </div>
+
+    <div class="square-body">
+      <div>
+        <div class="visitor-grid" id="visitorGrid" role="list"></div>
+        <p class="square-note">
+          <span>SIMULATED LOCAL SESSION — WIRE TO /api/presence FOR LIVE DATA</span>
+          <span>PRESENCE IS ANNOUNCED VIA ARIA-LIVE</span>
+        </p>
+      </div>
+      <div class="log">
+        <h4>TOWN SQUARE / EVENT LOG</h4>
+        <ul id="eventLog"></ul>
+        <h4 style="margin-top:20px">NOW BEING DISCUSSED</h4>
+        <ul id="topicLog"></ul>
+        <button class="btn btn-green btn-sm" data-scroll="forum" style="width:100%;margin-top:12px">Post a note</button>
+      </div>
+    </div>
+
+    <div class="handshake" id="handshake">
+      <div>
+        <p>ATTEMPTING HANDSHAKE</p>
+        <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="sub" style="margin-top:16px">CHECKING LOCAL VISITORS</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vh" id="liveRegion" aria-live="polite"></div>
+</section>
+
+<!-- ================= HISTORY ================= -->
+<section class="section wrap" id="history">
+  <div class="sec-head">
+    <div>
+      <span class="sec-tag">LOCAL HISTORY / 04</span>
+      <h2>A small city with a long memory.</h2>
+    </div>
+    <p>From Berkshire farmland and summer visitors to a manufacturing city that built electrical machinery for much of the world — and is still repairing what that century left behind.</p>
+  </div>
+
+  <ol style="list-style:none;margin:0;padding:0">
+    <li class="tl-item">
+      <div>
+        <span class="kicker">SETTLEMENT / TOWN</span>
+        <div class="tl-marker">1761</div>
+      </div>
+      <div class="tl-body">
+        <div>
+          <h3>Incorporated as Pittsfield</h3>
+          <p>The township was incorporated in 1761 and named for William Pitt, the British statesman. It grew up around the Housatonic valley where the river slows and the farmland opens out — and by the 19th century it had become the shire town of Berkshire County, where the courts, the newspaper, and the county's civic life sat.</p>
+          <ul class="tl-list">
+            <li>HOUSATONIC VALLEY FARMLAND</li>
+            <li>BERKSHIRE COUNTY SEAT / COURTHOUSE DISTRICT</li>
+            <li>WILLIAM PITT, EARL OF CHATHAM</li>
+          </ul>
+        </div>
+        <figure class="tl-photo">
+          <canvas data-scene="settlement" data-seed="4" width="660" height="510" role="img" aria-label="Pixel scene of a small 18th-century meetinghouse and farm fields in the Housatonic valley."></canvas>
+          <figcaption>Early settlement scene.</figcaption>
+        </figure>
+      </div>
+    </li>
+
+    <li class="tl-item">
+      <div>
+        <span class="kicker">BOOKS &amp; MOUNTAINS</span>
+        <div class="tl-marker">1850</div>
+      </div>
+      <div class="tl-body">
+        <div>
+          <h3>Melville at Arrowhead</h3>
+          <p>Herman Melville moved to a farm on Holmes Road in Pittsfield and named it Arrowhead. He wrote <em>Moby-Dick</em> there with Mount Greylock on the horizon — a reminder that this town's cultural history is not decoration on top of its working history, but part of the same story.</p>
+          <ul class="tl-list">
+            <li>ARROWHEAD / HOLMES ROAD</li>
+            <li>MOBY-DICK WRITTEN IN THE BERKSHIRES</li>
+            <li>SUMMER VISITORS FROM THE CITIES BELOW</li>
+          </ul>
+        </div>
+        <figure class="tl-photo">
+          <canvas data-scene="hills" data-seed="9" width="660" height="510" role="img" aria-label="Pixel scene of the Berkshire ridgeline, the landscape Melville looked at from Arrowhead."></canvas>
+          <figcaption>Berkshire ridgeline.</figcaption>
+        </figure>
+      </div>
+    </li>
+
+    <li class="tl-item">
+      <div>
+        <span class="kicker">THEATRES &amp; MUSEUMS</span>
+        <div class="tl-marker">1903</div>
+      </div>
+      <div class="tl-body">
+        <div>
+          <h3>Colonial Theatre, Berkshire Museum</h3>
+          <p>Within two years of each other, the Colonial Theatre and the Berkshire Museum opened on South Street — a downtown built for shows, lectures, and a public that expected culture to be within walking distance. Both are still here, restored and running, which is rarer than it sounds for a city this size.</p>
+          <ul class="tl-list">
+            <li>COLONIAL THEATRE / SOUTH STREET</li>
+            <li>BERKSHIRE MUSEUM / NATURAL HISTORY &amp; ART</li>
+            <li>BARRINGTON STAGE COMPANY / DOWNTOWN</li>
+          </ul>
+        </div>
+        <figure class="tl-photo">
+          <canvas data-scene="theatre" data-seed="17" width="660" height="510" role="img" aria-label="Pixel scene of a 1903 theatre facade with marquee and vertical sign."></canvas>
+          <figcaption>Theatre facade.</figcaption>
+        </figure>
+      </div>
+    </li>
+
+    <li class="tl-item">
+      <div>
+        <span class="kicker">MANUFACTURING</span>
+        <div class="tl-marker">1942</div>
+      </div>
+      <div class="tl-body">
+        <div>
+          <h3>The electrical plant and the transformer lines</h3>
+          <p>For most of the 20th century, General Electric's Pittsfield works made transformers, motors, and electrical equipment — and employed a large share of the city. The work also left contamination in Silver Lake and the Housatonic River, and one of the biggest river cleanups in New England has been running here ever since.</p>
+          <ul class="tl-list">
+            <li>GE ELECTRICAL MANUFACTURING</li>
+            <li>HOUSATONIC RIVER PCB CLEANUP</li>
+            <li>REDEVELOPMENT OF PLANT SITES</li>
+          </ul>
+        </div>
+        <figure class="tl-photo">
+          <canvas data-scene="factory" data-seed="31" width="660" height="510" role="img" aria-label="Pixel scene of a mid-century industrial plant with chimneys, gantries and rail lines."></canvas>
+          <figcaption>Industrial skyline.</figcaption>
+        </figure>
+      </div>
+    </li>
+
+    <li class="tl-item">
+      <div>
+        <span class="kicker">PARKS &amp; WATER</span>
+        <div class="tl-marker">1975</div>
+      </div>
+      <div class="tl-body">
+        <div>
+          <h3>Onota, Pontoosuc and the state forest</h3>
+          <p>Two city lakes inside the municipal line, a state forest of more than eleven thousand acres on the ridge, and parkland along the river: the outdoors is not outside Pittsfield, it runs through it. Local traditions — the Fourth of July parade, the lakes in summer, the trails in October — are the ones residents actually mark their year by.</p>
+          <ul class="tl-list">
+            <li>ONOTA LAKE / PONTOOSUC LAKE</li>
+            <li>PITTSFIELD STATE FOREST / BALANCE ROCK</li>
+            <li>FIRST STREET COMMON / DOWNTOWN PARK</li>
+          </ul>
+        </div>
+        <figure class="tl-photo">
+          <canvas data-scene="park" data-seed="52" width="660" height="510" role="img" aria-label="Pixel scene of a summer park with trees, a pond and a footpath."></canvas>
+          <figcaption>Summer park.</figcaption>
+        </figure>
+      </div>
+    </li>
+
+    <li class="tl-item">
+      <div>
+        <span class="kicker">LITERATURE &amp; LANDSCAPE</span>
+        <div class="tl-marker">1987</div>
+      </div>
+      <div class="tl-body">
+        <div>
+          <h3>Reading the county as a library</h3>
+          <p>Berkshire County keeps producing writers and readers, and the Pittsfield Athenaeum has been a working lending library since the 1870s. The county's political traditions are local too: town meeting, ward representation, open boards, and a public that shows up to argue about zoning in person.</p>
+          <ul class="tl-list">
+            <li>PITTSFIELD ATHENAEUM</li>
+            <li>MAYOR &amp; CITY COUNCIL / WARD REPRESENTATION</li>
+            <li>PUBLIC MEETINGS POSTED FOR THE COMMUNITY</li>
+          </ul>
+        </div>
+        <figure class="tl-photo">
+          <canvas data-scene="winter" data-seed="63" width="660" height="510" role="img" aria-label="Pixel scene of a frozen lake and snow-covered Berkshire hills in winter."></canvas>
+          <figcaption>Winter lake.</figcaption>
+        </figure>
+      </div>
+    </li>
+
+    <li class="tl-item">
+      <div>
+        <span class="kicker">DIGITAL HOMEPAGE</span>
+        <div class="tl-marker">TODAY</div>
+      </div>
+      <div class="tl-body">
+        <div>
+          <h3>The digital town hall</h3>
+          <p>A working homepage for a working city: the routes residents actually use, the board where neighbors talk, and a live square that shows the place is occupied. The 1990s civic web was optimistic about who the internet was for. This is that optimism, rebuilt properly.</p>
+          <ul class="tl-list">
+            <li>SERVICE ROUTES FIRST / DECORATION SECOND</li>
+            <li>OPEN BOARD / MODERATED FOR RELEVANCE</li>
+            <li>LIVE TOWN SQUARE / OPEN TO ALL</li>
+          </ul>
+        </div>
+        <figure class="tl-photo">
+          <canvas data-scene="skyline" data-seed="88" width="660" height="510" role="img" aria-label="Pixel scene of Pittsfield's downtown skyline with streetlights and layered hills behind it."></canvas>
+          <figcaption>Downtown skyline.</figcaption>
+        </figure>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ================= LOCAL LIFE ================= -->
+<section class="section wrap" id="life">
+  <div class="sec-head">
+    <div>
+      <span class="sec-tag">LOCAL LIFE &amp; CULTURE / 05</span>
+      <h2>The culture is the point.</h2>
+    </div>
+    <p>The civic knowledge residents actually share: which trail is dry after rain, where the council meets, who is playing the Colonial, and what is being argued about on the board this week.</p>
+  </div>
+
+  <div class="life-grid">
+    <div class="life-col">
+      <h3>LOCAL POLITICS</h3>
+      <a class="life-link" data-search="politics council mayor city hall meetings" href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8"/><path d="M18 13v6H5V6h6"/></svg>
+        City Hall &amp; the City Council
+      </a>
+      <a class="life-link" data-search="politics meeting agenda minutes public" href="#forum">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3h8l4 4v14H6V3Z" stroke-linejoin="round"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg>
+        Meeting agendas &amp; public comment
+      </a>
+      <a class="life-link" data-search="politics state county berkshire" href="https://www.mass.gov" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8"/><path d="M18 13v6H5V6h6"/></svg>
+        Massachusetts state services
+      </a>
+      <p>Wards, boards, and open meetings. Bring a question and a street address.</p>
+    </div>
+
+    <div class="life-col">
+      <h3>CULTURE</h3>
+      <a class="life-link" data-search="culture colonial theatre shows music" href="#history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6"/></svg>
+        Colonial Theatre
+      </a>
+      <a class="life-link" data-search="culture berkshire museum art natural history" href="#history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6"/></svg>
+        Berkshire Museum
+      </a>
+      <a class="life-link" data-search="culture melville arrowhead literature books athenaeum" href="#history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3h8l4 4v14H6V3Z" stroke-linejoin="round"/><path d="M14 3v4h4M9 12h6M9 16h4"/></svg>
+        Melville's Arrowhead &amp; the Athenaeum
+      </a>
+      <p>Stages, museums, libraries and bookstores within a few blocks of North Street.</p>
+    </div>
+
+    <div class="life-col">
+      <h3>PARKS &amp; EDUCATION</h3>
+      <a class="life-link" data-search="parks onota pontoosuc lake forest trails" href="#history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3l6 9h-4l4 7H6l4-7H6l6-9Z" stroke-linejoin="round"/><path d="M12 19v3"/></svg>
+        Lakes, forests and trails
+      </a>
+      <a class="life-link" data-search="education schools pittsfield public schools" href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 20h18M5 20V8l7-4 7 4v12M10 20v-6h4v6"/></svg>
+        Pittsfield Public Schools
+      </a>
+      <a class="life-link" data-search="parks recreation programs youth sports" href="tel:311">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Parks &amp; Recreation programs
+      </a>
+      <p>Where to walk, where to swim, and where to sign a kid up for summer programs.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="big">Need help now?</div>
+        <p style="color:var(--on-deep-muted);font-family:var(--font-data);font-size:13px;max-width:38ch">
+          USE 911 FOR EMERGENCIES.<br>USE 311 FOR NON-EMERGENCY SERVICES.
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
+          <a class="btn btn-signal" href="tel:311">Dial 311</a>
+          <a class="btn" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4)" href="tel:911">Call 911</a>
+        </div>
+      </div>
+      <div>
+        <h4>SERVICES</h4>
+        <a href="#services">Garbage &amp; recycling</a>
+        <a href="#services">311 hotline</a>
+        <a href="#services">Parking &amp; transit</a>
+        <a href="#services">Property &amp; tax</a>
+        <a href="#services">Report an issue</a>
+      </div>
+      <div>
+        <h4>COMMUNITY</h4>
+        <a href="#forum">Community board</a>
+        <a href="#square">Town Square</a>
+        <a href="#history">Local history</a>
+        <a href="#life">Local life &amp; culture</a>
+      </div>
+      <div>
+        <h4>TOWN HALL</h4>
+        <a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">City of Pittsfield ↗</a>
+        <a href="https://www.mass.gov" target="_blank" rel="noopener">Commonwealth of MA ↗</a>
+        <a href="https://www.berkrta.com" target="_blank" rel="noopener">Regional transit ↗</a>
+        <a href="#top">Back to the top ↑</a>
+      </div>
+    </div>
+    <div class="foot-close">
+      <span>PITTSFIELD DIGITAL TOWN HALL / EDITION 2026 / DITHER MODE AVAILABLE ON ALL IMAGES</span>
+      <span>BUILT FOR THE PEOPLE WHO ACTUALLY LIVE HERE</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="quicknav" aria-label="Quick navigation">
+  <div>
+    <a href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20h16M6 20V9l6-5 6 5v11"/></svg>HOME</a>
+    <a href="#services"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 10h16"/></svg>SERVICES</a>
+    <a href="#forum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z" stroke-linejoin="round"/></svg>BOARD</a>
+    <a href="#square"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1"/></svg>SQUARE</a>
+    <a href="#history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>HISTORY</a>
+  </div>
+</nav>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   0. Utilities
+   ============================================================ */
+var $  = function(s,r){return (r||document).querySelector(s);};
+var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function mulberry32(a){
+  return function(){
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    var t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function css(name){
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+function toast(msg){
+  var t = ('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(function(){t.classList.remove('show');}, 3600);
+}
+function pad(n){return n<10?'0'+n:''+n;}
+function stamp(){
+  var d = new Date();
+  return pad(d.getHours())+':'+pad(d.getMinutes());
+}
+
+/* ============================================================
+   1. Theme manager
+   ============================================================ */
+var DITHER_PALETTES = {
+  aero:     ['#f7fbf8','#d9f1f2','#8ecf67','#3c7f6c','#0b5364','#073a4a','#f05a3c'],
+  slate:    ['#eef0ee','#c6cac8','#93a099','#5e6664','#39413f','#22282a','#e8622c'],
+  river:    ['#fbf4f3','#e7d9e0','#f4b79c','#6fa8a5','#34507d','#22345c','#f2704f'],
+  terminal: ['#dff6e6','#7fd39a','#2f7a55','#164233','#0e241c','#081711','#f2b23c'],
+  winter:   ['#ffffff','#eef6fb','#a8c6dc','#4fa3c7','#1c4a72','#12314f','#e8452f']
+};
+var THEME_NAMES = {aero:'AERO GREEN', slate:'BERKSHIRE SLATE', river:'SUNSET ON THE HOUSATONIC', terminal:'LIBRARY TERMINAL', winter:'WINTER GLASS'};
+
+var state = {
+  theme: localStorage.getItem('ps.theme') || 'aero',
+  dither: localStorage.getItem('ps.dither') !== '0'
+};
+
+function applyTheme(theme, announce){
+  if(!THEME_NAMES[theme]) theme = 'aero';
+  state.theme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('ps.theme', theme);
+  $$$$('[data-set-theme]').forEach(function(b){
+    b.setAttribute('aria-pressed', String(b.dataset.setTheme === theme));
+  });
+  setTimeout(function(){ repaintAllScenes(); }, 20);
+  if(announce) toast('STYLE LOADED / ' + THEME_NAMES[theme]);
+}
+
+$$('[data-set-theme]').forEach(function(btn){
+  btn.addEventListener('click', function(){ applyTheme(btn.dataset.setTheme, true); });
+});
+
+/* ============================================================
+   2. Procedural scene renderer (Canvas 2D)
+   ============================================================ */
+function sceneColors(){
+  return {
+    sky1:css('--sc-sky1'), sky2:css('--sc-sky2'), sun:css('--sc-sun'),
+    far:css('--sc-far'), mid:css('--sc-mid'), near:css('--sc-near'),
+    water:css('--sc-water'), town:css('--sc-town')
+  };
+}
+function hexToRgb(h){
+  h = h.replace('#','');
+  if(h.length===3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  var n = parseInt(h,16);
+  return [(n>>16)&255,(n>>8)&255,n&255];
+}
+function rgba(hex,a){
+  var c = hexToRgb(hex);
+  return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';
+}
+function mix(h1,h2,t){
+  var a=hexToRgb(h1), b=hexToRgb(h2);
+  return 'rgb('+Math.round(a[0]+(b[0]-a[0])*t)+','+Math.round(a[1]+(b[1]-a[1])*t)+','+Math.round(a[2]+(b[2]-a[2])*t)+')';
+}
+
+function ridgePath(ctx,W,H,baseY,amp,rng,seedPhase){
+  ctx.beginPath();
+  ctx.moveTo(0,H); ctx.lineTo(0,baseY);
+  for(var x=0;x<=W;x+=Math.max(6,W/120)){
+    var t = x/W;
+    var y = baseY
+      - Math.sin(t*Math.PI*2.1 + seedPhase)*amp*0.55
+      - Math.sin(t*Math.PI*5.4 + seedPhase*1.7)*amp*0.24
+      - Math.sin(t*Math.PI*11 + seedPhase*0.6)*amp*0.11
+      - rng()*amp*0.12;
+    ctx.lineTo(x,y);
+  }
+  ctx.lineTo(W,H); ctx.closePath();
+}
+function drawTrees(ctx,W,baseY,count,rng,size,color,spread){
+  ctx.fillStyle = color;
+  for(var i=0;i<count;i++){
+    var x = rng()*W, s = size*(0.55+rng()*0.9), y = baseY + rng()*spread;
+    ctx.beginPath();
+    ctx.moveTo(x, y-s);
+    ctx.lineTo(x+s*0.42, y);
+    ctx.lineTo(x-s*0.42, y);
+    ctx.closePath(); ctx.fill();
+  }
+}
+function drawTown(ctx,W,H,baseY,rng,C){
+  ctx.fillStyle = C.town;
+  var x = 0;
+  while(x < W){
+    var w = 22 + rng()*54;
+    var h = 34 + rng()*118;
+    ctx.fillRect(x, baseY-h, w, h);
+    // roof line
+    if(rng() > 0.55){
+      ctx.beginPath();
+      ctx.moveTo(x, baseY-h);
+      ctx.lineTo(x+w/2, baseY-h-16-rng()*14);
+      ctx.lineTo(x+w, baseY-h);
+      ctx.closePath(); ctx.fill();
+    }
+    // windows
+    if(rng() > 0.35){
+      ctx.fillStyle = rgba(C.sky2,0.45);
+      for(var wy=baseY-h+12; wy<baseY-14; wy+=17){
+        for(var wx=x+7; wx<x+w-9; wx+=15){
+          if(rng()>0.55) ctx.fillRect(wx,wy,6,9);
+        }
+      }
+      ctx.fillStyle = C.town;
+    }
+    x += w + 6 + rng()*12;
+  }
+  // church spire
+  var sx = W*(0.18+rng()*0.2), sw = 16;
+  ctx.fillRect(sx, baseY-150, sw, 150);
+  ctx.beginPath();
+  ctx.moveTo(sx-4, baseY-150);
+  ctx.lineTo(sx+sw/2, baseY-232);
+  ctx.lineTo(sx+sw+4, baseY-150);
+  ctx.closePath(); ctx.fill();
+  // dome
+  var dx = W*(0.62+rng()*0.14);
+  ctx.beginPath(); ctx.arc(dx, baseY-96, 26, Math.PI, 0); ctx.fill();
+  ctx.fillRect(dx-26, baseY-96, 52, 96);
+}
+function drawWater(ctx,W,H,top,C,rng){
+  var g = ctx.createLinearGradient(0,top,0,H);
+  g.addColorStop(0, mix(C.water, C.sky2, 0.35));
+  g.addColorStop(1, mix(C.water, C.town, 0.35));
+  ctx.fillStyle = g; ctx.fillRect(0,top,W,H-top);
+  for(var y=top+6;y<H;y+=7){
+    ctx.fillStyle = rgba(C.sky2, 0.06 + rng()*0.16);
+    ctx.fillRect(rng()*W*0.4, y, W*(0.3+rng()*0.7), 1.6);
+  }
+}
+function drawSun(ctx,C,W,H,horizon){
+  var x = W*0.72, y = horizon*0.55, r = Math.min(W,H)*0.13;
+  var g = ctx.createRadialGradient(x,y,2,x,y,r*3.2);
+  g.addColorStop(0, rgba(C.sun,0.95));
+  g.addColorStop(0.35, rgba(C.sun,0.45));
+  g.addColorStop(1, rgba(C.sun,0));
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  ctx.beginPath(); ctx.arc(x,y,r*0.52,0,Math.PI*2);
+  ctx.fillStyle = rgba(C.sun,0.9); ctx.fill();
+}
+
+function drawScene(ctx,W,H,kind,seed,C){
+  var rng = mulberry32(seed*977+13);
+  // sky
+  var g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, C.sky1); g.addColorStop(1, C.sky2);
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  var horizon = H*0.62;
+
+  if(kind==='hills' || kind==='skyline'){
+    drawSun(ctx,C,W,H,horizon);
+    ridgePath(ctx,W,H,horizon*0.72,horizon*0.30,rng,seed*0.4);
+    ctx.fillStyle = C.far; ctx.fill();
+    ridgePath(ctx,W,H,horizon*0.86,horizon*0.24,rng,seed*0.9);
+    ctx.fillStyle = C.mid; ctx.fill();
+    if(kind==='skyline'){ drawTown(ctx,W,H,horizon*0.99,rng,C); }
+    else {
+      drawTrees(ctx,W,horizon*0.93,26,rng,26,rgba(C.near,0.85),26);
+      ridgePath(ctx,W,H,H*0.82,horizon*0.16,rng,seed*1.4);
+      ctx.fillStyle = C.near; ctx.fill();
+    }
+    drawWater(ctx,W,H,H*0.84,C,rng);
+  }
+  else if(kind==='town'){
+    drawSun(ctx,C,W,H,horizon);
+    ridgePath(ctx,W,H,horizon*0.62,horizon*0.34,rng,seed*0.3);
+    ctx.fillStyle = C.far; ctx.fill();
+    ridgePath(ctx,W,H,horizon*0.8,horizon*0.22,rng,seed*0.8);
+    ctx.fillStyle = C.mid; ctx.fill();
+    drawTown(ctx,W,H,horizon*1.02,rng,C);
+    drawWater(ctx,W,H,H*0.78,C,rng);
+    // reflections
+    ctx.save(); ctx.globalAlpha = 0.18;
+    ctx.translate(0, H*1.56); ctx.scale(1,-1);
+    drawTown(ctx,W,H,horizon*1.02,mulberry32(seed*977+13),C);
+    ctx.restore();
+  }
+  else if(kind==='settlement'){
+    drawSun(ctx,C,W,H,horizon);
+    ridgePath(ctx,W,H,horizon*0.66,horizon*0.32,rng,seed*0.5);
+    ctx.fillStyle = C.far; ctx.fill();
+    // field bands
+    for(var i=0;i<7;i++){
+      var y0 = horizon*0.86 + i*((H-horizon*0.86)/7);
+      ctx.fillStyle = i%2 ? rgba(C.mid,0.75) : rgba(C.near,0.6);
+      ctx.fillRect(0,y0,W,(H-horizon*0.86)/7+1);
+    }
+    // meetinghouse
+    var mx = W*0.32, mw = W*0.17, mh = H*0.2;
+    var base = horizon*1.02;
+    ctx.fillStyle = C.town;
+    ctx.fillRect(mx, base-mh, mw, mh);
+    ctx.beginPath(); ctx.moveTo(mx-6,base-mh); ctx.lineTo(mx+mw/2,base-mh-26); ctx.lineTo(mx+mw+6,base-mh); ctx.closePath(); ctx.fill();
+    ctx.fillRect(mx+mw*0.42, base-mh-70, mw*0.16, 46);
+    ctx.beginPath(); ctx.moveTo(mx+mw*0.36,base-mh-70); ctx.lineTo(mx+mw*0.5,base-mh-96); ctx.lineTo(mx+mw*0.64,base-mh-70); ctx.closePath(); ctx.fill();
+    drawTrees(ctx,W,base+6,32,rng,20,rgba(C.near,0.9),30);
+  }
+  else if(kind==='factory'){
+    drawSun(ctx,C,W,H,horizon);
+    ridgePath(ctx,W,H,horizon*0.55,horizon*0.26,rng,seed*0.2);
+    ctx.fillStyle = rgba(C.far,0.85); ctx.fill();
+    var base = H*0.82;
+    // sheds
+    ctx.fillStyle = C.town;
+    for(var b=0;b<7;b++){
+      var bx = b*(W/7), bw = W/7 - 8, bh = H*0.16 + rng()*H*0.12;
+      ctx.fillRect(bx, base-bh, bw, bh);
+      ctx.beginPath(); ctx.moveTo(bx-4,base-bh); ctx.lineTo(bx+bw*0.5,base-bh-22); ctx.lineTo(bx+bw+4,base-bh); ctx.closePath(); ctx.fill();
+    }
+    // chimneys
+    for(var c=0;c<3;c++){
+      var cx = W*(0.12+c*0.3), cw = 14+rng()*10, ch = H*(0.34+rng()*0.14);
+      ctx.fillRect(cx, base-ch, cw, ch);
+    }
+    // gantry
+    ctx.strokeStyle = rgba(C.near,0.9); ctx.lineWidth = 4;
+    for(var k=0;k<5;k++){
+      var kx = k*(W/4);
+      ctx.beginPath(); ctx.moveTo(kx,base+10); ctx.lineTo(kx+40, base-H*0.24); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(kx,base-H*0.24); ctx.lineTo(kx+40,base+10); ctx.stroke();
+    }
+    drawWater(ctx,W,H,base+10,C,rng);
+  }
+  else if(kind==='theatre'){
+    ctx.fillStyle = mix(C.sky1,C.town,0.25); ctx.fillRect(0,0,W,H);
+    var base = H*0.94, tw = W*0.62, tx = (W-tw)/2, th = H*0.72;
+    ctx.fillStyle = mix(C.town, C.far, 0.22);
+    ctx.fillRect(tx, base-th, tw, th);
+    // cornice
+    ctx.fillStyle = mix(C.town, C.sun, 0.25);
+    ctx.fillRect(tx-14, base-th-16, tw+28, 20);
+    // arches
+    ctx.fillStyle = rgba(C.sun,0.5);
+    for(var a=0;a<5;a++){
+      var ax = tx + 34 + a*((tw-68)/4);
+      ctx.beginPath();
+      ctx.moveTo(ax-16, base-40); ctx.lineTo(ax-16, base-th*0.42);
+      ctx.arc(ax, base-th*0.42, 16, Math.PI, 0);
+      ctx.lineTo(ax+16, base-40); ctx.closePath(); ctx.fill();
+    }
+    // marquee
+    ctx.fillStyle = mix(C.sun, C.town, 0.15);
+    ctx.fillRect(tx-26, base-th*0.62, tw+52, 30);
+    // vertical sign
+    ctx.fillStyle = C.town;
+    ctx.fillRect(W*0.84, base-th*0.98, 44, th*0.62);
+    ctx.fillStyle = rgba(C.sun,0.75);
+    for(var v=0;v<6;v++) ctx.fillRect(W*0.85, base-th*0.92+v*22, 24, 12);
+    drawWater(ctx,W,H,base+6,C,rng);
+  }
+  else if(kind==='park'){
+    drawSun(ctx,C,W,H,horizon);
+    ridgePath(ctx,W,H,horizon*0.6,horizon*0.26,rng,seed*0.35);
+    ctx.fillStyle = rgba(C.far,0.8); ctx.fill();
+    // lawn
+    ctx.fillStyle = C.mid; ctx.fillRect(0,horizon*0.92,W,H-horizon*0.92);
+    // pond
+    drawWater(ctx,W,H,horizon*1.16,C,rng);
+    // path
+    ctx.fillStyle = rgba(C.sky2,0.55);
+    ctx.beginPath();
+    ctx.moveTo(W*0.42,H); ctx.quadraticCurveTo(W*0.52,horizon*1.2,W*0.62,horizon*0.98);
+    ctx.lineTo(W*0.72,horizon*0.98); ctx.quadraticCurveTo(W*0.6,H*1.2,W*0.52,H);
+    ctx.closePath(); ctx.fill();
+    drawTrees(ctx,W,horizon*1.0,34,rng,34,C.near,42);
+    drawTrees(ctx,W,horizon*0.94,18,rng,46,rgba(C.near,0.85),24);
+  }
+  else if(kind==='winter'){
+    drawSun(ctx,C,W,H,horizon*0.8);
+    ridgePath(ctx,W,H,horizon*0.6,horizon*0.3,rng,seed*0.4);
+    ctx.fillStyle = rgba(C.far,0.9); ctx.fill();
+    ridgePath(ctx,W,H,horizon*0.82,horizon*0.22,rng,seed*1.1);
+    ctx.fillStyle = rgba(C.mid,0.85); ctx.fill();
+    // snow caps
+    ridgePath(ctx,W,H,horizon*0.62,horizon*0.3,rng,seed*0.4);
+    ctx.fillStyle = rgba(C.sky2,0.55); ctx.fill();
+    drawWater(ctx,W,H,H*0.8,C,rng);
+    ctx.fillStyle = rgba(C.sky2,0.6);
+    for(var s=0;s<24;s++) ctx.fillRect(rng()*W, H*0.82+rng()*H*0.16, 26+rng()*90, 2);
+    drawTrees(ctx,W,H*0.84,22,rng,30,rgba(C.near,0.75),22);
+  }
+  else { // default
+    drawSun(ctx,C,W,H,horizon);
+    ridgePath(ctx,W,H,horizon*0.7,horizon*0.28,rng,seed*0.4);
+    ctx.fillStyle = C.mid; ctx.fill();
+    drawWater(ctx,W,H,H*0.82,C,rng);
+  }
+
+  // scanline / atmosphere
+  ctx.fillStyle = 'rgba(255,255,255,0.035)';
+  for(var y=0;y<H;y+=4) ctx.fillRect(0,y,W,1);
+}
+
+/* ============================================================
+   3. Dither engine — 4×4 ordered Bayer
+   ============================================================ */
+var BAYER = [
+  [ 0, 8, 2,10],
+  [12, 4,14, 6],
+  [ 3,11, 1, 9],
+  [15, 7,13, 5]
+];
+function applyDither(cv, paletteHex, spread){
+  var ctx = cv.getContext('2d');
+  var W = cv.width, H = cv.height;
+  var img = ctx.getImageData(0,0,W,H);
+  var d = img.data;
+  var pal = paletteHex.map(hexToRgb);
+  var n = pal.length;
+  var thr = (spread||0.9)*38;
+
+  for(var y=0;y<H;y++){
+    var row = BAYER[y & 3];
+    for(var x=0;x<W;x++){
+      var i = (y*W + x) * 4;
+      var off = (row[x & 3]/16 - 0.47) * thr;
+      var r = d[i] + off, g = d[i+1] + off, b = d[i+2] + off;
+      var best = 0, bestD = Infinity;
+      for(var p=0;p<n;p++){
+        var dr = r - pal[p][0], dg = g - pal[p][1], db = b - pal[p][2];
+        var dist = dr*dr*0.3 + dg*dg*0.59 + db*db*0.11;
+        if(dist < bestD){ bestD = dist; best = p; }
+      }
+      d[i]   = pal[best][0];
+      d[i+1] = pal[best][1];
+      d[i+2] = pal[best][2];
+    }
+  }
+  ctx.putImageData(img,0,0);
+}
+
+function paintScene(cv){
+  if(!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
+  var C = sceneColors();
+  drawScene(ctx, cv.width, cv.height, cv.dataset.scene || 'hills', parseInt(cv.dataset.seed||'1',10), C);
+  if(cv._dither){
+    applyDither(cv, DITHER_PALETTES[state.theme] || DITHER_PALETTES.aero, 0.9);
+  }
+}
+function repaintAllScenes(){
+  $$('canvas[data-scene]').forEach(paintScene);
+}
+
+// per-image dither toggles
+$$('[data-dither-single]').forEach(function(btn){
+  if(!state.dither){ btn.dataset.on='0'; btn.textContent='DITHER: OFF'; }
+  btn.addEventListener('click', function(){
+    var sel = btn.dataset.target;
+    var targets = sel ? $$(sel) : [btn.parentNode.querySelector('canvas[data-scene]')];
+    var on = btn.dataset.on !== '1';
+    btn.dataset.on = on ? '1' : '0';
+    btn.textContent = 'DITHER: ' + (on ? 'ON' : 'OFF');
+    targets.forEach(function(cv){
+      if(!cv) return;
+      cv._dither = on;
+      paintScene(cv);
+    });
+    toast(on ? 'DITHER LAYER APPLIED / ORDERED 4×4' : 'CRISP RENDER RESTORED');
+  });
+});
+
+/* ============================================================
+   4. Clock + status
+   ============================================================ */
+function tickClock(){
+  var t = stamp();
+  $('#clock').textContent = t;
+  var gc = $('#glassClock'); if(gc) gc.textContent = t;
+}
+tickClock(); setInterval(tickClock, 20000);
+
+/* ============================================================
+   5. Service routing
+   ============================================================ */
+var DAYS = {
+  Mon:{w:'MON', note:'ROUTE WINDOW: 6:00 AM – 7:00 PM · CARTS CURBSIDE BY 6:00 AM<br>RECYCLING: SAME DAY, ALTERNATING WEEKS · YARD WASTE: SEASONAL'},
+  Tue:{w:'TUE', note:'ROUTE WINDOW: 6:00 AM – 7:00 PM · CARTS CURBSIDE BY 6:00 AM<br>RECYCLING: SAME DAY, ALTERNATING WEEKS · YARD WASTE: SEASONAL'},
+  Wed:{w:'WED', note:'ROUTE WINDOW: 6:00 AM – 7:00 PM · CARTS CURBSIDE BY 6:00 AM<br>RECYCLING: SAME DAY, ALTERNATING WEEKS · YARD WASTE: SEASONAL'},
+  Thu:{w:'THU', note:'ROUTE WINDOW: 6:00 AM – 7:00 PM · CARTS CURBSIDE BY 6:00 AM<br>RECYCLING: SAME DAY, ALTERNATING WEEKS · YARD WASTE: SEASONAL'},
+  Fri:{w:'FRI', note:'ROUTE WINDOW: 6:00 AM – 7:00 PM · CARTS CURBSIDE BY 6:00 AM<br>BULK ITEMS: SCHEDULED PICKUP ONLY · YARD WASTE: SEASONAL'},
+  Sat:{w:'SAT', note:'LIMITED ROUTE / MAKE-UP DAY ONLY<br>CALL 311 TO CONFIRM WHETHER YOUR STREET RUNS ON SATURDAY'},
+  Sun:{w:'SUN', note:'NO COLLECTION<br>OFFICES CLOSED · EMERGENCIES: 911 · NON-EMERGENCY: 311'}
+};
+$$('[data-day]').forEach(function(b){
+  b.addEventListener('click', function(){
+    $$('[data-day]').forEach(function(o){o.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true');
+    var d = DAYS[b.dataset.day];
+    $('#schedOut').innerHTML =
+      d.w + ' / ' + d.note + '<br><span class="warn">SCHEDULE PENDING VERIFICATION AT 311</span>';
+  });
+});
+
+$$('[data-open]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var panel = document.getElementById(b.dataset.open);
+    if(!panel) return;
+    var open = panel.classList.toggle('is-open');
+    b.textContent = open ? 'Hide full schedule ↑' : 'View full schedule →';
+  });
+});
+$$('[data-scroll]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var el = document.getElementById(b.dataset.scroll);
+    if(el) el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+  });
+});
+$$('[data-print]').forEach(function(b){
+  b.addEventListener('click', function(){ window.print(); });
+});
+$$('[data-focus]').forEach(function(a){
+  a.addEventListener('click', function(){
+    var t = $('#svc-' + a.dataset.focus);
+    if(!t) return;
+    setTimeout(function(){
+      t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'});
+      t.style.background = 'color-mix(in srgb, var(--signal) 10%, transparent)';
+      setTimeout(function(){ t.style.background = ''; }, 1400);
+    }, 220);
+  });
+});
+
+// report form
+$('#reportForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var f = e.target;
+  var ref = 'PS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random()*8999);
+  var saved = JSON.parse(localStorage.getItem('ps.reports') || '[]');
+  saved.push({ref:ref, where:f.where.value, kind:f.kind.value, at:new Date().toISOString()});
+  localStorage.setItem('ps.reports', JSON.stringify(saved));
+  $('#reportOut').innerHTML =
+    'REQUEST QUEUED / REF #' + ref + '<br>' +
+    (f.kind.value || 'ISSUE').toUpperCase() + ' AT ' + (f.where.value || '—').toUpperCase() + '<br>' +
+    'A 311 OPERATOR WILL CONFIRM THIS TICKET. STORED IN THIS BROWSER FOR THIS BUILD.' +
+    '<span class="warn">FOR LIVE DISPATCH, CALL 311</span>';
+  toast('REQUEST FILED / REF #' + ref);
+  f.reset();
+});
+
+/* ============================================================
+   6. Community board
+   ============================================================ */
+var DEFAULT_THREADS = [
+  {
+    id:'t1', title:'What is everyone reading this month?', who:'P. A.', replies:12, when:'today 09:14',
+    tags:['pin'], posts:[
+      {who:'P. A.', when:'MON 09:14', body:'Starting a thread for the Athenaeum crowd. I just finished a Melville re-read and I want something short.'},
+      {who:'R. C.', when:'MON 11:02', body:'There is a good Berkshire anthology on the new-arrivals shelf. Also, the winter reading list goes up this week.'},
+      {who:'M. K.', when:'TUE 08:40', body:'Bringing this to the board meeting room on Thursday if anyone wants to join.'}
+    ]
+  },
+  {
+    id:'t2', title:'Best coffee before an early shift?', who:'J. L.', replies:8, when:'today 08:02',
+    tags:[], posts:[
+      {who:'J. L.', when:'TODAY 07:41', body:'Anywhere open before 6 near North Street that is not a drive-through?'},
+      {who:'S. D.', when:'TODAY 08:02', body:'The place by the old depot opens at 5:30 most weekdays. Bring cash.'}
+    ]
+  },
+  {
+    id:'t3', title:'Garbage pickup changed this week?', who:'R. C.', replies:24, when:'today 07:55',
+    tags:['official'], posts:[
+      {who:'R. C.', when:'TODAY 07:12', body:'Nobody came down our street yesterday. Is the holiday shift real or did we get skipped?'},
+      {who:'TOWN SERVICES', when:'TODAY 07:55', body:'Holiday weeks shift the route by one day. If your cart was out by 6:00 AM and nothing came, file a missed pickup at 311 and we will loop the crew back.'}
+    ]
+  },
+  {
+    id:'t4', title:'Fourth of July parade route', who:'K. P.', replies:31, when:'yesterday 19:20',
+    tags:[], posts:[
+      {who:'K. P.', when:'YESTERDAY 16:44', body:'Does anyone know whether the route still ends at the Common this year?'},
+      {who:'B. S.', when:'YESTERDAY 19:20', body:'It did last year. Volunteer sign-up is at the Parks & Rec desk.'}
+    ]
+  },
+  {
+    id:'t5', title:'Looking for a lost cat near Onota Lake', who:'D. M.', replies:5, when:'yesterday 12:06',
+    tags:['new'], posts:[
+      {who:'D. M.', when:'YESTERDAY 11:20', body:'Gray tabby, answers to nothing, slipped out near the boat ramp Tuesday night.'},
+      {who:'L. F.', when:'YESTERDAY 12:06', body:'Saw a gray tabby on the lake road this morning. Posting on the neighborhood list too.'}
+    ]
+  }
+];
+
+function loadThreads(){
+  try{
+    var raw = localStorage.getItem('ps.threads');
+    return raw ? JSON.parse(raw) : DEFAULT_THREADS.slice();
+  }catch(e){ return DEFAULT_THREADS.slice(); }
+}
+function saveThreads(){
+  localStorage.setItem('ps.threads', JSON.stringify(threads));
+}
+var threads = loadThreads();
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function renderThreads(){
+  var list = $('#threadList');
+  list.innerHTML = '';
+  threads.forEach(function(t, idx){
+    var row = document.createElement('button');
+    row.className = 'thread-row';
+    row.type = 'button';
+    row.dataset.search = (t.title + ' ' + t.who + ' ' + (t.posts[0] ? t.posts[0].body : '')).toLowerCase();
+    var tags = (t.tags||[]).map(function(x){
+      var label = x === 'official' ? 'OFFICIAL' : x === 'pin' ? 'PINNED' : 'NEW';
+      return '<span class="tag '+x+'">'+label+'</span>';
+    }).join('');
+    row.innerHTML =
+      '<span class="th-title">'+esc(t.title)+tags+'</span>'+
+      '<span class="th-name">'+esc(t.who)+'</span>'+
+      '<span class="th-count">'+(t.replies||0)+'</span>'+
+      '<span class="th-time">'+esc(t.when||'—')+'</span>'+
+      '<span class="th-go">→</span>';
+    row.addEventListener('click', function(){ openThread(idx, row); });
+    list.appendChild(row);
+  });
+  $('#threadCount').textContent = threads.length;
+  $('#statThreads').textContent = threads.length;
+  $('#lastActivity').textContent = threads.length ? threads[0].when : '—';
+}
+function openThread(idx, row){
+  var t = threads[idx];
+  var panel = $('#threadDetail');
+  var posts = (t.posts||[]).map(function(p){
+    return '<div class="post"><div class="meta">'+esc(p.who)+' / '+esc(p.when)+'</div><p>'+esc(p.body)+'</p></div>';
+  }).join('');
+  panel.innerHTML =
+    '<h3 style="font-family:var(--font-display);font-size:26px;margin-bottom:16px">'+esc(t.title)+'</h3>'+
+    posts+
+    '<form class="field" data-reply="'+idx+'">'+
+      '<input type="text" name="who" placeholder="YOUR NAME OR INITIALS" required aria-label="Your name or initials">'+
+      '<textarea name="body" placeholder="WRITE A REPLY" required aria-label="Your reply"></textarea>'+
+      '<button class="btn btn-deep btn-sm" type="submit">Post reply</button>'+
+      '<button class="btn btn-sm btn-ghost" type="button" data-close-detail>Close topic</button>'+
+    '</form>';
+  panel.classList.add('is-open');
+
+  panel.querySelector('[data-close-detail]').addEventListener('click', function(){
+    panel.classList.remove('is-open');
+    panel.innerHTML = '';
+  });
+  panel.querySelector('form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = e.target;
+    t.posts = t.posts || [];
+    t.posts.push({who:f.who.value || 'NEIGHBOR', when:stamp()+' TODAY', body:f.body.value});
+    t.replies = (t.replies||0) + 1;
+    t.when = 'today ' + stamp();
+    saveThreads(); renderThreads(); openThread(idx, row);
+    toast('REPLY POSTED / THANK YOU FOR STAYING CIVIL');
+    $('#liveRegion').textContent = 'Your reply was posted to ' + t.title;
+  });
+}
+renderThreads();
+
+$('#postForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var f = e.target;
+  threads.unshift({
+    id:'t'+Date.now(), title:f.title.value, who:f.who.value, replies:0,
+    when:'today '+stamp(), tags:['new'],
+    posts:[{who:f.who.value, when:stamp()+' TODAY', body:f.body.value}]
+  });
+  saveThreads(); renderThreads(); f.reset();
+  toast('TOPIC POSTED TO THE COMMUNITY BOARD');
+  $('#liveRegion').textContent = 'New topic posted to the community board.';
+  $('#forum').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+});
+
+/* ============================================================
+   7. Town Square presence (simulated local session)
+   ============================================================ */
+var PEOPLE = [
+  ['A.R.','North Street'],['M.K.','West Housatonic'],['J.L.','Pontoosuc'],['S.D.','Morningside'],
+  ['T.W.','Allendale'],['R.C.','Tyler Street'],['D.M.','Columbus Avenue'],['K.P.','Dalton Avenue'],
+  ['B.S.','Onota Lake'],['N.G.','Stearns Square'],['L.F.','Woodlawn'],['P.A.','Williams Street'],
+  ['H.T.','Commonwealth Ave'],['C.B.','Morningside'],['E.V.','Silver Lake'],['G.N.','Berkshire Hills'],
+  ['V.O.','Onota Street'],['F.M.','Cheshire Road'],['W.H.','West Street'],['I.K.','Pecks Road'],
+  ['O.T.','New West Street'],['S.B.','Elm Street'],['Y.P.','Hancock Road'],['Z.A.','Yale Street']
+];
+var AV_COLORS = ['#0b5364','#3c7f6c','#c25a3c','#6b4d8f','#2f6b4f','#8a5a2b','#2b5a8f','#7d3f6b'];
+var COLORS_BY_NAME = {};
+PEOPLE.forEach(function(p,i){ COLORS_BY_NAME[p[0]] = AV_COLORS[i % AV_COLORS.length]; });
+
+var active = [];
+var strip = $('#presenceStrip');
+var grid = $('#visitorGrid');
+var more = $('#presenceMore');
+var eventLog = $('#eventLog');
+var MAX_VISIBLE = 26;
+
+function avatarEl(id){
+  var el = document.createElement('div');
+  el.className = 'av';
+  el.style.background = COLORS_BY_NAME[id] || '#0b5364';
+  el.textContent = id;
+  el.setAttribute('role','listitem');
+  el.title = id + ' / ' + (PEOPLE.filter(function(p){return p[0]===id;})[0]||['','unknown'])[1];
+  return el;
+}
+function renderPresence(entering){
+  strip.innerHTML = '';
+  grid.innerHTML = '';
+  active.slice(0, MAX_VISIBLE).forEach(function(p, i){
+    var a = avatarEl(p[0]);
+    if(entering && i === active.length-1 && !reduce) a.classList.add('enter');
+    strip.appendChild(a);
+
+    var card = document.createElement('div');
+    card.className = 'visitor';
+    card.setAttribute('role','listitem');
+    var a2 = avatarEl(p[0]);
+    card.appendChild(a2);
+    var txt = document.createElement('div');
+    txt.innerHTML = '<div class="n">'+esc(p[0])+'</div><div class="h">'+esc(p[1].toUpperCase())+'</div>';
+    card.appendChild(txt);
+    grid.appendChild(card);
+  });
+  var extra = active.length - MAX_VISIBLE;
+  more.textContent = extra > 0 ? '+' + extra + ' NEIGHBORS' : '';
+  $('#sqCount').textContent = active.length;
+  $('#statVisitors').textContent = active.length;
+  $('#glassVisitors').textContent = active.length + ' VISITORS NOW';
+}
+function logEvent(text){
+  var li = document.createElement('li');
+  li.innerHTML = '<span class="t">'+stamp()+'</span> ' + esc(text);
+  eventLog.insertBefore(li, eventLog.firstChild);
+  while(eventLog.children.length > 14) eventLog.removeChild(eventLog.lastChild);
+}
+function announce(msg){ $('#liveRegion').textContent = msg; }
+
+var TOPICS = [
+  'What is everyone reading this month?',
+  'Best coffee before an early shift?',
+  'Garbage pickup changed this week?',
+  'Fourth of July parade route',
+  'Looking for a lost cat near Onota Lake'
+];
+function renderTopics(){
+  var t = $('#topicLog');
+  t.innerHTML = '';
+  TOPICS.slice(0,5).forEach(function(x,i){
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="t">'+(i+1<10?'0'+(i+1):i+1)+'</span> ' + esc(x);
+    t.appendChild(li);
+  });
+}
+renderTopics();
+
+function bootSquare(){
+  setTimeout(function(){
+    $('#handshake').classList.add('hide');
+    for(var i=0;i<7;i++){
+      active.push(PEOPLE[i].slice());
+    }
+    renderPresence(false);
+    logEvent('HANDSHAKE COMPLETE / TOWN SQUARE OPEN');
+    logEvent('SEVEN NEIGHBORS ARRIVED AT PARK SQUARE');
+    announce('Town Square is live. ' + active.length + ' neighbors are present.');
+  }, reduce ? 60 : 1150);
+
+  // live drift
+  setInterval(function(){
+    if(!active.length) return;
+    var adding = Math.random() > 0.42;
+    if(adding && active.length < 22){
+      var pool = PEOPLE.filter(function(p){
+        return !active.some(function(a){ return a[0]===p[0]; });
+      });
+      if(pool.length){
+        var pick = pool[Math.floor(Math.random()*pool.length)].slice();
+        active.push(pick);
+        renderPresence(true);
+        logEvent(pick[0] + ' ENTERED PARK SQUARE FROM ' + pick[1].toUpperCase());
+        announce(pick[0] + ' joined the Town Square.');
+        var dot = $('#sqDot');
+        dot.style.transform = 'scale(1.6)';
+        setTimeout(function(){ dot.style.transform=''; }, 220);
+      }
+    } else if(active.length > 4){
+      var gone = active.splice(Math.floor(Math.random()*active.length),1)[0];
+      renderPresence(false);
+      logEvent(gone[0] + ' LEFT THE SQUARE');
+      announce(gone[0] + ' left the Town Square.');
+    }
+  }, 5200);
+
+  // ambient activity lines
+  var AMBIENT = [
+    'TOWN HALL CLOCK RESPONDED TO 311',
+    'A NEIGHBOR OPENED THE PARKS & RECREATION ROUTE',
+    'ROAD ADVISORY UPDATED',
+    'A NEIGHBOR JOINED FROM DOWNTOWN PITTSFIELD',
+    'BOARD THREAD: "FOURTH OF JULY PARADE ROUTE" GOT A REPLY',
+    'SNOW EMERGENCY STATUS CHECKED'
+  ];
+  setInterval(function(){
+    logEvent(AMBIENT[Math.floor(Math.random()*AMBIENT.length)]);
+  }, 8600);
+}
+bootSquare();
+
+function toggleSquare(){
+  var stage = $('#squareStage');
+  var open = stage.classList.toggle('is-open');
+  $('#toggleSquareLabel').textContent = open ? 'Close Town Square view' : 'Open the Town Square';
+  $('#openSquare').querySelector('span') && null;
+}
+$('#toggleSquare').addEventListener('click', toggleSquare);
+$('#openSquare').addEventListener('click', function(){
+  $('#square').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+  if(!$('#squareStage').classList.contains('is-open')) toggleSquare();
+  setTimeout(function(){
+    logEvent('A NEIGHBOR OPENED THE TOWN SQUARE FROM THE HOMEPAGE');
+  }, 700);
+});
+
+/* ============================================================
+   8. Search filter
+   ============================================================ */
+function runSearch(){
+  var q = $('#q').value.trim().toLowerCase();
+  var hits = 0;
+  $$('[data-search]').forEach(function(el){
+    var hay = el.dataset.search + ' ' + el.textContent.toLowerCase();
+    var match = !q || hay.indexOf(q) !== -1;
+    el.classList.toggle('is-hidden', !match);
+    if(match && q) hits++;
+  });
+  if(q) toast(hits ? hits + ' MATCHES FOR “' + q + '”' : 'NO MATCHES FOR “' + q + '”');
+}
+('#q').addEventListener('input', function(){
+  var q = $('#q').value.trim().toLowerCase();
+  if(!q){
+    $$$$('[data-search]').forEach(function(el){ el.classList.remove('is-hidden'); });
+    return;
+  }
+  $$('[data-search]').forEach(function(el){
+    var hay = el.dataset.search + ' ' + el.textContent.toLowerCase();
+    el.classList.toggle('is-hidden', hay.indexOf(q) === -1);
+  });
+});
+('#qBtn').addEventListener('click', runSearch);
+$('#q').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); runSearch(); }});
+
+/* ============================================================
+   9. Boot / reveal / painting
+   ============================================================ */
+function bootPaint(){
+  var scenes = $$$$('canvas[data-scene]');
+  scenes.forEach(function(cv){ cv._dither = state.dither; });
+  scenes.forEach(function(cv, i){
+    setTimeout(function(){ paintScene(cv); }, reduce ? 0 : i*70);
+  });
+}
+
+// reveal
+if('IntersectionObserver' in window && !reduce){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:.12});
+  $$('.reveal').forEach(function(el){ io.observe(el); });
+} else {
+  $$('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+
+// global dither toggle button in footer colophon region (keyboard shortcut D)
+document.addEventListener('keydown', function(e){
+  if(e.target.matches('input,textarea,select')) return;
+  if(e.key === 'd' || e.key === 'D'){
+    state.dither = !state.dither;
+    localStorage.setItem('ps.dither', state.dither ? '1' : '0');
+    $$('[data-dither-single]').forEach(function(b){
+      b.dataset.on = state.dither ? '1' : '0';
+      b.textContent = 'DITHER: ' + (state.dither ? 'ON' : 'OFF');
+    });
+    $$('canvas[data-scene]').forEach(function(cv){ cv._dither = state.dither; });
+    repaintAllScenes();
+    toast(state.dither ? 'GLOBAL DITHER LAYER ON / 4×4 ORDERED' : 'GLOBAL DITHER LAYER OFF / CRISP');
+  }
+});
+
+// init
+applyTheme(state.theme, false);
+bootPaint();
+
+// resize safety: repaint on breakpoint changes
+var rt;
+window.addEventListener('resize', function(){
+  clearTimeout(rt);
+  rt = setTimeout(repaintAllScenes, 260);
+});
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aero">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~*~ Welcome to Pittsfield, MA On-Line! ~*~ | The OFFICIAL Digital Home of the Heart of the Berkshires</title>
+<style>
+/* ============================================================
+   PITTSFIELD-ON-LINE  ::  theme system
+   5 user-selectable skins via CSS custom properties
+   ============================================================ */
+
+/* ---------- THEME 1: Berkshire Aero (Frutiger Aero default) ---------- */
+:root, html[data-theme="aero"] {
+  --font-head: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+  --font-body: Verdana, "Segoe UI", Tahoma, sans-serif;
+  --bg: #7ec8e8;
+  --bg2: #3d9bc4;
+  --texture-tint: rgba(255,255,255,0.55);
+  --panel-bg: linear-gradient(180deg, rgba(255,255,255,.92), rgba(214,240,252,.88));
+  --panel-border: #ffffff;
+  --panel-shadow: 0 4px 18px rgba(0,60,110,.35), inset 0 1px 0 #ffffff;
+  --panel-text: #0b3a54;
+  --titlebar-bg: linear-gradient(180deg, #e8f8ff 0%, #8ed3f0 45%, #3fa8d4 55%, #1f7fb0 100%);
+  --titlebar-text: #053048;
+  --header-bg: linear-gradient(180deg, #d6f2ff 0%, #7ecbf0 30%, #2f96c9 60%, #16688f 100%);
+  --link: #0a5fa8;
+  --link-visited: #6a3d9a;
+  --accent: #2ecc71;
+  --accent2: #f5b800;
+  --btn-bg: linear-gradient(180deg, #ffffff 0%, #bfe8fb 50%, #7cc8ef 100%);
+  --btn-text: #06405f;
+  --radius: 14px;
+  --gloss: .55;
+  --bubble-opacity: 1;
+  --marquee-bg: #0a4d73;
+  --marquee-text: #eaffff;
+  --square-ground: linear-gradient(180deg, #a8e6a1 0%, #5cb85c 100%);
+  --square-sky: linear-gradient(180deg, #bfe9ff, #e8f9ff);
+}
+/* ---------- THEME 2: GE Industrial (gray + safety orange) ---------- */
+html[data-theme="steel"] {
+  --font-head: "Arial Black", Arial, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+  --bg: #3d3d3f;
+  --bg2: #232324;
+  --texture-tint: rgba(255,255,255,0.10);
+  --panel-bg: linear-gradient(180deg, #58585c, #434346);
+  --panel-border: #757578;
+  --panel-shadow: 0 3px 0 #1a1a1b, 0 6px 14px rgba(0,0,0,.5);
+  --panel-text: #f0f0f0;
+  --titlebar-bg: linear-gradient(180deg, #9a9aa0 0%, #626267 50%, #3f3f43 100%);
+  --titlebar-text: #ffe9d6;
+  --header-bg: linear-gradient(180deg, #6f6f75 0%, #4a4a4e 60%, #333337 100%);
+  --link: #ffb26b;
+  --link-visited: #c98b52;
+  --accent: #ff6a00;
+  --accent2: #ffd23f;
+  --btn-bg: linear-gradient(180deg, #8b8b90 0%, #5d5d62 55%, #444448 100%);
+  --btn-text: #ffffff;
+  --radius: 4px;
+  --gloss: .18;
+  --bubble-opacity: 0;
+  --marquee-bg: #1c1c1e;
+  --marquee-text: #ff8c1a;
+  --square-ground: linear-gradient(180deg, #6e6e73, #49494d);
+  --square-sky: linear-gradient(180deg, #8b8b92, #c9c9cf);
+}
+/* ---------- THEME 3: Berkshire Autumn (foliage) ---------- */
+html[data-theme="foliage"] {
+  --font-head: Georgia, "Times New Roman", serif;
+  --font-body: "Trebuchet MS", Verdana, sans-serif;
+  --bg: #d98e32;
+  --bg2: #8c3b12;
+  --texture-tint: rgba(255,240,210,0.4);
+  --panel-bg: linear-gradient(180deg, #fff7e6, #ffe2b0);
+  --panel-border: #ffd98f;
+  --panel-shadow: 0 4px 16px rgba(90,30,0,.4), inset 0 1px 0 #fffbe9;
+  --panel-text: #4a1d05;
+  --titlebar-bg: linear-gradient(180deg, #ffe9b8 0%, #f0a840 45%, #c05f12 55%, #8c3b12 100%);
+  --titlebar-text: #431a00;
+  --header-bg: linear-gradient(180deg, #ffdca1 0%, #e88f2f 40%, #a84a10 100%);
+  --link: #a33c00;
+  --link-visited: #6d4aa0;
+  --accent: #b3401a;
+  --accent2: #e8c832;
+  --btn-bg: linear-gradient(180deg, #fff3d0 0%, #f2b45a 55%, #d07a1e 100%);
+  --btn-text: #4a1d05;
+  --radius: 10px;
+  --gloss: .45;
+  --bubble-opacity: .35;
+  --marquee-bg: #5c2205;
+  --marquee-text: #ffe9b8;
+  --square-ground: linear-gradient(180deg, #c98f3d, #8c5a1d);
+  --square-sky: linear-gradient(180deg, #ffdf9e, #fff3d6);
+}
+/* ---------- THEME 4: Hoosac Midnight (dark tunnel vibes) ---------- */
+html[data-theme="hoosac"] {
+  --font-head: "Courier New", monospace;
+  --font-body: "Lucida Console", "Courier New", monospace;
+  --bg: #0e0a24;
+  --bg2: #05030f;
+  --texture-tint: rgba(150,120,255,0.08);
+  --panel-bg: linear-gradient(180deg, #231a4a, #170f33);
+  --panel-border: #4a3a8c;
+  --panel-shadow: 0 0 18px rgba(120,80,255,.35), inset 0 1px 0 rgba(200,170,255,.25);
+  --panel-text: #d8ccff;
+  --titlebar-bg: linear-gradient(180deg, #5a3fb0 0%, #37206e 50%, #1d0f42 100%);
+  --titlebar-text: #e6dcff;
+  --header-bg: linear-gradient(180deg, #3b2a7d 0%, #22144e 55%, #12082e 100%);
+  --link: #8ef0ff;
+  --link-visited: #c08eff;
+  --accent: #00e5c0;
+  --accent2: #ff5ad0;
+  --btn-bg: linear-gradient(180deg, #4a3590 0%, #2b1c5e 60%, #1a0f3e 100%);
+  --btn-text: #d8f6ff;
+  --radius: 8px;
+  --gloss: .22;
+  --bubble-opacity: .5;
+  --marquee-bg: #08041a;
+  --marquee-text: #00ffd8;
+  --square-ground: linear-gradient(180deg, #2b1c5e, #12082e);
+  --square-sky: linear-gradient(180deg, #1a0f3e, #3b2a7d);
+}
+/* ---------- THEME 5: Classic '96 (old school gray web) ---------- */
+html[data-theme="classic"] {
+  --font-head: "Times New Roman", Times, serif;
+  --font-body: "Times New Roman", Times, serif;
+  --bg: #c0c0c0;
+  --bg2: #a8a8a8;
+  --texture-tint: rgba(255,255,255,0.25);
+  --panel-bg: #ffffff;
+  --panel-border: #808080;
+  --panel-shadow: none;
+  --panel-text: #000000;
+  --titlebar-bg: #000080;
+  --titlebar-text: #ffffff;
+  --header-bg: #c0c0c0;
+  --link: #0000ee;
+  --link-visited: #551a8b;
+  --accent: #000080;
+  --accent2: #ff0000;
+  --btn-bg: #c0c0c0;
+  --btn-text: #000000;
+  --radius: 0px;
+  --gloss: 0;
+  --bubble-opacity: 0;
+  --marquee-bg: #ffffcc;
+  --marquee-text: #000000;
+  --square-ground: #90c090;
+  --square-sky: #b0d8ff;
+}
+
+/* ============================================================
+   LAYOUT & EARLY-WEB CHROME
+   ============================================================ */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--panel-text);
+  background:
+    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%) fixed;
+  position: relative;
+  min-height: 100vh;
+}
+/* procedural noise texture over everything */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: .5;
+  mix-blend-mode: overlay;
+}
+/* frutiger aero bubbles layer */
+.bubbles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; opacity: var(--bubble-opacity); }
+.bubble {
+  position: absolute; bottom: -120px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.15) 60%, rgba(255,255,255,0));
+  border: 1px solid rgba(255,255,255,.5);
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  to { transform: translateY(-115vh) translateX(3vw); }
+}
+
+#pagewrap { position: relative; z-index: 1; max-width: 1020px; margin: 0 auto; padding: 10px; }
+
+/* ------- header banner ------- */
+header {
+  background: var(--header-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--panel-shadow);
+  padding: 18px 20px 14px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::after {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0; height: 46%;
+  background: linear-gradient(180deg, rgba(255,255,255, calc(var(--gloss) + .2)), rgba(255,255,255,0));
+  pointer-events: none;
+  border-radius: inherit;
+}
+header h1 {
+  font-family: var(--font-head);
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: 1px;
+  color: var(--titlebar-text);
+  text-shadow: 0 1px 0 rgba(255,255,255,.6), 0 2px 6px rgba(0,0,0,.25);
+  position: relative;
+}
+header .tagline { font-style: italic; font-size: 13px; position: relative; opacity: .95; color: var(--titlebar-text); }
+.seal {
+  width: 74px; height: 74px; vertical-align: middle; margin-right: 12px;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.3));
+}
+
+/* ------- marquee ------- */
+.marquee {
+  margin: 8px 0;
+  background: var(--marquee-bg);
+  color: var(--marquee-text);
+  border: 2px solid var(--panel-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 5px 0;
+  font-family: var(--font-head);
+  box-shadow: var(--panel-shadow);
+}
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 28s linear infinite;
+}
+@keyframes scroll-left { to { transform: translateX(-100%); } }
+
+/* ------- nav buttons ------- */
+nav {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  margin: 10px 0;
+}
+nav a, .btn {
+  font-family: var(--font-head);
+  font-size: 12px;
+  text-decoration: none;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 6px 13px;
+  cursor: pointer;
+  box-shadow: var(--panel-shadow);
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+nav a::after, .btn::after {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 48%;
+  background: linear-gradient(180deg, rgba(255,255,255,var(--gloss)), rgba(255,255,255,0));
+  pointer-events: none;
+}
+nav a:hover, .btn:hover { filter: brightness(1.12); }
+nav a:active, .btn:active { transform: translateY(1px); }
+
+/* ------- three-column body ------- */
+.cols { display: flex; gap: 10px; align-items: flex-start; }
+.col-left, .col-right { width: 205px; flex-shrink: 0; }
+.col-main { flex: 1; min-width: 0; }
+@media (max-width: 800px) {
+  .cols { flex-direction: column; }
+  .col-left, .col-right { width: 100%; }
+}
+
+/* ------- panel windows ------- */
+.panel {
+  background: var(--panel-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--panel-shadow);
+  margin-bottom: 12px;
+  overflow: hidden;
+  color: var(--panel-text);
+}
+.panel .titlebar {
+  font-family: var(--font-head);
+  font-weight: bold;
+  font-size: 13px;
+  background: var(--titlebar-bg);
+  color: var(--titlebar-text);
+  padding: 5px 10px;
+  border-bottom: 2px solid var(--panel-border);
+  position: relative;
+  text-shadow: 0 1px 0 rgba(255,255,255,.35);
+}
+.panel .titlebar::after {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(180deg, rgba(255,255,255,var(--gloss)), rgba(255,255,255,0));
+  pointer-events: none;
+}
+.panel .body { padding: 9px 11px; position: relative; }
+.panel ul { margin: 4px 0; padding-left: 18px; }
+.panel li { margin: 3px 0; }
+a { color: var(--link); }
+a:visited { color: var(--link-visited); }
+hr { border: 0; border-top: 1px dashed var(--panel-border); margin: 8px 0; }
+.badge {
+  display: inline-block; font-size: 10px; background: var(--accent);
+  color: #fff; border-radius: 8px; padding: 1px 7px; margin-left: 4px;
+  vertical-align: middle;
+}
+html[data-theme="classic"] .badge { border-radius: 0; }
+
+/* ------- town square ------- */
+#square {
+  position: relative;
+  height: 250px;
+  border: 2px inset var(--panel-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--square-sky);
+}
+#square .ground {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 55%;
+  background: var(--square-ground);
+  border-top: 2px solid rgba(0,0,0,.15);
+}
+#square .ground::before {
+  content: "";
+  position: absolute; left: 50%; bottom: 0; width: 90px; height: 100%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.18);
+  clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
+}
+#square .fountain {
+  position: absolute; left: 50%; bottom: 34%; transform: translateX(-50%);
+  font-size: 30px; text-shadow: 0 2px 4px rgba(0,0,0,.3);
+  animation: bob 2.4s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes bob { 0%,100%{ transform: translateX(-50%) translateY(0);} 50%{ transform: translateX(-50%) translateY(-4px);} }
+.citizen {
+  position: absolute;
+  width: 34px; text-align: center;
+  transition: filter .3s;
+  z-index: 2;
+  cursor: default;
+}
+.citizen .avatar {
+  width: 26px; height: 26px; margin: 0 auto;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.85);
+  box-shadow: 0 2px 4px rgba(0,0,0,.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: bold; color: #fff;
+  font-family: var(--font-head);
+}
+.citizen .name {
+  font-size: 9px; background: rgba(0,0,0,.45); color: #fff;
+  border-radius: 6px; padding: 0 4px; display: inline-block; margin-top: 1px;
+  white-space: nowrap;
+}
+.citizen .speech {
+  position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+  background: #fff; color: #111; border: 1px solid #666; border-radius: 8px;
+  font-size: 9px; padding: 2px 6px; white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+}
+#presencebar {
+  font-size: 11px; padding: 4px 8px; font-weight: bold;
+  background: rgba(0,0,0,.12);
+  border-top: 1px solid var(--panel-border);
+}
+.blinkdot { color: var(--accent); animation: blink 1.2s step-start infinite; }
+@keyframes blink { 50% { opacity: .15; } }
+
+/* ------- forum ------- */
+.post {
+  border: 1px solid var(--panel-border);
+  border-radius: calc(var(--radius) * .6);
+  margin-bottom: 8px;
+  background: rgba(255,255,255,.28);
+  overflow: hidden;
+}
+html[data-theme="steel"] .post, html[data-theme="hoosac"] .post { background: rgba(255,255,255,.06); }
+.post .meta {
+  font-size: 10px; padding: 3px 8px; font-weight: bold;
+  background: rgba(0,0,0,.08);
+  border-bottom: 1px solid var(--panel-border);
+}
+.post .msg { padding: 6px 9px; line-height: 1.4; }
+#postform input, #postform textarea, #postform select {
+  font-family: var(--font-body); font-size: 12px;
+  width: 100%; margin: 3px 0; padding: 5px;
+  border: 2px inset var(--panel-border);
+  border-radius: calc(var(--radius) * .5);
+  background: rgba(255,255,255,.85);
+  color: #111;
+}
+#postform textarea { height: 58px; resize: vertical; }
+
+/* ------- vista (dither canvas) ------- */
+#vista {
+  width: 100%; display: block;
+  border: 2px inset var(--panel-border);
+  border-radius: calc(var(--radius) * .6);
+  image-rendering: pixelated;
+  background: #000;
+}
+.vistabtns { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.vistabtns .btn { font-size: 11px; padding: 4px 9px; }
+
+/* ------- counter ------- */
+.counter {
+  font-family: "Courier New", monospace;
+  background: #000; color: #7CFC00;
+  letter-spacing: 3px; font-size: 16px;
+  padding: 3px 10px; display: inline-block;
+  border: 2px inset var(--panel-border);
+  border-radius: 4px;
+}
+#clockbox { font-family: "Courier New", monospace; font-size: 12px; text-align: center; }
+
+/* ------- theme picker ------- */
+#themepicker button {
+  display: block; width: 100%; margin: 4px 0; text-align: left;
+}
+#themepicker button.active { outline: 3px solid var(--accent2); font-weight: bold; }
+.swatch { display: inline-block; width: 34px; height: 11px; border: 1px solid rgba(0,0,0,.4); vertical-align: middle; margin-right: 6px; }
+
+footer {
+  text-align: center; font-size: 11px; margin: 14px 0 30px;
+  opacity: .9;
+}
+footer .webring { margin-top: 6px; }
+.konami {
+  display:none; text-align:center; padding:6px; font-weight:bold;
+  background:#000; color:#0f0; font-family:"Courier New",monospace;
+}
+</style>
+</head>
+<body>
+
+<div class="bubbles" id="bubbles"></div>
+
+<div id="pagewrap">
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <h1>
+      <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="47" fill="#0a5fa8" stroke="#f5b800" stroke-width="4"/>
+        <circle cx="50" cy="50" r="38" fill="#e8f6ff" stroke="#0a5fa8" stroke-width="2"/>
+        <path d="M18 62 Q35 38 50 52 Q65 34 82 62 Z" fill="#2e7d32"/>
+        <path d="M30 62 Q42 46 52 56 Q64 44 74 62 Z" fill="#1b5e20"/>
+        <rect x="46" y="26" width="8" height="20" fill="#8d6e63"/>
+        <circle cx="50" cy="24" r="8" fill="#d32f2f"/>
+        <text x="50" y="82" font-size="10" text-anchor="middle" fill="#0a3d62" font-family="Georgia" font-weight="bold">PITTSFIELD · 1761</text>
+      </svg>
+      PITTSFIELD&nbsp;ON-LINE
+    </h1>
+    <div class="tagline">~ The OFFICIAL Unofficial Digital Home of Pittsfield, Massachusetts ~ Heart of the Berkshires ~ Est. 1761 ~</div>
+  </header>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-label="announcements">
+    <span>📢 CURBSIDE TRASH &amp; RECYCLING: check your ward's collection day below! &nbsp;•&nbsp; 🍂 Third Thursday street festival returns to North Street! &nbsp;•&nbsp; 🏛️ City Council meets Tuesday 7:00 PM at City Hall, 70 Allen St — public comment welcome &nbsp;•&nbsp; ⚾ Fun fact: the first documented reference to BASEBALL in America is a 1791 Pittsfield bylaw! &nbsp;•&nbsp; 💧 Report potholes &amp; missed pickup via Pittsfield 311 &nbsp;•&nbsp; ⛰️ Mount Greylock summit road seasonally open — drive safe, Berkshire County!</span>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <nav>
+    <a href="#services">🏛️ Town Services</a>
+    <a href="#square-panel">⛲ Town Square</a>
+    <a href="#forum">💬 Bulletin Board</a>
+    <a href="#vista-panel">🏞️ Vista Viewer</a>
+    <a href="#history">📜 History</a>
+    <a href="#culture">🎭 Culture</a>
+    <a href="#politics">🗳️ Politics</a>
+    <a href="#themepicker-panel">🎨 Skins</a>
+  </nav>
+
+  <div class="cols">
+
+    <!-- ============ LEFT COLUMN ============ -->
+    <div class="col-left">
+
+      <div class="panel" id="services">
+        <div class="titlebar">🏛️ TOWN SERVICES</div>
+        <div class="body">
+          <ul>
+            <li><a href="https://www.cityofpittsfield.org" target="_blank" rel="noopener">Official City Website</a></li>
+            <li><a href="https://www.cityofpittsfield.org/city_hall/departments/public_services_and_utilities/trash_and_recycling/index.php" target="_blank" rel="noopener">🗑️ Trash &amp; Recycling Schedule</a> <span class="badge">HOT</span></li>
+            <li><a href="https://www.cityofpittsfield.org/city_hall/departments/community_development/pittsfield_311/index.php" target="_blank" rel="noopener">📞 Pittsfield 311 (report potholes, missed pickup)</a></li>
+            <li><a href="https://www.cityofpittsfield.org/city_hall/departments/treasurer_collector/index.php" target="_blank" rel="noopener">💸 Pay Taxes &amp; Excise Online</a></li>
+            <li><a href="https://www.cityofpittsfield.org/city_hall/departments/city_clerk/index.php" target="_blank" rel="noopener">📄 City Clerk (licenses, records)</a></li>
+            <li><a href="https://www.cityofpittsfield.org/city_hall/departments/permits_and_inspections/index.php" target="_blank" rel="noopener">🔨 Permits &amp; Inspections</a></li>
+            <li><a href="https://pittsfieldlibrary.org" target="_blank" rel="noopener">📚 Berkshire Athenaeum (Library)</a></li>
+            <li><a href="https://www.pittsfield.net" target="_blank" rel="noopener">🏫 Pittsfield Public Schools</a></li>
+            <li><a href="https://berkshirerta.com" target="_blank" rel="noopener">🚌 BRTA Bus Schedules</a></li>
+          </ul>
+          <hr>
+          <b>Emergencies: 911</b><br>
+          Police (non-emerg.): (413) 448-9700<br>
+          Fire (non-emerg.): (413) 448-9764<br>
+          311 Hotline: dial <b>311</b> in town
+        </div>
+      </div>
+
+      <div class="panel" id="themepicker-panel">
+        <div class="titlebar">🎨 CHOOSE UR SKIN</div>
+        <div class="body" id="themepicker">
+          <button class="btn" data-set-theme="aero"><span class="swatch" style="background:linear-gradient(90deg,#7ec8e8,#2ecc71)"></span>Berkshire Aero</button>
+          <button class="btn" data-set-theme="steel"><span class="swatch" style="background:linear-gradient(90deg,#555,#ff6a00)"></span>GE Industrial</button>
+          <button class="btn" data-set-theme="foliage"><span class="swatch" style="background:linear-gradient(90deg,#e88f2f,#8c3b12)"></span>Berkshire Autumn</button>
+          <button class="btn" data-set-theme="hoosac"><span class="swatch" style="background:linear-gradient(90deg,#231a4a,#00e5c0)"></span>Hoosac Midnight</button>
+          <button class="btn" data-set-theme="classic"><span class="swatch" style="background:linear-gradient(90deg,#c0c0c0,#000080)"></span>Classic '96</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="titlebar">🕰️ PITTSFIELD TIME</div>
+        <div class="body" id="clockbox">
+          <div id="clock">--:--:--</div>
+          <div id="date">loading…</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ MAIN COLUMN ============ -->
+    <div class="col-main">
+
+      <div class="panel">
+        <div class="titlebar">⭐ WELCOME, TRAVELER ⭐</div>
+        <div class="body">
+          <p><b>Greetings, cyber-citizen!</b> You have arrived at the digital homestead of <b>Pittsfield, Massachusetts</b> (pop. ~43,000) — county seat of Berkshire County, nestled between the Hoosac Range and the Taconics, with Pontoosuc and Onota lakes glinting at our doorstep.</p>
+          <p>Sign the <a href="#forum">bulletin board</a>, wave to your neighbors in the <a href="#square-panel">Town Square</a>, and dither our scenic vista to your heart's content. This page is best viewed at <b>800×600</b> with 65,536 colors and an open heart.</p>
+        </div>
+      </div>
+
+      <div class="panel" id="square-panel">
+        <div class="titlebar">⛲ TOWN SQUARE — WHO'S HERE NOW</div>
+        <div class="body" style="padding:0;">
+          <div id="square">
+            <div class="ground"></div>
+            <div class="fountain">⛲</div>
+          </div>
+          <div id="presencebar"><span class="blinkdot">●</span> <span id="presence-count">…</span> citizens strolling the square — <span id="you-note">you are here as <b>Guest</b></span></div>
+        </div>
+      </div>
+
+      <div class="panel" id="vista-panel">
+        <div class="titlebar">🏞️ MOUNT GREYLOCK VISTA VIEWER</div>
+        <div class="body">
+          <canvas id="vista" width="480" height="300"></canvas>
+          <div class="vistabtns">
+            <button class="btn" id="btn-dither">🎛️ DITHER IT!</button>
+            <button class="btn" id="btn-undither">🌈 Restore Full Color</button>
+            <button class="btn" id="btn-newscene">🔄 New Vista</button>
+          </div>
+          <div style="font-size:10px;margin-top:4px;" id="vista-status">Currently viewing: <b>ordered-dithered, palette-mapped, 1994-certified</b></div>
+        </div>
+      </div>
+
+      <div class="panel" id="forum">
+        <div class="titlebar">💬 COMMUNITY BULLETIN BOARD <span class="badge" id="post-count">0 posts</span></div>
+        <div class="body">
+          <div id="posts"></div>
+          <hr>
+          <form id="postform">
+            <b>📌 Tack a note to the board:</b>
+            <input type="text" id="fname" maxlength="24" placeholder="Your handle (e.g. GreylockGal)" required>
+            <textarea id="fmsg" maxlength="400" placeholder="Keep it neighborly…" required></textarea>
+            <button class="btn" type="submit">📮 Post It!</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel" id="history">
+        <div class="titlebar">📜 OUR HISTORY</div>
+        <div class="body">
+          <ul>
+            <li><b>1752</b> — Settled as "Pontoosuck"; incorporated 1761 and renamed for British PM <b>William Pitt the Elder</b>. Became a city in 1891.</li>
+            <li><b>1791</b> — A Pittsfield bylaw banning baseball near the new meetinghouse windows is the <b>earliest known written reference to baseball in America</b>. You're welcome, Cooperstown.</li>
+            <li><b>1850s</b> — <b>Herman Melville</b> writes <i>Moby-Dick</i> at his farm <b>Arrowhead</b>, staring at the whale-shaped ridge of Mount Greylock. Nathaniel Hawthorne lived nearby; the two famously hiked and argued about whales.</li>
+            <li><b>1903–1987</b> — <b>General Electric</b> transforms Pittsfield into a company town, building power transformers and (in wartime) ordnance. The Housatonic River cleanup from that era continues today.</li>
+            <li><b>Today</b> — A reinvented city: arts on North Street, the Colonial and Barrington Stage, and Greylock looming over it all like it always has.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel" id="culture">
+        <div class="titlebar">🎭 ARTS &amp; CULTURE</div>
+        <div class="body">
+          <ul>
+            <li>🖼️ <a href="https://berkshiremuseum.org" target="_blank" rel="noopener">Berkshire Museum</a> — art, natural history &amp; an aquarium, downtown since 1903.</li>
+            <li>🎭 <a href="https://barringtonstageco.org" target="_blank" rel="noopener">Barrington Stage Company</a> &amp; the historic <a href="https://berkshiretheatregroup.org" target="_blank" rel="noopener">Colonial Theatre</a> — where <i>The 25th Annual Putnam County Spelling Bee</i> was born.</li>
+            <li>🥁 <b>Third Thursdays</b> — North Street shuts down for a free street festival, May through September.</li>
+            <li>🏡 <a href="https://www.melville.org" target="_blank" rel="noopener">Arrowhead</a> (Melville's home) and nearby Hancock Shaker Village.</li>
+            <li>🎼 Tanglewood (Boston Symphony's summer home) is ten minutes down the road in Lenox.</li>
+            <li>🌲 Onota &amp; Pontoosuc lakes, Bousquet ski area, and the Ashuwillticook Rail Trail.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel" id="politics">
+        <div class="titlebar">🗳️ CIVIC LIFE &amp; POLITICS</div>
+        <div class="body">
+          <ul>
+            <li>🏛️ <b>Government:</b> Mayor–Council form. The <b>City Council</b> has 11 members — 7 ward councilors + 4 at-large — meeting at City Hall, 70 Allen Street.</li>
+            <li>👔 <b>Mayor:</b> Peter Marchetti, elected 2023 (check <a href="https://www.cityofpittsfield.org/city_hall/mayor/index.php" target="_blank" rel="noopener">the Mayor's page</a> for current office hours).</li>
+            <li>🗺️ <b>County seat</b> of Berkshire County; part of MA's 1st congressional district — the westernmost turf in the Commonwealth.</li>
+            <li>🗳️ <b>Voting:</b> register, find your ward/precinct, and see election dates via the <a href="https://www.cityofpittsfield.org/city_hall/departments/registrar_of_voters/index.php" target="_blank" rel="noopener">Registrar of Voters</a>.</li>
+            <li>📣 <b>Hot topics:</b> the Housatonic River PCB cleanup, downtown revitalization, housing, and the eternal pothole question. Public comment is your friend!</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ RIGHT COLUMN ============ -->
+    <div class="col-right">
+
+      <div class="panel">
+        <div class="titlebar">👀 VISITOR COUNTER</div>
+        <div class="body" style="text-align:center;">
+          You are visitor<br>
+          <span class="counter" id="hit-counter">000000</span><br>
+          <span style="font-size:10px;">since 04/01/1996</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="titlebar">🌦️ SKY OVER GREYLOCK</div>
+        <div class="body" id="weather" style="text-align:center;font-size:12px;">
+          <div style="font-size:30px;" id="wx-icon">⛅</div>
+          <div id="wx-text">checking the summit…</div>
+          <div style="font-size:10px;">(summit cam refresh: whenever it feels like it)</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="titlebar">🔗 BERKSHIRE WEBRING</div>
+        <div class="body" style="text-align:center;">
+          <a href="#" onclick="return ringJump();">← Prev</a> |
+          <a href="#" onclick="return ringJump();">Random</a> |
+          <a href="#" onclick="return ringJump();">Next →</a>
+          <hr>
+          <span style="font-size:10px;">Member #413 of the<br>Berkshire County Cyber-Webring</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="titlebar">💾 PAGE VITALS</div>
+        <div class="body" style="font-size:11px;">
+          <ul>
+            <li>HTML: pure, unbothered</li>
+            <li>JS frameworks: 0</li>
+            <li>Trackers: none, just vibes</li>
+            <li>Dithering: Bayer 4×4 ordered</li>
+            <li>GIFs harmed in production: 0</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="konami" id="konami">!! KONAMI MODE ENGAGED !! YOU FOUND THE SECRET OF MT. GREYLOCK !!</div>
+
+  <footer>
+    <hr>
+    <b>PITTSFIELD ON-LINE</b> · a labor of love from the Heart of the Berkshires<br>
+    Best viewed with Netscape Navigator 4.0 or better · 800×600 · Millions of Colors<br>
+    <div class="webring">© 1996–2026 Pittsfield On-Line · Not affiliated with the City, but we wave at it from across the street 👋</div>
+  </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   1. THEME SYSTEM  (persisted via localStorage)
+   ============================================================ */
+const THEMES = {
+  aero:    { palette: [[245,252,255],[150,215,240],[60,145,195],[8,55,95]],   label: "Berkshire Aero" },
+  steel:   { palette: [[250,244,238],[255,140,20],[120,120,125],[28,28,30]],  label: "GE Industrial" },
+  foliage: { palette: [[255,246,224],[235,170,70],[168,72,26],[58,26,10]],    label: "Berkshire Autumn" },
+  hoosac:  { palette: [[235,228,255],[140,120,205],[58,42,115],[12,7,30]],    label: "Hoosac Midnight" },
+  classic: { palette: [[255,255,255],[176,176,176],[96,96,96],[0,0,0]],       label: "Classic '96" }
+};
+
+let currentTheme = localStorage.getItem("pfd_theme") || "aero";
+
+function applyTheme(name) {
+  if (!THEMES[name]) name = "aero";
+  currentTheme = name;
+  document.documentElement.setAttribute("data-theme", name);
+  localStorage.setItem("pfd_theme", name);
+  document.querySelectorAll("#themepicker button").forEach(b =>
+    b.classList.toggle("active", b.dataset.setTheme === name));
+  if (dithered) renderDither();   // re-dither vista in the new palette
+}
+document.querySelectorAll("#themepicker button").forEach(b =>
+  b.addEventListener("click", () => applyTheme(b.dataset.setTheme)));
+
+/* ============================================================
+   2. PROCEDURAL VISTA + ORDERED DITHERING ENGINE
+   ============================================================ */
+const vista = document.getElementById("vista");
+const vctx = vista.getContext("2d");
+const buffer = document.createElement("canvas");
+buffer.width = vista.width; buffer.height = vista.height;
+const bctx = buffer.getContext("2d");
+let dithered = true;
+let seed = Math.random() * 1000;
+
+function drawScene() {
+  const W = buffer.width, H = buffer.height, g = bctx;
+  const rnd = mulberry(seed);
+
+  // sky
+  const sky = g.createLinearGradient(0, 0, 0, H * 0.62);
+  sky.addColorStop(0, "#2f6fbd");
+  sky.addColorStop(0.55, "#8ec9ee");
+  sky.addColorStop(1, "#fdf2c9");
+  g.fillStyle = sky; g.fillRect(0, 0, W, H);
+
+  // sun + glow
+  const sx = W * (0.2 + rnd() * 0.6), sy = H * (0.12 + rnd() * 0.15);
+  const glow = g.createRadialGradient(sx, sy, 4, sx, sy, 70);
+  glow.addColorStop(0, "rgba(255,250,210,1)");
+  glow.addColorStop(1, "rgba(255,250,210,0)");
+  g.fillStyle = glow; g.fillRect(0, 0, W, H);
+  g.fillStyle = "#fff8dc"; g.beginPath(); g.arc(sx, sy, 16, 0, 7); g.fill();
+
+  // clouds
+  g.fillStyle = "rgba(255,255,255,0.85)";
+  for (let i = 0; i < 4; i++) {
+    const cx = rnd() * W, cy = 20 + rnd() * 55, cw = 26 + rnd() * 40;
+    for (let j = 0; j < 4; j++) {
+      g.beginPath();
+      g.ellipse(cx + j * cw * 0.4, cy + (rnd() * 8), cw * (0.5 - j * 0.06), 9 + rnd() * 6, 0, 0, 7);
+      g.fill();
+    }
+  }
+
+  // far ridge (Greylock massif — whale shaped, Melville-approved)
+  const ridge = g.createLinearGradient(0, H * 0.35, 0, H * 0.68);
+  ridge.addColorStop(0, "#4a6a8a"); ridge.addColorStop(1, "#33506b");
+  g.fillStyle = ridge;
+  g.beginPath(); g.moveTo(0, H * 0.62);
+  for (let x = 0; x <= W; x += 8) {
+    const t = x / W;
+    const peak = Math.exp(-Math.pow((t - 0.62) * 3.2, 2)) * 0.24   // main summit
+               + Math.exp(-Math.pow((t - 0.78) * 4.5, 2)) * 0.14;  // sub-peak
+    g.lineTo(x, H * (0.62 - peak - rnd() * 0.01));
+  }
+  g.lineTo(W, H * 0.62); g.closePath(); g.fill();
+
+  // veterans war memorial tower on the summit
+  const tx = W * 0.62, ty = H * 0.62 - H * 0.24;
+  g.fillStyle = "#c9ccd4";
+  g.fillRect(tx - 4, ty - 22, 8, 24);
+  g.beginPath(); g.arc(tx, ty - 22, 5, Math.PI, 0); g.fill();
+  g.fillStyle = "#ffeeb0"; g.beginPath(); g.arc(tx, ty - 24, 3, 0, 7); g.fill(); // beacon globe
+
+  // nearer forest ridge
+  const for1 = g.createLinearGradient(0, H * 0.5, 0, H * 0.75);
+  for1.addColorStop(0, "#2e5d33"); for1.addColorStop(1, "#1d4223");
+  g.fillStyle = for1;
+  g.beginPath(); g.moveTo(0, H * 0.72);
+  for (let x = 0; x <= W; x += 10)
+    g.lineTo(x, H * 0.72 - Math.sin(x * 0.02 + seed) * 12 - rnd() * 14);
+  g.lineTo(W, H * 0.75); g.lineTo(0, H * 0.75); g.closePath(); g.fill();
+
+  // lake
+  const lake = g.createLinearGradient(0, H * 0.72, 0, H);
+  lake.addColorStop(0, "#7fb8d8"); lake.addColorStop(1, "#3d7ca8");
+  g.fillStyle = lake; g.fillRect(0, H * 0.72, W, H * 0.28);
+
+  // reflection shimmer
+  g.strokeStyle = "rgba(255,255,255,0.5)"; g.lineWidth = 1.4;
+  for (let i = 0; i < 26; i++) {
+    const y = H * 0.74 + rnd() * H * 0.24, x = rnd() * W, len = 8 + rnd() * 26;
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x + len, y); g.stroke();
+  }
+  // mountain reflection
+  g.save(); g.globalAlpha = 0.18; g.scale(1, -0.45);
+  g.drawImage(buffer, 0, 0, W, H * 0.72, 0, -H * 1.72, W, H * 0.72);
+  g.restore();
+
+  // shoreline pines
+  for (let x = 4; x < W; x += 14 + rnd() * 18) {
+    const h = 12 + rnd() * 14, y = H * 0.725;
+    g.fillStyle = "#123318";
+    g.beginPath(); g.moveTo(x, y - h); g.lineTo(x - 5, y); g.lineTo(x + 5, y); g.closePath(); g.fill();
+    g.fillStyle = "#4a3220";
+    g.fillRect(x - 1, y - 2, 2, 4);
+  }
+
+  // caption
+  g.fillStyle = "rgba(0,0,0,0.45)"; g.fillRect(6, H - 22, 238, 16);
+  g.fillStyle = "#fff"; g.font = "11px monospace";
+  g.fillText("MT. GREYLOCK (3,491 ft) FROM PONTOOSUC LAKE", 10, H - 10);
+}
+
+// deterministic pseudo-random
+function mulberry(a) {
+  return function() {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+// Bayer 4x4 ordered dithering -> nearest theme palette color
+const BAYER = [[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+function renderDither() {
+  const pal = THEMES[currentTheme].palette;
+  const img = bctx.getImageData(0, 0, buffer.width, buffer.height);
+  const d = img.data;
+  const spread = 72;
+  for (let y = 0; y < buffer.height; y++) {
+    for (let x = 0; x < buffer.width; x++) {
+      const i = (y * buffer.width + x) * 4;
+      const t = ((BAYER[y & 3][x & 3] + 0.5) / 16 - 0.5) * spread;
+      let best = 0, bestDist = Infinity;
+      for (let p = 0; p < pal.length; p++) {
+        const dr = d[i] + t - pal[p][0],
+              dg = d[i+1] + t - pal[p][1],
+              db = d[i+2] + t - pal[p][2];
+        const dist = dr*dr + dg*dg + db*db;
+        if (dist < bestDist) { bestDist = dist; best = p; }
+      }
+      d[i] = pal[best][0]; d[i+1] = pal[best][1]; d[i+2] = pal[best][2];
+    }
+  }
+  vctx.putImageData(img, 0, 0);
+  dithered = true;
+  document.getElementById("vista-status").innerHTML =
+    "Currently viewing: <b>ordered-dithered in the '" + THEMES[currentTheme].label + "' palette</b>";
+}
+function renderRaw() {
+  vctx.drawImage(buffer, 0, 0);
+  dithered = false;
+  document.getElementById("vista-status").innerHTML =
+    "Currently viewing: <b>full color (what is this, 2005?)</b>";
+}
+document.getElementById("btn-dither").addEventListener("click", renderDither);
+document.getElementById("btn-undither").addEventListener("click", renderRaw);
+document.getElementById("btn-newscene").addEventListener("click", () => {
+  seed = Math.random() * 1000;
+  drawScene();
+  dithered ? renderDither() : renderRaw();
+});
+
+/* ============================================================
+   3. TOWN SQUARE — live presence simulation
+   ============================================================ */
+const HANDLES = ["GreylockGal","BerkshireBob","NorthStNancy","MorningsideMike","AthenaeumAmy","PontoosucPete","TylerStreetTess","HousatonicHank","ColonialChris","DaltonAveDana","WahconahWalt","ElmStEllie","UpstreetUrsula","BousquetBen","ShakerVillageVal","AllendaleAl","WestSideWren","OPEnergyOllie","LakewoodLou","PecksRdPam"];
+const CHATTER = ["anyone know if trash is delayed this week?","gorgeous day on the lake","the pothole on Tyler St got FIXED!!","Third Thursday was packed last night","council meeting ran late again lol","heading up Greylock this weekend","Go Generals! 🏈","found a great yard sale on Holmes Rd","the fountain looks nice today","Mellville >>> everything","who else remembers Spencer's downtown?","Berkshire Museum has a new exhibit","leaves are turning early this year 🍂","first frost already??","the 311 app actually works, I'm shocked"];
+const square = document.getElementById("square");
+const citizens = [];
+
+function spawnCitizens(n) {
+  for (let i = 0; i < n; i++) {
+    const el = document.createElement("div");
+    el.className = "citizen";
+    const name = HANDLES[Math.floor(Math.random() * HANDLES.length)] + (Math.random() < .3 ? Math.floor(Math.random()*99) : "");
+    const hue = Math.floor(Math.random() * 360);
+    el.innerHTML = `<div class="avatar" style="background:hsl(${hue},65%,45%)">${name.slice(0,2).toUpperCase()}</div><span class="name">${name}</span>`;
+    square.appendChild(el);
+    citizens.push({
+      el, name,
+      x: Math.random() * (square.clientWidth - 60),
+      y: square.clientHeight * 0.45 + Math.random() * (square.clientHeight * 0.5 - 40),
+      vx: (Math.random() - .5) * 0.7,
+      vy: (Math.random() - .5) * 0.4
+    });
+  }
+}
+function stepCitizens() {
+  const W = square.clientWidth, H = square.clientHeight;
+  const top = H * 0.45, bottom = H - 34;
+  for (const c of citizens) {
+    if (Math.random() < 0.01) { c.vx = (Math.random() - .5) * 0.9; c.vy = (Math.random() - .5) * 0.5; }
+    c.x += c.vx; c.y += c.vy;
+    if (c.x < 0 || c.x > W - 60) c.vx *= -1;
+    if (c.y < top || c.y > bottom) c.vy *= -1;
+    c.x = Math.max(0, Math.min(W - 60, c.x));
+    c.y = Math.max(top, Math.min(bottom, c.y));
+    c.el.style.transform = `translate(${c.x}px, ${c.y}px)`;
+  }
+  requestAnimationFrame(stepCitizens);
+}
+function chatterLoop() {
+  const c = citizens[Math.floor(Math.random() * citizens.length)];
+  if (c && !c.el.querySelector(".speech")) {
+    const s = document.createElement("div");
+    s.className = "speech";
+    s.textContent = CHATTER[Math.floor(Math.random() * CHATTER.length)];
+    c.el.appendChild(s);
+    setTimeout(() => s.remove(), 3800);
+  }
+  setTimeout(chatterLoop, 2500 + Math.random() * 3500);
+}
+function presenceLoop() {
+  const base = 14 + Math.round(Math.sin(Date.now() / 60000) * 6);
+  const jitter = Math.round((Math.random() - .5) * 4);
+  document.getElementById("presence-count").textContent = base + jitter;
+  setTimeout(presenceLoop, 5000);
+}
+
+/* ============================================================
+   4. COMMUNITY BULLETIN BOARD (localStorage guestbook)
+   ============================================================ */
+const SEED_POSTS = [
+  { name: "GreylockGal", time: "10/12/2026 8:42 PM", msg: "PSA: leaf-peeper traffic on Rockwell Rd is WILD right now. Take Notch Rd if you're heading to the summit. 🍂" },
+  { name: "NorthStNancy", time: "10/12/2026 5:15 PM", msg: "Does anyone know if the trash pickup is normal schedule this week or are we sliding a day? The city site says check your ward…" },
+  { name: "BerkshireBob", time: "10/12/2026 2:03 PM", msg: "@NorthStNancy — normal schedule this week! I use the 311 app and it reminds me the night before. Game changer." },
+  { name: "AthenaeumAmy", time: "10/11/2026 7:58 PM", msg: "The library's local history room has the 1791 baseball bylaw on display. The first written mention of baseball IN AMERICA happened HERE and I will never stop telling people." },
+  { name: "MorningsideMike", time: "10/11/2026 11:20 AM", msg: "Saw a coyote near Onota Lake this morning. Beautiful animal. Keep your cats inside, neighbors." },
+  { name: "ColonialChris", time: "10/10/2026 9:47 PM", msg: "Barrington Stage's fall lineup is excellent. Support live theater or the Berkshires will haunt you (lovingly)." }
+];
+function loadPosts() {
+  let posts = [];
+  try { posts = JSON.parse(localStorage.getItem("pfd_posts")) || []; } catch(e) {}
+  return SEED_POSTS.concat(posts).slice(-40);
+}
+function renderPosts() {
+  const posts = loadPosts();
+  const box = document.getElementById("posts");
+  box.innerHTML = "";
+  posts.slice().reverse().forEach(p => {
+    const div = document.createElement("div");
+    div.className = "post";
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.textContent = "📌 " + p.name + " · " + p.time;
+    const msg = document.createElement("div");
+    msg.className = "msg";
+    msg.textContent = p.msg;
+    div.appendChild(meta); div.appendChild(msg);
+    box.appendChild(div);
+  });
+  document.getElementById("post-count").textContent = posts.length + " posts";
+}
+document.getElementById("postform").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("fname").value.trim();
+  const msg = document.getElementById("fmsg").value.trim();
+  if (!name || !msg) return;
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem("pfd_posts")) || []; } catch(e2) {}
+  saved.push({ name, msg, time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" }) });
+  localStorage.setItem("pfd_posts", JSON.stringify(saved.slice(-30)));
+  document.getElementById("fmsg").value = "";
+  renderPosts();
+});
+
+/* ============================================================
+   5. ODDS & ENDS — counter, clock, weather, bubbles, webring, konami
+   ============================================================ */
+(function counter() {
+  let n = parseInt(localStorage.getItem("pfd_hits") || "48013", 10) + 1;
+  localStorage.setItem("pfd_hits", n);
+  document.getElementById("hit-counter").textContent = String(n).padStart(6, "0");
+})();
+
+function tickClock() {
+  const now = new Date();
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour12: true });
+  document.getElementById("date").textContent =
+    now.toLocaleDateString("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  setTimeout(tickClock, 1000);
+}
+
+(function weather() {
+  const options = [
+    ["⛅","Partly cloudy, 54°F — classic October in the 413"],
+    ["🍂","Breezy, 48°F — leaves raining on North Street"],
+    ["🌫️","Valley fog, burning off by 10 AM"],
+    ["☀️","Crisp & clear, 57°F — Greylock visibility: forever"]
+  ];
+  const pick = options[Math.floor(Math.random() * options.length)];
+  document.getElementById("wx-icon").textContent = pick[0];
+  document.getElementById("wx-text").textContent = pick[1];
+})();
+
+(function bubbles() {
+  const box = document.getElementById("bubbles");
+  for (let i = 0; i < 12; i++) {
+    const b = document.createElement("div");
+    b.className = "bubble";
+    const size = 20 + Math.random() * 90;
+    b.style.width = b.style.height = size + "px";
+    b.style.left = Math.random() * 100 + "vw";
+    b.style.animationDuration = 14 + Math.random() * 22 + "s";
+    b.style.animationDelay = -Math.random() * 30 + "s";
+    box.appendChild(b);
+  }
+})();
+
+function ringJump() {
+  const sights = ["https://www.cityofpittsfield.org","https://berkshiremuseum.org","https://www.melville.org","https://pittsfieldlibrary.org"];
+  window.open(sights[Math.floor(Math.random() * sights.length)], "_blank");
+  return false;
+}
+
+(function konami() {
+  const seq = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  let pos = 0;
+  document.addEventListener("keydown", e => {
+    pos = (e.key === seq[pos]) ? pos + 1 : 0;
+    if (pos === seq.length) {
+      document.getElementById("konami").style.display = "block";
+      spawnCitizens(8);
+      pos = 0;
+    }
+  });
+})();
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+applyTheme(currentTheme);
+drawScene();
+renderDither();           // page opens pre-dithered, as nature intended
+spawnCitizens(10);
+requestAnimationFrame(stepCitizens);
+chatterLoop();
+presenceLoop();
+renderPosts();
+tickClock();
+window.addEventListener("resize", () => {
+  // keep citizens inside the square on resize
+  for (const c of citizens) {
+    c.x = Math.min(c.x, square.clientWidth - 60);
+    c.y = Math.max(square.clientHeight * 0.45, Math.min(c.y, square.clientHeight - 34));
+  }
+});
+</script>
+</body>
+</html>

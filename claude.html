@@ -1,0 +1,1203 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Pittsfield Online</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=VT323&display=swap">
+<style>
+/* Layout concept: a late-90s civic portal rebuilt in Vista-era glass. Masthead banner, sticky tab bar, main column of window-panels, left rail of tools. Five looks swap every token below. */
+:root{
+  --font-display:"Merriweather","Georgia","Times New Roman",serif;
+  --font-body:"Open Sans","Segoe UI","Frutiger","Trebuchet MS",sans-serif;
+  --font-mono:"VT323","Courier New",monospace;
+  --radius:14px;--radius-sm:8px;--gloss:1;--blur:3px;--bw:1px;
+  --bg:#d7f0f4;--ink:#0d2b3a;--ink-soft:#33596b;--link:#0a62b8;--visited:#5b3f9e;
+  --accent:#1aa6d9;--accent2:#4fae4a;--hot:#c2410c;
+  --panel:rgba(255,255,255,.82);--panel-solid:#f6fcff;--panel-alt:rgba(210,238,248,.7);
+  --edge:rgba(255,255,255,.9);--edge-dark:rgba(8,70,100,.45);
+  --bar1:#2aa4d6;--bar2:#0e6fa8;--bar-ink:#ffffff;
+  --btn1:#4cc9f0;--btn2:#0a7bbf;--btn-ink:#ffffff;--btn-edge:#07557f;
+  --panel-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 8px 22px rgba(6,60,90,.22);
+  --btn-shadow:inset 0 -2px 4px rgba(0,40,70,.35),0 2px 5px rgba(0,40,70,.3);
+  --sky1:#5cc8f2;--sky2:#d8f6ff;--hill1:#2e8f6a;--hill2:#4fb286;--hill3:#8fd6a5;
+  --water1:#1d8fc7;--water2:#7fdcf2;--sun:#fff6b8;
+  --r0:#06324a;--r1:#0f7aa8;--r2:#6fd3a0;--r3:#f3fdff;
+}
+:root[data-style="stanley"]{
+  --bg:#cfd2d6;--ink:#1f2328;--ink-soft:#4a5058;--link:#a84100;--visited:#6a4a8c;
+  --accent:#ff7a00;--accent2:#5d646d;--hot:#c2410c;
+  --panel:rgba(246,247,248,.86);--panel-solid:#ffffff;--panel-alt:rgba(222,225,228,.8);
+  --edge:rgba(255,255,255,.9);--edge-dark:rgba(30,34,40,.55);
+  --bar1:#6a717b;--bar2:#2f343a;--bar-ink:#ffffff;
+  --btn1:#ffa040;--btn2:#e25d00;--btn-ink:#1a0e00;--btn-edge:#8a3a00;
+  --panel-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 8px 22px rgba(20,24,28,.3);
+  --btn-shadow:inset 0 -2px 4px rgba(90,30,0,.35),0 2px 5px rgba(20,24,28,.35);
+  --sky1:#8e969f;--sky2:#e6e8ea;--hill1:#3e444b;--hill2:#69707a;--hill3:#a1a7af;
+  --water1:#555c65;--water2:#aeb4bb;--sun:#ffb066;
+  --r0:#15181c;--r1:#4f565e;--r2:#ff7a00;--r3:#f2f3f4;
+}
+:root[data-style="foliage"]{
+  --bg:#f3e0c2;--ink:#2b1a12;--ink-soft:#5a3d2e;--link:#a3260f;--visited:#6b3a6b;
+  --accent:#d9531e;--accent2:#b8860b;--hot:#a3260f;
+  --panel:rgba(255,248,236,.86);--panel-solid:#fffaf2;--panel-alt:rgba(246,222,190,.75);
+  --edge:rgba(255,250,240,.9);--edge-dark:rgba(100,40,10,.5);
+  --bar1:#c4471a;--bar2:#7e2208;--bar-ink:#fff6e6;
+  --btn1:#d95a22;--btn2:#a52c0c;--btn-ink:#ffffff;--btn-edge:#6e1c06;
+  --panel-shadow:inset 0 1px 0 rgba(255,250,240,.95),0 8px 22px rgba(90,35,10,.28);
+  --btn-shadow:inset 0 -2px 4px rgba(80,20,0,.4),0 2px 5px rgba(80,30,10,.35);
+  --sky1:#f2a65a;--sky2:#ffe7bf;--hill1:#8c2f1b;--hill2:#c2571f;--hill3:#e0a030;
+  --water1:#7a8f6a;--water2:#c9d5a8;--sun:#fff1c2;
+  --r0:#2b0f08;--r1:#8c2f1b;--r2:#e08a2e;--r3:#fff3d6;
+}
+:root[data-style="arrowhead"]{
+  color-scheme:dark;
+  --bg:#07162b;--ink:#e6eef7;--ink-soft:#a9bdd3;--link:#ffd27a;--visited:#c9b3ff;
+  --accent:#c9962b;--accent2:#3fb6a8;--hot:#ffb347;
+  --panel:rgba(12,32,60,.86);--panel-solid:#0d2240;--panel-alt:rgba(20,52,92,.8);
+  --edge:rgba(170,205,255,.35);--edge-dark:rgba(0,0,0,.6);
+  --bar1:#1f4f86;--bar2:#0b2547;--bar-ink:#fff4d6;
+  --btn1:#e0b04a;--btn2:#a8761a;--btn-ink:#1d1400;--btn-edge:#5c3d05;
+  --panel-shadow:inset 0 1px 0 rgba(170,205,255,.3),0 8px 24px rgba(0,0,0,.5);
+  --btn-shadow:inset 0 -2px 4px rgba(60,35,0,.45),0 2px 6px rgba(0,0,0,.5);
+  --sky1:#0b2a52;--sky2:#4a79a8;--hill1:#06182e;--hill2:#0f3157;--hill3:#1e5a8a;
+  --water1:#082544;--water2:#2a78a8;--sun:#ffe9a8;
+  --r0:#030c1a;--r1:#0f3157;--r2:#3a9bb8;--r3:#ffe9b0;
+}
+:root[data-style="netscape"]{
+  --font-display:"Times New Roman","Times",serif;
+  --font-body:"Verdana","Geneva","Open Sans",sans-serif;
+  --radius:0px;--radius-sm:0px;--gloss:0;--blur:0px;--bw:2px;
+  --bg:#008080;--ink:#000000;--ink-soft:#333333;--link:#0000ee;--visited:#551a8b;
+  --accent:#000080;--accent2:#008080;--hot:#c00000;
+  --panel:#c0c0c0;--panel-solid:#ffffff;--panel-alt:#d4d0c8;
+  --edge:#ffffff;--edge-dark:#404040;
+  --bar1:#000080;--bar2:#1084d0;--bar-ink:#ffffff;
+  --btn1:#d4d0c8;--btn2:#c0c0c0;--btn-ink:#000000;--btn-edge:#404040;
+  --panel-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #808080,2px 2px 0 rgba(0,0,0,.45);
+  --btn-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 #808080;
+  --sky1:#000080;--sky2:#c0c0c0;--hill1:#004040;--hill2:#008080;--hill3:#00c0c0;
+  --water1:#0000a0;--water2:#60a0ff;--sun:#ffff00;
+  --r0:#000000;--r1:#000080;--r2:#008080;--r3:#ffffff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;
+  padding-block:12px 28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;image-rendering:pixelated;display:block}
+a{color:var(--link)}a:visited{color:var(--visited)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible,summary:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;line-height:1.2;margin:0}
+p{margin:0 0 .8em}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.mono{font-family:var(--font-mono)}
+.small{font-size:.85rem;color:var(--ink-soft)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* masthead */
+.masthead{position:relative;min-height:230px;border:var(--bw) solid var(--edge-dark);border-radius:var(--radius);box-shadow:var(--panel-shadow);overflow:hidden;display:grid;align-content:space-between;gap:12px;padding:14px;background:var(--sky1)}
+.hero{position:absolute;inset:0}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.mast-top,.mast-bot{position:relative;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}
+.plate{background:var(--panel);border:var(--bw) solid var(--edge-dark);border-radius:var(--radius);padding:10px 16px;box-shadow:var(--panel-shadow);backdrop-filter:blur(var(--blur));min-width:0}
+.kicker{font-family:var(--font-mono);font-size:1.15rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);line-height:1}
+.masthead h1{font-size:clamp(1.7rem,5vw,2.9rem);font-weight:900;color:var(--ink);text-shadow:0 1px 0 var(--edge),0 3px 8px rgba(255,255,255,.4)}
+.tag{margin:.3rem 0 0;max-width:46ch;color:var(--ink-soft)}
+.looks{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.looks .lbl{font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.swatch{width:46px;height:46px;border-radius:50%;border:var(--bw) solid var(--edge-dark);padding:0;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--btn-shadow)}
+:root[data-style="netscape"] .swatch{border-radius:0}
+.swatch::after{content:"";position:absolute;left:8%;right:8%;top:5%;height:45%;border-radius:50%;background:linear-gradient(rgba(255,255,255,.75),rgba(255,255,255,0));opacity:var(--gloss)}
+.swatch[aria-pressed="true"]{outline:3px solid var(--hot);outline-offset:2px}
+.sw-housatonic{background:linear-gradient(135deg,#1aa6d9 50%,#4fae4a 50%)}
+.sw-stanley{background:linear-gradient(135deg,#5d646d 50%,#ff7a00 50%)}
+.sw-foliage{background:linear-gradient(135deg,#a52c0c 50%,#e0a030 50%)}
+.sw-arrowhead{background:linear-gradient(135deg,#0b2547 50%,#c9962b 50%)}
+.sw-netscape{background:linear-gradient(135deg,#008080 50%,#c0c0c0 50%)}
+.stylename{font-size:.85rem;font-weight:600;min-width:9ch}
+
+/* tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;gap:6px;overflow-x:auto;padding:7px;background:var(--panel);border:var(--bw) solid var(--edge-dark);border-radius:var(--radius);box-shadow:var(--panel-shadow);backdrop-filter:blur(var(--blur))}
+.tabs a{flex:0 0 auto;text-decoration:none;font-weight:700;padding:.45rem .95rem;border-radius:999px;color:var(--btn-ink);background:linear-gradient(var(--btn1),var(--btn2));border:var(--bw) solid var(--btn-edge);box-shadow:var(--btn-shadow);position:relative;overflow:hidden;white-space:nowrap}
+:root[data-style="netscape"] .tabs a{border-radius:0}
+.tabs a:visited{color:var(--btn-ink)}
+.tabs a::before,.btn::before{content:"";position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(rgba(255,255,255,.65),rgba(255,255,255,.06));opacity:var(--gloss);pointer-events:none}
+.tabs a:hover,.btn:hover{filter:brightness(1.08)}
+
+/* ticker */
+.ticker{overflow:hidden;white-space:nowrap;background:var(--bar2);color:var(--bar-ink);border:var(--bw) solid var(--edge-dark);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:1.25rem;line-height:1.6;display:flex}
+.ticker b{flex:0 0 auto;background:var(--hot);color:#fff;padding:0 .8rem}
+.ticker .run{display:inline-block;padding-left:100%;animation:run 46s linear infinite}
+@keyframes run{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.ticker .run{animation:none;padding-left:.8rem;white-space:normal}.ticker{white-space:normal}html{scroll-behavior:auto}}
+
+/* layout */
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:14px;align-items:start}
+.rail{order:-1;display:flex;flex-direction:column;gap:14px;min-width:0}
+.main{display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.rail{order:2}}
+section.panel,aside .panel,.panel{background:var(--panel);border:var(--bw) solid var(--edge-dark);border-radius:var(--radius);box-shadow:var(--panel-shadow);backdrop-filter:blur(var(--blur));overflow:hidden;min-width:0;scroll-margin-top:72px}
+.bar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:.5rem .9rem;color:var(--bar-ink);background:linear-gradient(var(--bar1),var(--bar2));font-family:var(--font-display);font-size:1.05rem;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+.bar::after{content:"";position:absolute;left:0;right:0;top:0;height:48%;background:linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,.04));opacity:var(--gloss);pointer-events:none}
+.bar>*{position:relative;z-index:1}
+.bar .dots{display:flex;gap:5px}.bar .dots i{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.7);box-shadow:inset 0 -2px 2px rgba(0,0,0,.3)}
+:root[data-style="netscape"] .bar .dots i{border-radius:0}
+.pad{padding:1rem}
+.pad>h3{font-size:1.1rem;margin:0 0 .5rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+
+/* controls */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;color:var(--btn-ink);background:linear-gradient(var(--btn1),var(--btn2));border:var(--bw) solid var(--btn-edge);border-radius:999px;padding:.5rem 1.1rem;box-shadow:var(--btn-shadow);text-shadow:0 1px 0 rgba(255,255,255,.18)}
+:root[data-style="netscape"] .btn{border-radius:0}
+.btn:visited{color:var(--btn-ink)}
+.btn:active{transform:translateY(1px)}
+.btn.small{padding:.3rem .8rem;font-size:.85rem}
+.btn[aria-pressed="true"],.btn.on{filter:saturate(1.3) brightness(.92)}
+.btn>*{position:relative}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--panel-solid);border:var(--bw) solid var(--edge-dark);border-radius:var(--radius-sm);padding:.45rem .6rem;min-width:0;max-width:100%}
+textarea{width:100%;min-height:5.5rem;resize:vertical}
+label{font-weight:600;font-size:.88rem;display:block;margin-bottom:.2rem}
+.field{margin-bottom:.7rem}
+input[type=range]{padding:0;width:100%;accent-color:var(--accent)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.note{background:var(--panel-alt);border:var(--bw) dashed var(--edge-dark);border-radius:var(--radius-sm);padding:.6rem .8rem;font-size:.9rem}
+
+/* services */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+.tile{display:flex;gap:10px;align-items:center;padding:.6rem .7rem;text-decoration:none;color:var(--ink);background:var(--panel-solid);border:var(--bw) solid var(--edge-dark);border-radius:var(--radius-sm);min-width:0;box-shadow:inset 0 1px 0 var(--edge)}
+.tile:visited{color:var(--ink)}
+.tile:hover{border-color:var(--accent);background:var(--panel-alt)}
+.tile b{display:block;line-height:1.2}.tile span{font-size:.8rem;color:var(--ink-soft);line-height:1.3;display:block}
+.orb{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.82rem;position:relative;overflow:hidden;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.9),rgba(255,255,255,0) 42%),var(--orbc,var(--accent));border:var(--bw) solid var(--edge-dark);text-shadow:0 1px 2px rgba(0,0,0,.6)}
+:root[data-style="netscape"] .orb{border-radius:0}
+.orb.o2{--orbc:var(--accent2)}.orb.o3{--orbc:var(--hot)}.orb.o4{--orbc:var(--bar2)}
+.desk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.big311{font-family:var(--font-mono);font-size:3.4rem;line-height:.9;padding:.3rem .8rem;border:var(--bw) solid var(--edge-dark);border-radius:var(--radius-sm);background:var(--bar2);color:var(--bar-ink);text-shadow:0 0 8px rgba(255,255,255,.4);position:relative}
+.big311 s{position:absolute;left:-4%;right:-4%;top:48%;height:5px;background:var(--hot);transform:rotate(-12deg);box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+@media (max-width:520px){.desk{grid-template-columns:minmax(0,1fr)}}
+.scroll{overflow-x:auto}
+table.tbl{border-collapse:collapse;width:100%;font-size:.92rem}
+.tbl th{text-align:left;padding:.45rem .7rem;color:var(--bar-ink);background:linear-gradient(var(--bar1),var(--bar2));font-weight:700}
+.tbl td{padding:.4rem .7rem;border-bottom:1px solid var(--edge-dark)}
+.tbl tr:nth-child(even) td{background:var(--panel-alt)}
+.tbl td.num{font-family:var(--font-mono);font-size:1.15rem;white-space:nowrap}
+.result{margin-top:.6rem}
+.result li{margin-bottom:.25rem}
+.pill{display:inline-block;padding:.05rem .55rem;border-radius:999px;font-size:.75rem;font-weight:700;background:var(--accent2);color:#fff;border:var(--bw) solid var(--edge-dark)}
+.pill.warn{background:var(--hot)}
+
+/* square */
+.square{position:relative;aspect-ratio:16/9;max-width:100%;border:var(--bw) solid var(--edge-dark);border-radius:var(--radius-sm);overflow:hidden;touch-action:none;cursor:crosshair;background:var(--hill3)}
+.square canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.sqmsg{position:absolute;left:8px;bottom:8px;right:8px;pointer-events:none;font-size:.78rem;background:var(--panel);padding:.15rem .5rem;border-radius:var(--radius-sm);display:inline-block;width:fit-content;max-width:100%}
+.av{position:absolute;width:0;height:0;transition:left .14s linear,top .14s linear;pointer-events:none}
+.av i{position:absolute;left:-12px;top:-12px;width:24px;height:24px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.45);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.85),rgba(255,255,255,0) 45%),var(--c,#1aa6d9)}
+:root[data-style="netscape"] .av i{border-radius:0}
+.av em{position:absolute;left:0;top:16px;transform:translateX(-50%);font-style:normal;font-size:.72rem;font-weight:700;white-space:nowrap;background:var(--panel);color:var(--ink);padding:0 .4rem;border-radius:6px;border:1px solid var(--edge-dark)}
+.av.me em{background:var(--hot);color:#fff}
+.av.idle{opacity:.45}
+.av q{position:absolute;left:0;bottom:18px;transform:translateX(-50%);width:max-content;max-width:180px;font-size:.78rem;background:#fff;color:#111;padding:.2rem .5rem;border-radius:10px;border:1px solid #555;quotes:none;box-shadow:0 2px 4px rgba(0,0,0,.3);white-space:normal}
+.crier{font-family:var(--font-mono);font-size:1.1rem;line-height:1.2;margin:.5rem 0 0;padding:0;list-style:none;color:var(--ink-soft);min-height:2.4em}
+
+/* forum */
+.crumbs{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:.7rem}
+.thread-row,.board-row{display:grid;gap:10px;align-items:center;padding:.6rem .7rem;border-bottom:1px solid var(--edge-dark);min-width:0}
+.board-row{grid-template-columns:minmax(0,1fr) 70px 70px minmax(0,150px)}
+.thread-row{grid-template-columns:minmax(0,1fr) 70px minmax(0,150px)}
+.board-row:nth-child(even),.thread-row:nth-child(even){background:var(--panel-alt)}
+.hdr{font-weight:700;color:var(--bar-ink);background:linear-gradient(var(--bar1),var(--bar2));border-bottom:0}
+.hdr:nth-child(even){background:linear-gradient(var(--bar1),var(--bar2))}
+.linkbtn{font:inherit;font-weight:700;background:none;border:0;padding:0;color:var(--link);text-align:left;cursor:pointer;text-decoration:underline}
+.post{display:grid;grid-template-columns:130px minmax(0,1fr);gap:0;border:var(--bw) solid var(--edge-dark);margin-bottom:10px;background:var(--panel-solid)}
+.post .who{background:var(--panel-alt);padding:.7rem;font-size:.85rem;border-right:var(--bw) solid var(--edge-dark);overflow-wrap:anywhere}
+.post .txt{padding:.7rem;white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
+.post h3{font-size:1.1rem;margin:0 0 .4rem}
+@media (max-width:560px){.post{grid-template-columns:minmax(0,1fr)}.post .who{border-right:0;border-bottom:var(--bw) solid var(--edge-dark)}
+ .board-row{grid-template-columns:minmax(0,1fr) 50px 50px}.board-row .last{display:none}.thread-row{grid-template-columns:minmax(0,1fr) 50px}.thread-row .last{display:none}}
+.empty{padding:1.2rem;text-align:center;color:var(--ink-soft)}
+.msg{font-size:.88rem;margin:.4rem 0;color:var(--hot);font-weight:600;min-height:1.2em}
+
+/* guestbook + counter */
+.gb{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto}
+.gb li{padding:.45rem 0;border-bottom:1px dotted var(--edge-dark);overflow-wrap:anywhere;font-size:.88rem}
+.gb b{display:block}
+.counter{display:flex;gap:3px;justify-content:center;margin:.3rem 0}
+.counter span{font-family:var(--font-mono);font-size:2rem;line-height:1;width:1.5rem;text-align:center;background:#101010;color:#7dff7d;border:1px solid #444;box-shadow:inset 0 0 6px #000;border-radius:3px}
+.badge{display:inline-block;font-family:var(--font-mono);font-size:1rem;padding:0 .5rem;border:var(--bw) solid var(--edge-dark);background:var(--panel-solid);color:var(--ink);margin:2px}
+.uc{height:12px;background:repeating-linear-gradient(45deg,#111 0 10px,#f5c400 10px 20px);border-radius:2px;margin:.5rem 0}
+
+/* history */
+.era{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.8rem}
+.tl{list-style:none;margin:0;padding:0 0 0 18px;border-left:4px solid var(--accent)}
+.tl li{position:relative;padding:0 0 .9rem 14px}
+.tl li::before{content:"";position:absolute;left:-27px;top:.35rem;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,0) 50%),var(--accent2);border:2px solid var(--edge-dark)}
+:root[data-style="netscape"] .tl li::before{border-radius:0}
+.tl .yr{font-family:var(--font-mono);font-size:1.5rem;line-height:1;color:var(--hot);display:block}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.card{background:var(--panel-solid);border:var(--bw) solid var(--edge-dark);border-radius:var(--radius-sm);padding:.7rem .8rem;min-width:0}
+.card h3{font-size:1rem;margin-bottom:.25rem}
+.card p{font-size:.88rem;margin:0}
+.postcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.pc{font:inherit;color:var(--ink);text-align:left;cursor:pointer;background:#fffdf6;border:var(--bw) solid var(--edge-dark);padding:8px 8px 6px;box-shadow:2px 3px 0 rgba(0,0,0,.25);min-width:0}
+.pc .frame{position:relative;aspect-ratio:3/2;overflow:hidden;border:1px solid #333}
+.pc canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.pc span{display:flex;justify-content:space-between;gap:6px;font-size:.78rem;margin-top:4px;color:#333}
+.bars{display:grid;gap:8px}
+.bar-row{display:grid;grid-template-columns:130px minmax(0,1fr) 64px;gap:8px;align-items:center;font-size:.88rem}
+.bar-row .tr{height:18px;background:var(--panel-alt);border:1px solid var(--edge-dark)}
+.bar-row .fl{height:100%;background:linear-gradient(var(--btn1),var(--btn2))}
+.bar-row .v{font-family:var(--font-mono);font-size:1.1rem;text-align:right}
+@media (max-width:480px){.bar-row{grid-template-columns:90px minmax(0,1fr) 56px}}
+footer.foot{text-align:center;font-size:.82rem}
+footer.foot .panel{padding:1rem}
+.sig{display:grid;gap:6px}
+</style>
+<script>
+(function(){var ok=['housatonic','stanley','foliage','arrowhead','netscape'],s=null;
+try{s=JSON.parse(localStorage.getItem('pto:style'))}catch(e){}
+if(ok.indexOf(s)<0){s=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'arrowhead':'housatonic'}
+document.documentElement.setAttribute('data-style',s)})();
+</script>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="wrap">
+<header class="masthead" id="top">
+  <div class="hero" aria-hidden="true"><canvas data-scene="hero" data-seed="11"></canvas></div>
+  <div class="mast-top">
+    <div class="plate">
+      <div class="kicker">Unofficial community homepage</div>
+      <h1>Pittsfield, Massachusetts</h1>
+      <p class="tag">Services, neighbors and local history for the city on the Housatonic. Official city business happens at pittsfieldma.gov, and this page links you straight there.</p>
+    </div>
+    <div class="plate looks" role="group" aria-label="Choose a look">
+      <span class="lbl">Pick a look</span>
+      <button type="button" class="swatch sw-housatonic" data-look="housatonic" title="Housatonic: blues and greens" aria-label="Housatonic, blues and greens"></button>
+      <button type="button" class="swatch sw-stanley" data-look="stanley" title="Stanley Electric: gray and orange" aria-label="Stanley Electric, gray and orange"></button>
+      <button type="button" class="swatch sw-foliage" data-look="foliage" title="Berkshire Foliage: maple and gold" aria-label="Berkshire Foliage, maple and gold"></button>
+      <button type="button" class="swatch sw-arrowhead" data-look="arrowhead" title="Arrowhead: midnight navy and brass" aria-label="Arrowhead, midnight navy and brass"></button>
+      <button type="button" class="swatch sw-netscape" data-look="netscape" title="Netscape '96: silver and teal" aria-label="Netscape 96, silver and teal"></button>
+      <span class="stylename" id="styleName" aria-live="polite"></span>
+    </div>
+  </div>
+  <div class="mast-bot">
+    <div class="plate"><label for="svcFilter" style="margin:0">Find a service</label>
+      <input id="svcFilter" type="search" placeholder="trash, permits, taxes, maps..." autocomplete="off"></div>
+    <div class="plate small">Last updated Oct 14, 2026</div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#services">Services</a><a href="#trash">Trash &amp; Recycling</a><a href="#square">Town Square</a><a href="#forum">Forum Board</a><a href="#history">History</a><a href="#culture">Culture</a><a href="#government">Government</a>
+</nav>
+
+<div class="ticker" role="marquee" aria-label="Notices"><b>NOTICES</b><span class="run">Statewide general election: Tuesday, Nov 3, 2026. Voting questions go to the City Clerk at 413-499-9361 +++ Trash and recycling carts out by 7 a.m. on collection day +++ The draft city Master Plan is posted on the city website +++ Sign up for CodeRED emergency alerts on the city site +++ Report potholes and missed pickups through PittSMART</span></div>
+
+<div class="layout">
+<div class="main">
+
+<section class="panel" id="services" aria-labelledby="h-svc">
+  <div class="bar"><h2 id="h-svc" style="font-size:inherit">Town Services Directory</h2><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="pad">
+    <div class="desk" style="margin-bottom:1rem">
+      <div class="big311" aria-hidden="true">311<s></s></div>
+      <div>
+        <h3>The 311 desk: how to report a problem</h3>
+        <p style="margin-bottom:.5rem">The city website lists no 311 number, so there is nothing to dial. Potholes, missed pickups, graffiti and similar problems go through <b>PittSMART</b>, on the web or as an iOS or Android app. You get an email when the request moves and can track it to the end. To talk to a person, call the City Hall main line.</p>
+        <div class="row">
+          <a class="btn" href="https://www.pittsfieldma.gov/455" target="_blank" rel="noopener">Open PittSMART</a>
+          <button type="button" class="btn" id="copyHall">Copy 413-449-5600</button>
+          <span class="small" id="copyMsg" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+    <div class="tiles" id="svcTiles" aria-live="polite"></div>
+    <p class="small" id="svcNone" hidden style="margin-top:.8rem">No services match that search. Try a shorter word, or call City Hall at 413-449-5600.</p>
+    <h3 style="margin:1.2rem 0 .5rem">Phone directory</h3>
+    <div class="scroll"><table class="tbl">
+      <thead><tr><th>Office</th><th>Phone</th></tr></thead>
+      <tbody>
+        <tr><td>City Hall main line (70 Allen St.)</td><td class="num">413-449-5600</td></tr>
+        <tr><td>Mayor's Office</td><td class="num">413-499-9321</td></tr>
+        <tr><td>City Clerk (elections, licenses, bulky-item stickers)</td><td class="num">413-499-9361</td></tr>
+        <tr><td>Public Works</td><td class="num">413-499-9330</td></tr>
+        <tr><td>Police Department</td><td class="num">413-448-9700</td></tr>
+        <tr><td>Fire Department</td><td class="num">413-448-9764</td></tr>
+        <tr><td>Health Department</td><td class="num">413-499-9411</td></tr>
+        <tr><td>Building Inspectors</td><td class="num">413-499-9440</td></tr>
+        <tr><td>Tax Collector</td><td class="num">413-499-9431</td></tr>
+        <tr><td>Assessor's Office</td><td class="num">413-395-0102</td></tr>
+        <tr><td>Parks &amp; Recreation</td><td class="num">413-499-9371</td></tr>
+        <tr><td>Veterans' Services</td><td class="num">413-499-9433</td></tr>
+        <tr><td>Community Development</td><td class="num">413-499-9368</td></tr>
+      </tbody></table></div>
+    <p class="small" style="margin-top:.5rem">Numbers come from the city's online directory. In an emergency dial 911. Confirm a number on pittsfieldma.gov before relying on it.</p>
+  </div>
+</section>
+
+<section class="panel" id="trash" aria-labelledby="h-trash">
+  <div class="bar"><h2 id="h-trash" style="font-size:inherit">Trash &amp; Recycling Desk</h2><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="pad">
+    <div class="cols">
+      <div>
+        <h3>The basics</h3>
+        <ul style="margin:0;padding-left:1.1rem">
+          <li>Carts go out by 7 a.m. on collection day. Anything left beside a cart is not collected.</li>
+          <li>Each home gets two free 48-gallon carts, one for trash and one for recycling. Recyclables go in loose, with no bags.</li>
+          <li>Your street's day is on the 2026 recycling calendar or in the Casella app.</li>
+          <li>Yard waste goes to the Casella Transfer Station, 500 Hubbard Ave., with proof of residency.</li>
+          <li>Public Works 413-499-9330. Casella customer service 413-453-0098.</li>
+        </ul>
+        <div class="row" style="margin-top:.7rem"><a class="btn small" href="https://www.pittsfieldma.gov/598/Trash-Recycling" target="_blank" rel="noopener">City trash page</a><a class="btn small" href="https://www.pittsfieldma.gov/DocumentCenter/View/1250" target="_blank" rel="noopener">Route map</a></div>
+      </div>
+      <div>
+        <h3>Holiday delay checker</h3>
+        <p class="small">When one of six holidays lands on a weekday, pickup for that day and every later day that week slips one day.</p>
+        <div class="field"><label for="trashDow">My usual pickup day</label>
+          <select id="trashDow"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3" selected>Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option></select></div>
+        <ul class="result" id="trashOut" style="padding-left:1.1rem;margin-bottom:0"></ul>
+      </div>
+      <div>
+        <h3>Bulky item pickup</h3>
+        <p class="small">Each item needs a $20 sticker from the City Clerk (70 Allen St.), Public Works (100 North St.), or Carr Hardware, Elm Street Hardware or Market 32. Put items out Monday of the pickup week, then call Casella to schedule.</p>
+        <div class="note" id="bulkyOut" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="square" aria-labelledby="h-sq">
+  <div class="bar"><h2 id="h-sq" style="font-size:inherit">The Town Square</h2><span class="small" style="color:inherit" id="sqCount" aria-live="polite">connecting</span></div>
+  <div class="pad">
+    <p class="small">Everyone with this page open right now appears here as a dot. Move your pointer (or tap, or use the arrow keys) to walk around. Say hello, wave, and see who else is in town.</p>
+    <div class="square" id="sqFrame" tabindex="0" role="application" aria-label="Town square. Move the pointer or use arrow keys to walk.">
+      <canvas data-scene="square" data-seed="5" aria-hidden="true"></canvas>
+      <div id="avLayer"></div>
+      <div class="sqmsg" id="sqStatus">Warming up the square...</div>
+    </div>
+    <div class="row" style="margin-top:.7rem">
+      <div><label for="nick" class="sr">Your name in the square</label><input id="nick" maxlength="18" placeholder="Your name" autocomplete="nickname" style="width:150px"></div>
+      <form id="sayForm" class="row" style="flex:1 1 220px;flex-wrap:nowrap"><label for="sayTxt" class="sr">Say something</label><input id="sayTxt" maxlength="80" placeholder="Say something to the square" style="flex:1 1 auto"><button class="btn small" type="submit">Say</button></form>
+      <button type="button" class="btn small" data-emote="waves">Wave</button>
+      <button type="button" class="btn small" data-emote="cheers">Cheer</button>
+      <button type="button" class="btn small" data-emote="sits on a bench">Sit</button>
+    </div>
+    <ul class="crier" id="crier" aria-live="polite"></ul>
+    <div class="small" id="peerList"></div>
+  </div>
+</section>
+
+<section class="panel" id="forum" aria-labelledby="h-forum">
+  <div class="bar"><h2 id="h-forum" style="font-size:inherit">Forum Board</h2><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="pad">
+    <div class="note" style="margin-bottom:.8rem"><b>House rules:</b> be civil, stay local, no personal details about other people, no ads. Posts belong to their authors, who can delete them at any time.</div>
+    <div id="forumBody"><div class="empty">Loading the board...</div></div>
+  </div>
+</section>
+
+<section class="panel" id="history" aria-labelledby="h-hist">
+  <div class="bar"><h2 id="h-hist" style="font-size:inherit">Pittsfield History</h2><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="pad">
+    <p>The land was called Pontoosuck before it was Pittsfield. From a frontier plantation it grew through wool mills and electrical engineering into the seat of Berkshire County. Pick an era to filter the timeline.</p>
+    <div class="era" id="eraBtns" role="group" aria-label="Filter by era"></div>
+    <ol class="tl" id="tl"></ol>
+    <h3 style="margin:1rem 0 .5rem">People worth knowing</h3>
+    <div class="cards">
+      <div class="card"><h3>Rev. Thomas Allen</h3><p>Known as the "Fighting Parson" for his role in the Revolutionary War.</p></div>
+      <div class="card"><h3>Herman Melville</h3><p>Wrote <i>Moby-Dick</i> while living at Arrowhead, his Pittsfield farmhouse.</p></div>
+      <div class="card"><h3>William F. Bartlett</h3><p>Rose to major general during the Civil War at age 24, which the city calls the youngest in the war.</p></div>
+      <div class="card"><h3>Charles W. Whittlesey</h3><p>Earned the Medal of Honor commanding the "Lost Battalion" in World War I.</p></div>
+      <div class="card"><h3>Samuel Harrison</h3><p>Pittsfield pastor who pressed for equal pay for Black soldiers and served as chaplain of the 54th regiment.</p></div>
+    </div>
+    <h3 style="margin:1.2rem 0 .3rem">Postcards from the Berkshires</h3>
+    <p class="small">Drawn on the fly in the current palette. Click a postcard to re-dither just that picture.</p>
+    <div class="postcards">
+      <button type="button" class="pc" data-pc><div class="frame"><canvas data-scene="hills" data-seed="7" aria-hidden="true"></canvas></div><span><b>The Berkshire hills</b><em class="pcmode"></em></span></button>
+      <button type="button" class="pc" data-pc><div class="frame"><canvas data-scene="lake" data-seed="3" aria-hidden="true"></canvas></div><span><b>Onota Lake, evening</b><em class="pcmode"></em></span></button>
+      <button type="button" class="pc" data-pc><div class="frame"><canvas data-scene="mills" data-seed="9" aria-hidden="true"></canvas></div><span><b>Mill row on the river</b><em class="pcmode"></em></span></button>
+    </div>
+    <p class="small" style="margin-top:.8rem">Sources: <a href="https://www.pittsfieldma.gov/646/History-of-Pittsfield" target="_blank" rel="noopener">City of Pittsfield</a>, <a href="https://www.pittsfieldlibrary.org/city-history" target="_blank" rel="noopener">Berkshire Athenaeum</a>, <a href="https://en.wikipedia.org/wiki/Pittsfield,_Massachusetts" target="_blank" rel="noopener">Wikipedia</a>. The postcards are illustrations, not photographs.</p>
+  </div>
+</section>
+
+<section class="panel" id="culture" aria-labelledby="h-cult">
+  <div class="bar"><h2 id="h-cult" style="font-size:inherit">Culture &amp; Getting Out</h2><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="pad">
+    <p>In 2017 the Arts Vibrancy Index ranked Pittsfield and Berkshire County first among medium-sized communities in the country for the arts. Most of it is within a short walk of North Street.</p>
+    <div class="cards">
+      <div class="card"><h3>Colonial Theatre</h3><p>Opened in 1903 and still known for its acoustics.</p></div>
+      <div class="card"><h3>Barrington Stage Company</h3><p>Professional theatre with a downtown stage and a Musical Theatre Lab. <a href="https://barringtonstage.org" target="_blank" rel="noopener">barringtonstage.org</a></p></div>
+      <div class="card"><h3>Berkshire Museum</h3><p>Art, history and natural science in one downtown building. <a href="https://berkshiremuseum.org" target="_blank" rel="noopener">berkshiremuseum.org</a></p></div>
+      <div class="card"><h3>Berkshire Athenaeum</h3><p>The public library, with a Local History Department for deeper digging. <a href="https://www.pittsfieldlibrary.org/" target="_blank" rel="noopener">pittsfieldlibrary.org</a></p></div>
+      <div class="card"><h3>Arrowhead</h3><p>Melville's home from 1850 to 1863, now a museum. <a href="https://mobydick.org" target="_blank" rel="noopener">mobydick.org</a></p></div>
+      <div class="card"><h3>Wahconah Park</h3><p>Professional baseball was played here from 1894 to 2003. The Pittsfield Suns have called it home since 2012.</p></div>
+      <div class="card"><h3>Pittsfield State Forest</h3><p>About 11,000 acres of trails, camping and a swimming beach.</p></div>
+      <div class="card"><h3>Onota and Pontoosuc Lakes</h3><p>Swimming, boating and fishing within city limits.</p></div>
+      <div class="card"><h3>Canoe Meadows</h3><p>A 264-acre Mass Audubon wildlife sanctuary along the Housatonic.</p></div>
+      <div class="card"><h3>Baseball, 1859</h3><p>Pittsfield hosted what is called the first intercollegiate baseball game. Amherst beat Williams 73 to 32.</p></div>
+      <div class="card"><h3>Music on South Mountain</h3><p>The Berkshire Music Festival began here in 1918 under Elizabeth Sprague Coolidge.</p></div>
+      <div class="card"><h3>Learning</h3><p>Pittsfield High, Taconic High, Miss Hall's School, and Berkshire Community College.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="government" aria-labelledby="h-gov">
+  <div class="bar"><h2 id="h-gov" style="font-size:inherit">City Government &amp; Politics</h2><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="pad">
+    <div class="cols">
+      <div>
+        <h3>How the city is run</h3>
+        <p>Pittsfield uses a mayor-council form of government. The mayor serves a four-year term. Peter Marchetti took office in January 2024, and the next mayoral election is Tuesday, Nov 2, 2027. The eleven-member City Council has seven ward seats and four at-large seats.</p>
+        <div class="row"><a class="btn small" href="https://www.pittsfieldma.gov/agendacenter" target="_blank" rel="noopener">Meeting agendas</a><a class="btn small" href="https://www.pittsfieldma.gov/402" target="_blank" rel="noopener">Boards &amp; commissions</a></div>
+      </div>
+      <div>
+        <h3>Coming up</h3>
+        <ul style="margin:0;padding-left:1.1rem">
+          <li><b>Nov 3, 2026:</b> statewide general election. Ask the City Clerk (413-499-9361) about polling places and early voting.</li>
+          <li><b>Now:</b> a draft city Master Plan is posted for public reading on the city website.</li>
+          <li><b>Nov 2, 2027:</b> next municipal election, per the Massachusetts Municipal Association.</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin:1.2rem 0 .5rem">City Council</h3>
+    <div class="scroll"><table class="tbl">
+      <thead><tr><th>Councilor</th><th>Seat</th></tr></thead>
+      <tbody>
+        <tr><td>Earl G. Persip III</td><td>Council President</td></tr>
+        <tr><td>Peter White</td><td>Council Vice President</td></tr>
+        <tr><td>Kathleen Amuso</td><td>At-Large</td></tr>
+        <tr><td>Alisa Costa</td><td>At-Large</td></tr>
+        <tr><td>Kenneth G. Warren Jr.</td><td>Ward 1</td></tr>
+        <tr><td>Cameron Cunningham</td><td>Ward 2</td></tr>
+        <tr><td>Matthew Wrinn</td><td>Ward 3</td></tr>
+        <tr><td>James Conant</td><td>Ward 4</td></tr>
+        <tr><td>Patrick Kavey</td><td>Ward 5</td></tr>
+        <tr><td>Dina G. Lampiasi</td><td>Ward 6</td></tr>
+        <tr><td>Kathy Moody</td><td>Ward 7</td></tr>
+      </tbody></table></div>
+    <div class="cols" style="margin-top:1.2rem">
+      <div>
+        <h3>Representation</h3>
+        <ul style="margin:0;padding-left:1.1rem">
+          <li>State House: Tricia Farley-Bouvier, 2nd Berkshire District</li>
+          <li>State Senate: Paul Mark</li>
+          <li>U.S. House: Richard Neal, Massachusetts 1st District</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Who is registered (Feb 1, 2025)</h3>
+        <div class="bars" role="img" aria-label="Voter registration: 63 percent unenrolled, 29.35 percent Democratic, 6.54 percent Republican, 1.11 percent other">
+          <div class="bar-row"><span>Unenrolled</span><div class="tr"><div class="fl" style="width:63%"></div></div><span class="v">63.00%</span></div>
+          <div class="bar-row"><span>Democratic</span><div class="tr"><div class="fl" style="width:29.35%"></div></div><span class="v">29.35%</span></div>
+          <div class="bar-row"><span>Republican</span><div class="tr"><div class="fl" style="width:6.54%"></div></div><span class="v">6.54%</span></div>
+          <div class="bar-row"><span>All others</span><div class="tr"><div class="fl" style="width:1.11%"></div></div><span class="v">1.11%</span></div>
+        </div>
+        <p class="small" style="margin-top:.4rem">31,284 registered voters. "All others" is the remainder after the three listed groups. Source: Wikipedia, citing state figures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /main -->
+
+<aside class="rail" aria-label="Tools">
+  <section class="panel" aria-labelledby="h-lab">
+    <div class="bar"><h2 id="h-lab" style="font-size:inherit">Dither Lab</h2><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="pad">
+      <p class="small">Every picture and the page texture are drawn with a limited palette and dithered, like a 1996 GIF. Click to change the method.</p>
+      <button type="button" class="btn" id="ditherBtn" style="width:100%">Dither!</button>
+      <p class="small" style="margin:.4rem 0 .8rem;text-align:center">Now showing: <b id="modeName"></b></p>
+      <details>
+        <summary style="cursor:pointer;font-weight:700;margin-bottom:.6rem">More controls</summary>
+        <div class="field"><label for="modeSel">Method</label><select id="modeSel" style="width:100%"></select></div>
+        <div class="field"><label for="lvl">Tones per color: <span id="lvlV"></span></label><input id="lvl" type="range" min="2" max="8" step="1"></div>
+        <div class="field"><label for="px">Dot size: <span id="pxV"></span></label><input id="px" type="range" min="1" max="8" step="1"></div>
+        <div class="field"><label for="palSel">Palette</label><select id="palSel" style="width:100%"><option value="tone">Look's own tones</option><option value="color">Full color, reduced</option></select></div>
+        <div class="field"><label for="bgSel">Page texture</label><select id="bgSel" style="width:100%"><option value="hills">Berkshire hills</option><option value="ripples">Housatonic ripples</option><option value="haze">Sky haze</option><option value="grain">Film grain</option><option value="photo">My photo</option><option value="none">Flat color</option></select></div>
+        <div class="field"><label for="photo">Dither my own photo</label><input id="photo" type="file" accept="image/*" style="width:100%"><span class="small" id="photoMsg">Stays on your device and resets when you leave.</span></div>
+        <button type="button" class="btn small" id="reroll">New texture</button>
+      </details>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-quick">
+    <div class="bar"><h2 id="h-quick" style="font-size:inherit">Quick Numbers</h2></div>
+    <div class="pad">
+      <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.35rem">
+        <li><b class="mono" style="font-size:1.3rem">911</b> Emergencies</li>
+        <li><b class="mono" style="font-size:1.2rem">413-449-5600</b> City Hall</li>
+        <li><b class="mono" style="font-size:1.2rem">413-499-9330</b> Public Works</li>
+        <li><b class="mono" style="font-size:1.2rem">413-453-0098</b> Casella (trash)</li>
+      </ul>
+      <p class="small" style="margin-top:.6rem"><a href="https://www.pittsfieldma.gov/645/Emergency-Notifications-CodeRED" target="_blank" rel="noopener">Sign up for CodeRED alerts</a></p>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-gb">
+    <div class="bar"><h2 id="h-gb" style="font-size:inherit">Guestbook</h2></div>
+    <div class="pad">
+      <form id="gbForm" class="sig">
+        <div><label for="gbMsg">Sign the guestbook</label><textarea id="gbMsg" maxlength="140" placeholder="Hello from the East Side!" style="min-height:3.6rem"></textarea></div>
+        <button type="submit" class="btn small">Sign</button>
+        <div class="msg" id="gbStatus" role="status"></div>
+      </form>
+      <ul class="gb" id="gbList"><li class="small">The guestbook is empty. Be the first to sign.</li></ul>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-cnt">
+    <div class="bar"><h2 id="h-cnt" style="font-size:inherit">Visitors</h2></div>
+    <div class="pad" style="text-align:center">
+      <div class="counter" id="counter" aria-label="Visitor count"></div>
+      <div class="small">people have visited this page</div>
+      <div class="uc" aria-hidden="true"></div>
+      <div class="small">Always under construction</div>
+      <div style="margin-top:.5rem"><span class="badge">Best viewed in any browser</span><span class="badge">Made in the Berkshires</span></div>
+    </div>
+  </section>
+</aside>
+</div><!-- /layout -->
+
+<footer class="foot"><div class="panel">Pittsfield Online is an unofficial community page and is not run by the City of Pittsfield. For official notices, payments and records, use <a href="https://www.pittsfieldma.gov" target="_blank" rel="noopener">pittsfieldma.gov</a>.</div></footer>
+</div><!-- /wrap -->
+<script>
+(function(){
+'use strict';
+const $=(s,r)=>(r||document).querySelector(s);
+const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+const store={get(k,d){try{const v=localStorage.getItem('pto:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('pto:'+k,JSON.stringify(v))}catch(e){}}};
+const STYLES=[['housatonic','Housatonic'],['stanley','Stanley Electric'],['foliage','Berkshire Foliage'],['arrowhead','Arrowhead'],['netscape',"Netscape '96"]];
+const MODES=[['bayer8','Bayer 8×8'],['bayer4','Bayer 4×4'],['fs','Floyd–Steinberg'],['atkinson','Atkinson'],['noise','Random noise'],['off','Smooth (off)']];
+const BGS=['hills','ripples','haze','grain','photo','none'];
+const modeName=id=>(MODES.find(m=>m[0]===id)||MODES[0])[1];
+const st={style:document.documentElement.getAttribute('data-style'),mode:store.get('mode','bayer8'),lvl:store.get('lvl',4),px:store.get('px',3),pal:store.get('pal','tone'),bg:store.get('bg','hills'),seed:0};
+if(!STYLES.some(s=>s[0]===st.style))st.style='housatonic';
+if(!MODES.some(m=>m[0]===st.mode))st.mode='bayer8';
+if(!BGS.includes(st.bg)||st.bg==='photo')st.bg='hills';
+st.lvl=Math.min(8,Math.max(2,+st.lvl||4));st.px=Math.min(8,Math.max(1,+st.px||3));
+if(st.pal!=='color')st.pal='tone';
+let photoImg=null;
+
+/*PURE-START*/
+const HOLIDAYS=[['Thanksgiving',2026,10,26],['Christmas Day',2026,11,25],["New Year's Day",2027,0,1],['Memorial Day',2027,4,31],['Independence Day',2027,6,4],['Labor Day',2027,8,6]];
+function shiftsFor(pickupDow,today){
+  const out=[];
+  for(const [name,y,m,d] of HOLIDAYS){
+    const hd=new Date(y,m,d);
+    if(hd<new Date(today.getFullYear(),today.getMonth(),today.getDate()))continue;
+    const dow=hd.getDay();
+    if(dow===0||dow===6){out.push({name,date:hd,weekend:true,affected:false});continue}
+    const affected=pickupDow>=dow;
+    const normal=new Date(y,m,d+(pickupDow-dow));
+    const moved=new Date(y,m,d+(pickupDow-dow)+1);
+    out.push({name,date:hd,weekend:false,affected,normal,moved});
+  }
+  return out;
+}
+function firstFullWeekMonday(y,m){const dow=new Date(y,m,1).getDay();return new Date(y,m,1+(dow===1?0:(8-dow)%7))}
+function bulkyWeeks(y,m){
+  const a=firstFullWeekMonday(y,m),arr=[a];
+  if([4,5,6,11].includes(m))arr.push(new Date(a.getFullYear(),a.getMonth(),a.getDate()+14));
+  return arr;
+}
+function nextBulky(today){
+  const t=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+  for(let i=0;i<14;i++){
+    const d=new Date(t.getFullYear(),t.getMonth()+i,1);
+    for(const w of bulkyWeeks(d.getFullYear(),d.getMonth())){
+      const sun=new Date(w.getFullYear(),w.getMonth(),w.getDate()+6);
+      if(sun>=t)return {start:w,end:sun};
+    }
+  }
+  return null;
+}
+/*PURE-END*/
+
+/* ---------- dithering engine ---------- */
+const BAY={};
+function bayer(n){let m=[[0]],s=1;while(s<n){const t=[];for(let y=0;y<s*2;y++){t.push([]);for(let x=0;x<s*2;x++){const q=m[y%s][x%s],a=y<s?(x<s?0:2):(x<s?3:1);t[y].push(q*4+a)}}m=t;s*=2}return m}
+BAY[4]=bayer(4);BAY[8]=bayer(8);
+function rng(seed){let a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}
+function hex(h){h=String(h).trim();if(h[0]==='#'){if(h.length===4)h='#'+h[1]+h[1]+h[2]+h[2]+h[3]+h[3];return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}const m=h.match(/\d+/g);return m?m.slice(0,3).map(Number):[128,128,128]}
+const C=(a,al)=>al==null?'rgb('+a[0]+','+a[1]+','+a[2]+')':'rgba('+a[0]+','+a[1]+','+a[2]+','+al+')';
+const mix=(a,b,t)=>[0,1,2].map(i=>Math.round(a[i]+(b[i]-a[i])*t));
+function pal(){const cs=getComputedStyle(document.documentElement),o={};['sky1','sky2','hill1','hill2','hill3','water1','water2','sun','r0','r1','r2','r3'].forEach(k=>{o[k]=hex(cs.getPropertyValue('--'+k))});return o}
+function rampAt(P,t){const s=[P.r0,P.r1,P.r2,P.r3],x=Math.min(.9999,Math.max(0,t))*3,i=Math.floor(x);return mix(s[i],s[i+1],x-i)}
+function dither(d,w,h,ch,mode,levels,seed){
+  const L=levels-1,q=v=>{v=Math.round(v*L)/L;return v<0?0:v>1?1:v};
+  if(mode==='bayer4'||mode==='bayer8'){
+    const n=mode==='bayer4'?4:8,M=BAY[n],nn=n*n;
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const t=(M[y%n][x%n]+.5)/nn-.5;for(let c=0;c<ch;c++){const i=(y*w+x)*ch+c;d[i]=q(d[i]+t/L)}}
+  }else if(mode==='noise'){
+    const r=rng(seed*7919+13);for(let i=0;i<d.length;i++)d[i]=q(d[i]+(r()-.5)/L);
+  }else{
+    const at=mode==='atkinson';let ee=0,cc=0;
+    const add=(xx,yy,f)=>{if(xx>=0&&xx<w&&yy<h)d[(yy*w+xx)*ch+cc]+=ee*f};
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++)for(let c=0;c<ch;c++){
+      const i=(y*w+x)*ch+c,o=d[i],n=q(o);ee=o-n;cc=c;d[i]=n;
+      if(at){const f=1/8;add(x+1,y,f);add(x+2,y,f);add(x-1,y+1,f);add(x,y+1,f);add(x+1,y+1,f);add(x,y+2,f)}
+      else{add(x+1,y,7/16);add(x-1,y+1,3/16);add(x,y+1,5/16);add(x+1,y+1,1/16)}
+    }
+  }
+}
+
+/* ---------- scenes (drawn small, then dithered) ---------- */
+const grad=(ctx,x0,y0,x1,y1,s)=>{const g=ctx.createLinearGradient(x0,y0,x1,y1);s.forEach(a=>g.addColorStop(a[0],a[1]));return g};
+function ridge(ctx,w,h,base,amp,f,ph,fill){
+  ctx.fillStyle=fill;ctx.beginPath();ctx.moveTo(0,h);
+  const step=Math.max(1,w/220);
+  for(let x=0;x<=w+step;x+=step){const t=x/w,y=h*base-amp*h*(Math.sin(t*f*6.283+ph)*.5+Math.sin(t*f*2.1*6.283+ph*1.7)*.3+Math.sin(t*f*4.3*6.283+ph*.6)*.2);ctx.lineTo(x,y)}
+  ctx.lineTo(w,h);ctx.closePath();ctx.fill();
+}
+const sky=(ctx,w,h,P,to)=>{ctx.fillStyle=grad(ctx,0,0,0,h*to,[[0,C(P.sky1)],[1,C(P.sky2)]]);ctx.fillRect(0,0,w,h)};
+function sunDraw(ctx,w,h,P,x,y,r){const g=ctx.createRadialGradient(x,y,0,x,y,r*4);g.addColorStop(0,C(P.sun,.95));g.addColorStop(.25,C(P.sun,.5));g.addColorStop(1,C(P.sun,0));ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.fillStyle=C(P.sun);ctx.beginPath();ctx.arc(x,y,r,0,6.283);ctx.fill()}
+function clouds(ctx,w,h,P,r,n,ymax){ctx.fillStyle=C(P.sky2,.5);for(let i=0;i<n;i++){const cx=r()*w,cy=r()*h*ymax,cw=w*(.07+r()*.1);for(let k=0;k<5;k++){ctx.beginPath();ctx.ellipse(cx+(k-2)*cw*.3,cy+Math.sin(k*1.7)*cw*.05,cw*.3,cw*.11,0,0,6.283);ctx.fill()}}}
+function bubbles(ctx,w,h,r,n,maxr){for(let i=0;i<n;i++){const x=r()*w,y=r()*h,rad=(.3+r()*.7)*maxr;const g=ctx.createRadialGradient(x-rad*.3,y-rad*.3,rad*.05,x,y,rad);g.addColorStop(0,'rgba(255,255,255,.75)');g.addColorStop(.6,'rgba(255,255,255,.08)');g.addColorStop(1,'rgba(255,255,255,.35)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,rad,0,6.283);ctx.fill()}}
+const poly=(ctx,pts,fill)=>{ctx.fillStyle=fill;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.fill()};
+function water(ctx,w,h,P,y0,r){
+  ctx.fillStyle=grad(ctx,0,y0,0,h,[[0,C(P.water2)],[1,C(P.water1)]]);ctx.fillRect(0,y0,w,h-y0);
+  ctx.fillStyle=C(P.sky2,.35);for(let i=0;i<40;i++){const y=y0+r()*(h-y0),x=r()*w;ctx.fillRect(x,y,w*(.02+r()*.06),Math.max(1,h*.006))}
+}
+function scene(ctx,w,h,name,P,r){
+  ctx.clearRect(0,0,w,h);
+  const S={
+    hills(){sky(ctx,w,h,P,.72);sunDraw(ctx,w,h,P,w*(.55+r()*.3),h*(.22+r()*.1),h*.07);clouds(ctx,w,h,P,r,4,.35);
+      ridge(ctx,w,h,.52,.1,1.3,r()*6,C(P.hill3));ridge(ctx,w,h,.66,.12,1.8,r()*6,C(P.hill2));ridge(ctx,w,h,.84,.1,2.4,r()*6,C(P.hill1))},
+    hero(){sky(ctx,w,h,P,.8);sunDraw(ctx,w,h,P,w*.78,h*.3,h*.1);clouds(ctx,w,h,P,r,5,.4);
+      ridge(ctx,w,h,.56,.12,1.6,r()*6,C(P.hill3));ridge(ctx,w,h,.68,.1,2.3,r()*6,C(P.hill2));
+      water(ctx,w,h,P,h*.74,r);bubbles(ctx,w,h,r,9,h*.12)},
+    lake(){sky(ctx,w,h,P,.55);sunDraw(ctx,w,h,P,w*.62,h*.34,h*.07);clouds(ctx,w,h,P,r,3,.3);
+      ridge(ctx,w,h,.52,.05,1.4,r()*6,C(P.hill3));ridge(ctx,w,h,.56,.04,2.6,r()*6,C(P.hill2));
+      water(ctx,w,h,P,h*.54,r);
+      ctx.fillStyle=C(P.sun,.5);for(let i=0;i<14;i++){const y=h*.58+i*h*.028;ctx.fillRect(w*.62-w*(.02+i*.006),y,w*(.04+i*.012),Math.max(1,h*.012))}
+      const bx=w*.25,by=h*.7;poly(ctx,[[bx,by-h*.2],[bx,by-h*.02],[bx+w*.07,by-h*.02]],C(P.sky2));poly(ctx,[[bx-w*.01,by],[bx+w*.09,by],[bx+w*.07,by+h*.04],[bx+w*.01,by+h*.04]],C(P.hill1))},
+    mills(){sky(ctx,w,h,P,.6);sunDraw(ctx,w,h,P,w*.2,h*.25,h*.06);clouds(ctx,w,h,P,r,3,.3);
+      ridge(ctx,w,h,.46,.06,1.5,r()*6,C(P.hill3));
+      const wy=h*.74;let x=-w*.02;
+      while(x<w){const bw=w*(.08+r()*.09),bh=h*(.14+r()*.14);
+        ctx.fillStyle=C(P.hill1);ctx.fillRect(x,wy-bh,bw,bh);
+        const teeth=Math.max(2,Math.round(bw/(w*.03)));for(let t=0;t<teeth;t++){poly(ctx,[[x+t*bw/teeth,wy-bh],[x+(t+1)*bw/teeth,wy-bh],[x+t*bw/teeth,wy-bh-h*.05]],C(P.hill1))}
+        ctx.fillStyle=C(P.sun,.85);for(let wx=x+bw*.1;wx<x+bw*.85;wx+=bw*.2)for(let wyy=wy-bh*.8;wyy<wy-bh*.2;wyy+=bh*.28)ctx.fillRect(wx,wyy,bw*.09,bh*.12);
+        if(r()<.45){const sx=x+bw*.8;ctx.fillStyle=C(P.hill2);ctx.fillRect(sx,wy-bh-h*.2,w*.013,h*.2);ctx.fillStyle=C(P.sky2,.55);ctx.beginPath();ctx.ellipse(sx+w*.03,wy-bh-h*.24,w*.04,h*.04,0,0,6.283);ctx.fill()}
+        x+=bw+w*.005}
+      water(ctx,w,h,P,wy,r);ctx.fillStyle=C(P.hill1,.35);for(let i=0;i<8;i++)ctx.fillRect(r()*w,wy+r()*(h-wy),w*.08,h*.015)},
+    ripples(){ctx.fillStyle=grad(ctx,0,0,0,h,[[0,C(P.water1)],[1,C(P.water2)]]);ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle=C(P.sky2,.3);ctx.lineWidth=Math.max(1,w/400);
+      for(let i=0;i<16;i++){const cx=r()*w,cy=r()*h;for(let k=1;k<7;k++){ctx.beginPath();ctx.ellipse(cx,cy,k*w*.03,k*w*.012,0,0,6.283);ctx.stroke()}}
+      bubbles(ctx,w,h,r,22,Math.min(w,h)*.08)},
+    haze(){sky(ctx,w,h,P,1);const cols=[P.sky2,P.hill3,P.water2];
+      for(let i=0;i<34;i++){const x=r()*w,y=r()*h,rad=Math.min(w,h)*(.12+r()*.28),g=ctx.createRadialGradient(x,y,0,x,y,rad),c=cols[i%3];g.addColorStop(0,C(c,.35));g.addColorStop(1,C(c,0));ctx.fillStyle=g;ctx.fillRect(x-rad,y-rad,rad*2,rad*2)}},
+    grain(){ctx.fillStyle=grad(ctx,0,0,w,h,[[0,C(P.sky1)],[.5,C(P.sky2)],[1,C(P.hill3)]]);ctx.fillRect(0,0,w,h);
+      const im=ctx.getImageData(0,0,w,h),d=im.data;for(let i=0;i<d.length;i+=4){const n=(r()-.5)*70;d[i]+=n;d[i+1]+=n;d[i+2]+=n}ctx.putImageData(im,0,0)},
+    photo(){if(!photoImg){S.hills();return}
+      const s=Math.max(w/photoImg.naturalWidth,h/photoImg.naturalHeight),dw=photoImg.naturalWidth*s,dh=photoImg.naturalHeight*s;
+      ctx.drawImage(photoImg,(w-dw)/2,(h-dh)/2,dw,dh)},
+    square(){sky(ctx,w,h,P,.34);ridge(ctx,w,h,.31,.05,2,1,C(P.hill3));
+      ctx.fillStyle=grad(ctx,0,h*.3,0,h,[[0,C(P.hill3)],[1,C(P.hill2)]]);ctx.fillRect(0,h*.3,w,h*.7);
+      ctx.fillStyle=C(P.hill1,.12);for(let i=0;i<14;i++)ctx.fillRect(w/14*i,h*.3,w/28,h*.7);
+      const path=C(P.sky2,.9);
+      poly(ctx,[[w*.06,h],[w*.2,h],[w*.54,h*.64],[w*.46,h*.64]],path);poly(ctx,[[w*.8,h],[w*.94,h],[w*.54,h*.64],[w*.46,h*.64]],path);
+      poly(ctx,[[0,h*.8],[0,h*.7],[w*.4,h*.64],[w*.4,h*.7]],path);poly(ctx,[[w,h*.8],[w,h*.7],[w*.6,h*.64],[w*.6,h*.7]],path);
+      ctx.fillStyle=path;ctx.beginPath();ctx.ellipse(w*.5,h*.64,w*.17,h*.09,0,0,6.283);ctx.fill();
+      ctx.fillStyle=C(P.hill1,.45);ctx.beginPath();ctx.ellipse(w*.5,h*.64,w*.09,h*.045,0,0,6.283);ctx.fill();
+      ctx.fillStyle=C(P.hill1);for(let i=0;i<6;i++)ctx.fillRect(w*(.43+i*.028),h*.5,Math.max(1,w*.006),h*.14);
+      poly(ctx,[[w*.4,h*.5],[w*.6,h*.5],[w*.5,h*.36]],C(P.hill1));ctx.fillStyle=C(P.sun);ctx.fillRect(w*.4,h*.5,w*.2,Math.max(1,h*.012));
+      [[.1,.55,1],[.9,.57,1],[.2,.8,1.4],[.82,.83,1.4]].forEach(t=>{const x=w*t[0],y=h*t[1],s=h*.1*t[2];ctx.fillStyle=C(P.hill1);ctx.fillRect(x-s*.08,y,s*.16,s*.9);
+        ctx.fillStyle=C(P.hill1);[[0,-.3,.7],[-.45,-.05,.55],[.45,-.05,.55]].forEach(c=>{ctx.beginPath();ctx.arc(x+c[0]*s,y+c[1]*s,c[2]*s,0,6.283);ctx.fill()});
+        ctx.fillStyle=C(P.hill2,.8);ctx.beginPath();ctx.arc(x-s*.15,y-s*.4,s*.35,0,6.283);ctx.fill()});
+      ctx.fillStyle=C(P.hill1);[[.33,.78],[.64,.8],[.3,.6],[.72,.58]].forEach(b=>ctx.fillRect(w*b[0],h*b[1],w*.05,h*.02));
+    }
+  };
+  (S[name]||S.hills)();
+}
+
+/* ---------- rendering ---------- */
+let lastBg=[0,0];
+function render(cv,isBg){
+  const w=isBg?innerWidth:cv.clientWidth,h=isBg?innerHeight:cv.clientHeight;
+  if(!w||!h)return;
+  const mode=cv.dataset.mode||st.mode,px=mode==='off'?1:st.px;
+  let iw=Math.ceil(w/px),ih=Math.ceil(h/px);
+  const cap=mode==='off'?260000:900000;
+  if(iw*ih>cap){const k=Math.sqrt(iw*ih/cap);iw=Math.ceil(iw/k);ih=Math.ceil(ih/k)}
+  cv.width=iw;cv.height=ih;
+  const ctx=cv.getContext('2d',{willReadFrequently:true}),P=pal(),seed=(+cv.dataset.seed||1)+st.seed*101;
+  scene(ctx,iw,ih,cv.dataset.scene,P,rng(seed));
+  cv.style.imageRendering=mode==='off'?'auto':'pixelated';
+  if(mode==='off')return;
+  const img=ctx.getImageData(0,0,iw,ih),s=img.data,n=iw*ih;
+  if(st.pal==='color'){
+    const d=new Float32Array(n*3);for(let i=0;i<n;i++){d[i*3]=s[i*4]/255;d[i*3+1]=s[i*4+1]/255;d[i*3+2]=s[i*4+2]/255}
+    dither(d,iw,ih,3,mode,st.lvl,seed);
+    for(let i=0;i<n;i++){s[i*4]=d[i*3]*255;s[i*4+1]=d[i*3+1]*255;s[i*4+2]=d[i*3+2]*255;s[i*4+3]=255}
+  }else{
+    const d=new Float32Array(n);let lo=1,hi=0;
+    for(let i=0;i<n;i++){const v=(.299*s[i*4]+.587*s[i*4+1]+.114*s[i*4+2])/255;d[i]=v;if(v<lo)lo=v;if(v>hi)hi=v}
+    const span=Math.max(.05,hi-lo);for(let i=0;i<n;i++)d[i]=(d[i]-lo)/span;
+    dither(d,iw,ih,1,mode,st.lvl,seed);
+    const L=st.lvl-1,lut=[];for(let k=0;k<=L;k++)lut.push(rampAt(P,k/L));
+    for(let i=0;i<n;i++){const c=lut[Math.round(d[i]*L)]||lut[0];s[i*4]=c[0];s[i*4+1]=c[1];s[i*4+2]=c[2];s[i*4+3]=255}
+  }
+  ctx.putImageData(img,0,0);
+}
+function renderBg(){
+  const cv=$('#bg');
+  if(st.bg==='none'){cv.style.display='none';return}
+  cv.style.display='block';cv.dataset.scene=st.bg;cv.dataset.seed='21';lastBg=[innerWidth,innerHeight];
+  const m=cv.dataset.mode;delete cv.dataset.mode;render(cv,true);if(m)cv.dataset.mode=m;
+}
+function renderCanvases(){
+  $$('canvas[data-scene]').forEach(cv=>{render(cv,false);const b=cv.closest('[data-pc]');if(b){const e=$('.pcmode',b);if(e)e.textContent=modeName(cv.dataset.mode||st.mode)}});
+}
+function renderAll(){renderBg();renderCanvases()}
+let rt=0;
+function later(fn,ms){clearTimeout(rt);rt=setTimeout(fn,ms)}
+addEventListener('resize',()=>later(()=>{if(Math.abs(innerWidth-lastBg[0])>2||Math.abs(innerHeight-lastBg[1])>140)renderBg();renderCanvases()},250));
+if('ResizeObserver' in window){const ro=new ResizeObserver(()=>later(renderCanvases,200));$$('.hero,.pc .frame,#sqFrame').forEach(el=>ro.observe(el))}
+
+/* ---------- looks + dither controls ---------- */
+function setStyle(id,quiet){
+  if(!STYLES.some(s=>s[0]===id))return;
+  st.style=id;document.documentElement.setAttribute('data-style',id);store.set('style',id);
+  $$('[data-look]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.look===id)));
+  $('#styleName').textContent=STYLES.find(s=>s[0]===id)[1];
+  if(!quiet)renderAll();
+}
+$$('[data-look]').forEach(b=>b.addEventListener('click',()=>setStyle(b.dataset.look)));
+const modeSel=$('#modeSel');MODES.forEach(m=>{const o=document.createElement('option');o.value=m[0];o.textContent=m[1];modeSel.appendChild(o)});
+function syncControls(){
+  modeSel.value=st.mode;$('#modeName').textContent=modeName(st.mode);
+  $('#lvl').value=st.lvl;$('#lvlV').textContent=st.lvl;$('#px').value=st.px;$('#pxV').textContent=st.px;
+  $('#palSel').value=st.pal;$('#bgSel').value=st.bg;
+}
+function setMode(m){st.mode=m;store.set('mode',m);$$('canvas[data-mode]').forEach(c=>delete c.dataset.mode);syncControls();renderAll()}
+$('#ditherBtn').addEventListener('click',()=>{const i=MODES.findIndex(m=>m[0]===st.mode);setMode(MODES[(i+1)%MODES.length][0])});
+modeSel.addEventListener('change',()=>setMode(modeSel.value));
+$('#lvl').addEventListener('input',e=>{st.lvl=+e.target.value;store.set('lvl',st.lvl);syncControls();later(renderAll,120)});
+$('#px').addEventListener('input',e=>{st.px=+e.target.value;store.set('px',st.px);syncControls();later(renderAll,120)});
+$('#palSel').addEventListener('change',e=>{st.pal=e.target.value;store.set('pal',st.pal);renderAll()});
+$('#bgSel').addEventListener('change',e=>{
+  if(e.target.value==='photo'&&!photoImg){$('#photoMsg').textContent='Choose a photo below first.';e.target.value=st.bg;return}
+  st.bg=e.target.value;store.set('bg',st.bg==='photo'?'hills':st.bg);renderBg()});
+$('#reroll').addEventListener('click',()=>{st.seed++;renderAll()});
+$('#photo').addEventListener('change',e=>{
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  if(!/^image\//.test(f.type)||f.size>12*1024*1024){$('#photoMsg').textContent='Pick an image file under 12 MB.';return}
+  const url=URL.createObjectURL(f),im=new Image();
+  im.onload=()=>{photoImg=im;URL.revokeObjectURL(url);st.bg='photo';$('#bgSel').value='photo';$('#photoMsg').textContent='Using '+f.name.slice(0,40)+' as the page texture.';renderBg()};
+  im.onerror=()=>{URL.revokeObjectURL(url);$('#photoMsg').textContent='That file would not open as an image.'};
+  im.src=url;
+});
+$$('[data-pc]').forEach(b=>b.addEventListener('click',()=>{
+  const cv=$('canvas',b),cur=cv.dataset.mode||st.mode,i=MODES.findIndex(m=>m[0]===cur);
+  cv.dataset.mode=MODES[(i+1)%MODES.length][0];render(cv,false);$('.pcmode',b).textContent=modeName(cv.dataset.mode);
+}));
+
+/* ---------- services ---------- */
+const SVC=[
+  ['!','o3','Report an Issue','PittSMART web portal and app','https://www.pittsfieldma.gov/455','311 pothole report request problem missed pickup pittsmart'],
+  ['TR','o2','Trash & Recycling','Rules, carts, bulky items','https://www.pittsfieldma.gov/598/Trash-Recycling','garbage trash recycling carts toter bulky yard waste'],
+  ['$','o4','Pay Online','Bills, taxes and fees','https://www.pittsfieldma.gov/525','pay bill tax water excise ticket payment'],
+  ['PR','o','Permits & Forms','Applications and paperwork','https://www.pittsfieldma.gov/467','permit form license application building'],
+  ['BP','o2','Building Permit Records','Public view of permits','https://www.pittsfieldma.gov/226/Public-View---Permit-Records','building permit records inspection'],
+  ['MAP','o4','Property Maps','Parcel and assessor map (GIS)','https://pittsfieldma.mapgeo.io/','property map parcel gis assessor zoning'],
+  ['REC','o','Public Records Request','File a records request','https://city-of-pittsfield-ma.nextrequest.com/','public records foia request'],
+  ['MTG','o3','Meeting Agendas','Council and board agendas','https://www.pittsfieldma.gov/agendacenter','agenda meeting council minutes board'],
+  ['911','o3','CodeRED Alerts','Emergency notifications','https://www.pittsfieldma.gov/645/Emergency-Notifications-CodeRED','emergency alert codered notification storm'],
+  ['DPW','o2','Public Works Projects','Road and utility updates','https://www.pittsfieldma.gov/582/Project-Updates','roads construction project public works paving'],
+  ['BUD','o4','City Budget','Where the money goes','https://www.pittsfieldma.gov/310','budget finance spending'],
+  ['BC','o','Boards & Commissions','Volunteer for a board','https://www.pittsfieldma.gov/402','boards commissions volunteer appointment'],
+  ['JOB','o2','City Jobs','Open positions','https://www.pittsfieldma.gov/491','jobs employment hiring career'],
+  ['ELE','o3','Electricity Aggregation','Municipal power program','https://www.pittsfieldma.gov/336/Municipal-Aggregation','electricity energy aggregation power utility'],
+  ['BIZ','o4','Business Pittsfield','Starting or growing a business','https://businesspittsfield.com/','business economic development'],
+  ['LIB','o','Berkshire Athenaeum','Public library','https://www.pittsfieldlibrary.org/','library books athenaeum local history']
+];
+(function(){
+  const box=$('#svcTiles');
+  SVC.forEach(s=>{
+    const a=document.createElement('a');a.className='tile';a.href=s[4];a.target='_blank';a.rel='noopener';a.dataset.q=(s[2]+' '+s[3]+' '+s[5]).toLowerCase();
+    const o=document.createElement('div');o.className='orb '+(s[1]==='o'?'':s[1]);o.textContent=s[0];
+    const t=document.createElement('div');const b=document.createElement('b');b.textContent=s[2];const sp=document.createElement('span');sp.textContent=s[3];t.append(b,sp);
+    a.append(o,t);box.appendChild(a);
+  });
+  $('#svcFilter').addEventListener('input',e=>{
+    const q=e.target.value.trim().toLowerCase();let n=0;
+    $$('.tile',box).forEach(t=>{const hit=!q||q.split(/\s+/).every(w=>t.dataset.q.includes(w));t.hidden=!hit;if(hit)n++});
+    $('#svcNone').hidden=n>0;
+    if(q)location.hash==='#services'||$('#services').scrollIntoView({block:'start'});
+  });
+  $('#copyHall').addEventListener('click',async()=>{
+    const m=$('#copyMsg');
+    try{await navigator.clipboard.writeText('413-449-5600');m.textContent='Copied.'}catch(e){m.textContent='Select and copy: 413-449-5600'}
+  });
+})();
+
+/* ---------- trash tools ---------- */
+(function(){
+  const fmt=d=>d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  const sel=$('#trashDow'),out=$('#trashOut');
+  function draw(){
+    out.textContent='';
+    const rows=shiftsFor(+sel.value,new Date());
+    rows.forEach(r=>{
+      const li=document.createElement('li');const b=document.createElement('b');b.textContent=r.name+' ('+fmt(r.date)+'): ';li.appendChild(b);
+      const t=document.createElement('span');
+      if(r.weekend)t.textContent='falls on a weekend, so no change.';
+      else if(r.affected)t.textContent=fmt(r.normal)+' pickup moves to '+fmt(r.moved)+'.';
+      else t.textContent='your pickup is before the holiday, no change.';
+      li.appendChild(t);out.appendChild(li);
+    });
+    if(!rows.length){const li=document.createElement('li');li.textContent='No listed holidays are left in the calendar I know about. Check the city trash page.';out.appendChild(li)}
+  }
+  sel.addEventListener('change',draw);draw();
+  const nb=nextBulky(new Date()),box=$('#bulkyOut');
+  if(nb){box.textContent='Next setout week: '+fmt(nb.start)+' to '+fmt(nb.end)+'. Call Casella at 413-453-0098 to schedule. Pickup weeks are the first full week of the month, plus the third full week in May, June, July and December.'}
+})();
+
+/* ---------- history timeline ---------- */
+const ERAS=[['all','All eras'],['frontier','Pontoosuck, 1738-1790s'],['mills','Mills and farms, 1800s'],['electric','Electric age, 1890-1930'],['modern','Cleanup and now, 1990s-today']];
+const TL=[
+  ['1738','frontier','Col. Jacob Wendell, a Boston investor, buys about 24,000 acres of land called Pontoosuck, a Mohican name for a winter gathering place for deer. He never lives there.'],
+  ['1743','frontier','A first group of young men starts clearing the land but leaves when the French and Indian Wars make it unsafe.'],
+  ['1752','frontier','Settlers, many from Westfield, Massachusetts, return and a village begins to grow.'],
+  ['1753','frontier','The settlement is incorporated as Pontoosuck Plantation.'],
+  ['1761','frontier','With about 200 residents it becomes the Township of Pittsfield, named for the British statesman William Pitt.'],
+  ['1807','mills','Merino sheep arrive from Spain. Wool turns Pittsfield into a leading American woolen center for nearly a century.'],
+  ['1810','mills','Elkanah Watson stages a county fair in Pittsfield, often credited as the first in the country.'],
+  ['1850','mills','Herman Melville moves to Arrowhead. He lives there until 1863 and writes <i>Moby-Dick</i> in the house.'],
+  ['1859','mills','Amherst beats Williams 73 to 32 in what is called the first intercollegiate baseball game, played in Pittsfield.'],
+  ['1890','electric','William Stanley Jr. founds the Stanley Electric Manufacturing Company in Pittsfield, a forerunner of General Electric.'],
+  ['1891','electric','Pittsfield is incorporated as a city.'],
+  ['1902','electric','On Sept 3, a trolley hits the carriage carrying President Theodore Roosevelt. Secret Service agent William Craig is killed.'],
+  ['1903','electric','General Electric acquires Stanley Electric.'],
+  ['1930','electric','Population passes 50,000, driven by GE. The company\'s local workforce once topped 13,000.'],
+  ['1997','modern','The GE and Housatonic River site joins the EPA Superfund list.'],
+  ['1999','modern','A settlement worth more than $250 million funds cleanup of Pittsfield and the river.'],
+  ['2015','modern','SABIC announces it will move its headquarters from Pittsfield to Houston.'],
+  ['2020','modern','The census counts 43,927 residents, down from 45,793 in 2000.'],
+  ['2025','modern','The EPA conditionally approves GE\'s proposed PCB disposal facility in nearby Lee.']
+];
+(function(){
+  const bar=$('#eraBtns'),ol=$('#tl');let cur='all';
+  function draw(){
+    ol.textContent='';
+    TL.filter(e=>cur==='all'||e[1]===cur).forEach(e=>{
+      const li=document.createElement('li'),y=document.createElement('span');y.className='yr';y.textContent=e[0];
+      const p=document.createElement('div');
+      const parts=e[2].split(/(<i>.*?<\/i>)/);parts.forEach(s=>{const m=s.match(/^<i>(.*)<\/i>$/);if(m){const i=document.createElement('i');i.textContent=m[1];p.appendChild(i)}else p.appendChild(document.createTextNode(s))});
+      li.append(y,p);ol.appendChild(li);
+    });
+    $$('button',bar).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.era===cur)));
+  }
+  ERAS.forEach(e=>{const b=document.createElement('button');b.type='button';b.className='btn small';b.dataset.era=e[0];b.textContent=e[1];b.addEventListener('click',()=>{cur=e[0];draw()});bar.appendChild(b)});
+  draw();
+})();
+
+/* ---------- live features: shared helpers ---------- */
+const useCap=n=>{try{return(window.claude&&window.claude.use)?window.claude.use(n).catch(()=>null):Promise.resolve(null)}catch(e){return Promise.resolve(null)}};
+let db=null,userCap=null,room=null,uid=null,canWrite=null,isAdmin=false;
+const AV_COLORS=['#1aa6d9','#e2572b','#4fae4a','#c9962b','#8a5cd6','#d6457f','#2a9d8f','#e0a030'];
+const clean=(s,n)=>String(s==null?'':s).replace(/[\u0000-\u001f\u007f​-‏‪-‮⁠-⁯﻿]/g,' ').replace(/\s+/g,' ').trim().slice(0,n);
+const cleanMulti=(s,n)=>String(s==null?'':s).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f​-‏‪-‮⁠-⁯﻿]/g,'').replace(/\n{3,}/g,'\n\n').trim().slice(0,n);
+const when=ts=>new Date(ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e};
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+let nick=clean(store.get('nick',''),18);
+let avIdx=store.get('av',null);if(typeof avIdx!=='number'||avIdx<0||avIdx>7){avIdx=Math.floor(Math.random()*8);store.set('av',avIdx)}
+const nickIn=$('#nick');nickIn.value=nick;
+let onNick=()=>{};
+nickIn.addEventListener('change',()=>{nick=clean(nickIn.value,18);nickIn.value=nick;store.set('nick',nick);onNick()});
+
+/* ---------- town square ---------- */
+function initSquare(){
+  const frame=$('#sqFrame'),layer=$('#avLayer'),status=$('#sqStatus'),crierEl=$('#crier'),cnt=$('#sqCount'),plist=$('#peerList');
+  const me={x:.42+Math.random()*.16,y:.76+Math.random()*.12},els=new Map();
+  const num=(v,d)=>{v=+v;return isFinite(v)?Math.min(1,Math.max(0,v)):d};
+  let flashT=0;
+  function flash(t){status.hidden=false;status.textContent=t;clearTimeout(flashT);flashT=setTimeout(refreshStatus,5000)}
+  function refreshStatus(){
+    if(!room){status.hidden=false;status.textContent='Live view is not available here, so you are alone in the square.';return}
+    if(!room.connected()){status.hidden=false;status.textContent='Connecting to the square...';return}
+    status.hidden=true;
+  }
+  function names(){const o={};(room?Array.from(room.peers()):[]).forEach(p=>{o[p.sameTab?'me':p.peer]=clean((p.presence||{}).nick,18)||'Neighbor'});o.me=nick||'Neighbor';return o}
+  function log(t){const li=el('li',null,t);crierEl.prepend(li);while(crierEl.children.length>4)crierEl.lastChild.remove()}
+  function renderPeers(){
+    const list=[];let haveMe=false;
+    (room?Array.from(room.peers()):[]).forEach(p=>{
+      if(p.kind!=='viewer')return;const pr=p.presence||{};
+      if(p.sameTab){haveMe=true;list.push({key:'me',me:true,nick:nick||'Neighbor',av:avIdx,x:me.x,y:me.y})}
+      else list.push({key:p.peer,me:false,nick:clean(pr.nick,18)||'Neighbor',av:Math.min(7,Math.max(0,(pr.av|0))),x:num(pr.x,.5),y:Math.max(.36,num(pr.y,.8)),idle:Date.now()-p.updatedAt>120000});
+    });
+    if(!haveMe)list.unshift({key:'me',me:true,nick:nick||'Neighbor',av:avIdx,x:me.x,y:me.y});
+    const seen=new Set();
+    list.forEach(p=>{
+      seen.add(p.key);let e=els.get(p.key);
+      if(!e){e=el('div','av');e.append(el('i'),el('em'));layer.appendChild(e);els.set(p.key,e)}
+      e.classList.toggle('me',p.me);e.classList.toggle('idle',!!p.idle);
+      e.style.left=(p.x*100)+'%';e.style.top=(p.y*100)+'%';
+      e.firstChild.style.setProperty('--c',AV_COLORS[p.av]||AV_COLORS[0]);
+      e.lastElementChild.textContent=p.me?(p.nick+' (you)'):p.nick;
+    });
+    els.forEach((e,k)=>{if(!seen.has(k)){e.remove();els.delete(k)}});
+    cnt.textContent=list.length===1?'just you in the square':list.length+' in the square';
+    const others=list.filter(p=>!p.me).map(p=>p.nick);
+    plist.textContent=others.length?'In town with you: '+others.slice(0,12).join(', ')+(others.length>12?' and more':''):'';
+  }
+  let raf=0;
+  function push(){raf=0;if(room)room.presence({nick:nick||'Neighbor',av:avIdx,x:+me.x.toFixed(3),y:+me.y.toFixed(3)}).catch(()=>{})}
+  function moveTo(x,y){me.x=Math.min(.97,Math.max(.03,x));me.y=Math.min(.96,Math.max(.4,y));renderPeers();if(!raf)raf=requestAnimationFrame(push)}
+  function fromEvent(ev){const r=frame.getBoundingClientRect();moveTo((ev.clientX-r.left)/r.width,(ev.clientY-r.top)/r.height)}
+  frame.addEventListener('pointermove',fromEvent);
+  frame.addEventListener('pointerdown',ev=>{fromEvent(ev);try{frame.focus({preventScroll:true})}catch(e){}});
+  frame.addEventListener('keydown',ev=>{
+    const d={ArrowLeft:[-.03,0],ArrowRight:[.03,0],ArrowUp:[0,-.03],ArrowDown:[0,.03]}[ev.key];
+    if(d){ev.preventDefault();moveTo(me.x+d[0],me.y+d[1])}
+  });
+  function bubble(key,text){
+    const e=els.get(key);if(!e)return;
+    $$('q',e).forEach(q=>q.remove());const q=el('q',null,text);e.appendChild(q);setTimeout(()=>q.remove(),6500);
+  }
+  const EMOTES=['waves','cheers','sits on a bench'];
+  function say(kind,text,key,who){
+    if(kind==='say'){bubble(key,text);log(who+': '+text)}
+    else{bubble(key,'*'+text+'*');log(who+' '+text+'.')}
+  }
+  function failMsg(e){flash(e&&e.code==='not_permitted'?'Chatting and emotes need Contributor access to this page. You can still walk around.':'That did not send. Try again in a moment.')}
+  $('#sayForm').addEventListener('submit',ev=>{
+    ev.preventDefault();const inp=$('#sayTxt'),t=clean(inp.value,80);if(!t)return;inp.value='';
+    if(!room){say('say',t,'me',nick||'You');return}
+    room.emit('say',{text:t}).catch(failMsg);
+  });
+  $$('[data-emote]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.emote;if(!room){say('emote',k,'me',nick||'You');return}
+    room.emit('emote',{kind:k}).catch(failMsg);
+  }));
+  onNick=()=>{renderPeers();push()};
+  if(room){
+    room.onPeers(renderPeers,()=>refreshStatus());
+    room.onConnection(c=>{refreshStatus();if(c)push()},()=>refreshStatus());
+    room.on('say',m=>{const d=m.data||{},t=clean(d.text,80);if(!t||m.kind!=='viewer')return;const key=m.sameTab?'me':m.peer;say('say',t,key,names()[key]||'Neighbor')},()=>{});
+    room.on('emote',m=>{const d=m.data||{};if(m.kind!=='viewer'||!EMOTES.includes(d.kind))return;const key=m.sameTab?'me':m.peer;say('emote',d.kind,key,names()[key]||'Neighbor')},()=>{});
+    push();
+  }
+  renderPeers();refreshStatus();
+}
+
+/* ---------- forum board ---------- */
+const BOARDS=[
+  ['general','General Discussion','Anything Pittsfield'],
+  ['events','Events & Things To Do','Shows, games, fairs and markets'],
+  ['eats','Local Eats & Shops','Where to go and what to try'],
+  ['civic','Civic Talk','City services, council meetings, local issues'],
+  ['history','History & Memories','Old photos, family stories, mills and GE'],
+  ['help','Neighbors Helping Neighbors','Lost and found, rides, free stuff, recommendations']
+];
+const boardName=id=>(BOARDS.find(b=>b[0]===id)||['','Board'])[1];
+const fx={docs:{},view:{type:'boards'},lastPost:0};
+const canPost=()=>!!db&&!!uid&&canWrite!==false;
+function derive(){
+  const threads=new Map(),replies=[];
+  Object.keys(fx.docs).forEach(u=>{
+    const d=fx.docs[u]||{},items=Array.isArray(d.items)?d.items:[],nk=clean(d.nick,18)||'Neighbor';
+    items.slice(0,200).forEach(it=>{
+      if(!it||typeof it!=='object')return;
+      const id=clean(it.id,24),ts=+it.ts||0;if(!id||!ts)return;
+      if(it.k==='t'){const board=BOARDS.some(b=>b[0]===it.board)?it.board:null;if(!board)return;
+        threads.set(u+'/'+id,{key:u+'/'+id,uid:u,id,board,title:clean(it.title,80)||'(untitled)',body:cleanMulti(it.body,1500),ts,nick:nk,replies:[]})}
+      else if(it.k==='r')replies.push({uid:u,id,th:clean(it.th,120),body:cleanMulti(it.body,1500),ts,nick:nk});
+    });
+  });
+  replies.forEach(r=>{const t=threads.get(r.th);if(t)t.replies.push(r)});
+  threads.forEach(t=>{t.replies.sort((a,b)=>a.ts-b.ts);t.last=t.replies.length?t.replies[t.replies.length-1].ts:t.ts});
+  return threads;
+}
+let writeQ=Promise.resolve();
+function saveMine(mutate){
+  const run=async()=>{
+    const cur=fx.docs[uid]||{};let items=Array.isArray(cur.items)?cur.items.slice():[];
+    items=mutate(items).slice(-120);
+    await db.doc('posts/'+uid).set({nick:nick||'Neighbor',items});
+  };
+  writeQ=writeQ.then(run,run);return writeQ;
+}
+function postErr(e){const c=e&&e.code;return c==='invalid_argument'?'Posting needs Contributor access to this page.':c==='quota_exceeded'?'The board is full right now.':'That did not post. Try again in a moment.'}
+function go(v){fx.view=v;drawForum();const f=$('#forum');if(f)f.scrollIntoView({block:'start'})}
+function crumbs(parts){
+  const d=el('div','crumbs');
+  parts.forEach((p,i)=>{
+    if(i)d.appendChild(el('span','small','>'));
+    if(p[1]){const b=el('button','linkbtn',p[0]);b.type='button';b.addEventListener('click',p[1]);d.appendChild(b)}else d.appendChild(el('b',null,p[0]));
+  });
+  return d;
+}
+function newBtn(board){const b=el('button','btn small','New thread');b.type='button';b.disabled=!canPost();b.addEventListener('click',()=>drawNew(board));return b}
+function drawForum(){
+  const root=$('#forumBody'),v=fx.view;
+  if(v.type==='new')return;
+  const prev=$('#replyTxt'),draft=prev?prev.value:'',hadFocus=!!prev&&document.activeElement===prev;
+  const threads=derive();
+  root.textContent='';
+  if(!canPost()){
+    const n=el('div','note',db&&uid?'You can read the board. Posting needs Contributor access to this page.':'The board is live for signed-in viewers of this page. Right now you are seeing the empty layout.');
+    n.style.marginBottom='.8rem';root.appendChild(n);
+  }
+  if(v.type==='board')drawBoard(root,threads,v.board);
+  else if(v.type==='thread')drawThread(root,threads,v.key,draft,hadFocus);
+  else drawBoards(root,threads);
+}
+function drawBoards(root,threads){
+  const wrap=el('div');wrap.style.border='var(--bw) solid var(--edge-dark)';
+  const hdr=el('div','board-row hdr');['Board','Threads','Posts','Latest'].forEach(t=>hdr.appendChild(el('div',null,t)));hdr.lastChild.classList.add('last');wrap.appendChild(hdr);
+  BOARDS.forEach(b=>{
+    const ts=[...threads.values()].filter(t=>t.board===b[0]);let posts=0,last=null;
+    ts.forEach(t=>{posts+=1+t.replies.length;if(!last||t.last>last.last)last=t});
+    const row=el('div','board-row'),c1=el('div'),btn=el('button','linkbtn',b[1]);btn.type='button';btn.addEventListener('click',()=>go({type:'board',board:b[0]}));
+    c1.append(btn,el('div','small',b[2]));
+    const n1=el('div','mono',String(ts.length)),n2=el('div','mono',String(posts));n1.style.fontSize=n2.style.fontSize='1.25rem';
+    row.append(c1,n1,n2,el('div','last small',last?when(last.last):'No posts yet'));wrap.appendChild(row);
+  });
+  root.appendChild(wrap);
+  const r=el('div','row');r.style.marginTop='.8rem';r.appendChild(newBtn(null));
+  if(!threads.size)r.appendChild(el('span','small','Nothing posted yet. Start the first thread.'));
+  root.appendChild(r);
+}
+function drawBoard(root,threads,board){
+  root.appendChild(crumbs([['All boards',()=>go({type:'boards'})],[boardName(board),null]]));
+  const ts=[...threads.values()].filter(t=>t.board===board).sort((a,b)=>b.last-a.last);
+  const r=el('div','row');r.style.marginBottom='.7rem';r.appendChild(newBtn(board));root.appendChild(r);
+  if(!ts.length){root.appendChild(el('div','empty','No threads here yet. Start one and say what is on your mind.'));return}
+  const wrap=el('div');wrap.style.border='var(--bw) solid var(--edge-dark)';
+  const hdr=el('div','thread-row hdr');['Thread','Replies','Last post'].forEach(t=>hdr.appendChild(el('div',null,t)));hdr.lastChild.classList.add('last');wrap.appendChild(hdr);
+  ts.forEach(t=>{
+    const row=el('div','thread-row'),c=el('div'),b=el('button','linkbtn',t.title);b.type='button';b.addEventListener('click',()=>go({type:'thread',key:t.key}));
+    c.append(b,el('div','small','by '+t.nick+', '+when(t.ts)));
+    const n=el('div','mono',String(t.replies.length));n.style.fontSize='1.25rem';
+    row.append(c,n,el('div','last small',when(t.last)));wrap.appendChild(row);
+  });
+  root.appendChild(wrap);
+}
+function postCard(it,title,afterDelete){
+  const p=el('div','post'),who=el('div','who');
+  who.append(el('b',null,it.nick),el('br'),el('span','small',when(it.ts)));
+  if(it.uid===uid||isAdmin){
+    const d=el('button','linkbtn','Delete');d.type='button';d.style.display='block';d.style.marginTop='.4rem';
+    let armed=0;
+    d.addEventListener('click',async()=>{
+      if(!armed){armed=1;d.textContent='Really delete?';setTimeout(()=>{armed=0;d.textContent='Delete'},4000);return}
+      d.disabled=true;
+      try{
+        if(it.uid===uid)await saveMine(items=>items.filter(x=>x&&x.id!==it.id));
+        else{const cur=(fx.docs[it.uid]||{}).items||[];await db.doc('posts/'+it.uid).update({items:cur.filter(x=>x&&x.id!==it.id)})}
+        if(afterDelete)afterDelete();
+      }catch(e){d.disabled=false;d.textContent='Could not delete'}
+    });
+    who.appendChild(d);
+  }
+  const txt=el('div','txt');if(title)txt.appendChild(el('h3',null,title));txt.appendChild(document.createTextNode(it.body));
+  p.append(who,txt);return p;
+}
+function drawThread(root,threads,key,draft,hadFocus){
+  const t=threads.get(key);
+  if(!t){root.appendChild(crumbs([['All boards',()=>go({type:'boards'})]]));root.appendChild(el('div','empty','That thread is gone or has not loaded yet.'));return}
+  root.appendChild(crumbs([['All boards',()=>go({type:'boards'})],[boardName(t.board),()=>go({type:'board',board:t.board})],['Thread',null]]));
+  root.appendChild(postCard(t,t.title,()=>go({type:'board',board:t.board})));
+  t.replies.forEach(r=>root.appendChild(postCard(r,null)));
+  if(!canPost())return;
+  const form=el('form','sig'),lab=el('label',null,'Reply');lab.htmlFor='replyTxt';
+  const ta=el('textarea');ta.id='replyTxt';ta.maxLength=1500;ta.value=draft||'';
+  const btn=el('button','btn small','Post reply');btn.type='submit';btn.style.justifySelf='start';
+  const msg=el('div','msg');msg.id='replyMsg';msg.setAttribute('role','status');
+  form.append(lab,ta,btn,msg);
+  form.addEventListener('submit',async ev=>{
+    ev.preventDefault();const live=$('#replyTxt'),body=cleanMulti(live.value,1500),m=()=>$('#replyMsg');
+    if(!body){m().textContent='Write something first.';return}
+    if(Date.now()-fx.lastPost<4000){m().textContent='Give it a few seconds between posts.';return}
+    fx.lastPost=Date.now();live.value='';m().textContent='Posting...';
+    try{await saveMine(items=>items.concat([{k:'r',id:newId(),th:t.key,body,ts:Date.now()}]));if(m())m().textContent=''}
+    catch(e){const cur=$('#replyTxt');if(cur&&!cur.value)cur.value=body;if(m())m().textContent=postErr(e)}
+  });
+  root.appendChild(form);
+  if(hadFocus)ta.focus();
+}
+function drawNew(board){
+  fx.view={type:'new',board};const root=$('#forumBody');root.textContent='';
+  root.appendChild(crumbs([['All boards',()=>go({type:'boards'})],['New thread',null]]));
+  const form=el('form','sig');
+  const f1=el('div'),l1=el('label',null,'Board');l1.htmlFor='ntBoard';const sel=el('select');sel.id='ntBoard';
+  BOARDS.forEach(b=>{const o=el('option',null,b[1]);o.value=b[0];sel.appendChild(o)});sel.value=board||'general';f1.append(l1,sel);
+  const f2=el('div'),l2=el('label',null,'Title');l2.htmlFor='ntTitle';const ti=el('input');ti.id='ntTitle';ti.maxLength=80;ti.style.width='100%';f2.append(l2,ti);
+  const f3=el('div'),l3=el('label',null,'Message');l3.htmlFor='ntBody';const ta=el('textarea');ta.id='ntBody';ta.maxLength=1500;ta.style.minHeight='9rem';f3.append(l3,ta);
+  const row=el('div','row'),ok=el('button','btn','Post thread');ok.type='submit';
+  const no=el('button','btn small','Cancel');no.type='button';no.addEventListener('click',()=>go(board?{type:'board',board}:{type:'boards'}));
+  row.append(ok,no);const msg=el('div','msg');msg.setAttribute('role','status');
+  form.append(f1,f2,f3,row,msg);
+  form.addEventListener('submit',async ev=>{
+    ev.preventDefault();const title=clean(ti.value,80),body=cleanMulti(ta.value,1500);
+    if(!title||!body){msg.textContent='Add a title and a message.';return}
+    if(Date.now()-fx.lastPost<4000){msg.textContent='Give it a few seconds between posts.';return}
+    fx.lastPost=Date.now();ok.disabled=true;msg.textContent='Posting...';
+    const id=newId(),b=sel.value;
+    try{await saveMine(items=>items.concat([{k:'t',id,board:b,title,body,ts:Date.now()}]));go({type:'thread',key:uid+'/'+id})}
+    catch(e){ok.disabled=false;msg.textContent=postErr(e)}
+  });
+  root.appendChild(form);ti.focus();
+}
+function initForum(){
+  drawForum();
+  if(!db||!uid)return;
+  db.collection('posts').onSnapshot(snap=>{const o={};snap.docs.forEach(d=>{o[d.id]=d.data()});fx.docs=o;drawForum()},()=>{drawForum()});
+}
+
+/* ---------- guestbook + visitor counter ---------- */
+function initGuestbook(){
+  const list=$('#gbList'),form=$('#gbForm'),stat=$('#gbStatus'),btn=$('button',form),box=$('#gbMsg');
+  if(!db||!uid){stat.textContent='Signing needs a signed-in view of this page.';btn.disabled=true;box.disabled=true;return}
+  if(canWrite===false){stat.textContent='Signing needs Contributor access to this page.';btn.disabled=true;box.disabled=true}
+  db.collection('guestbook').orderBy('ts','desc').limit(40).onSnapshot(snap=>{
+    list.textContent='';
+    if(snap.empty){list.appendChild(el('li','small','The guestbook is empty. Be the first to sign.'));return}
+    snap.docs.forEach(d=>{
+      const x=d.data()||{},li=el('li');
+      li.appendChild(el('b',null,(clean(x.nick,18)||'Neighbor')+', '+when(+x.ts||0)));
+      li.appendChild(el('span',null,clean(x.msg,140)));
+      if(d.id===uid){const r=el('button','linkbtn','Remove mine');r.type='button';r.style.marginLeft='.5rem';r.addEventListener('click',()=>{db.doc('guestbook/'+uid).delete().catch(()=>{})});li.appendChild(r)}
+      list.appendChild(li);
+    });
+  },()=>{});
+  form.addEventListener('submit',async ev=>{
+    ev.preventDefault();const t=clean(box.value,140);
+    if(!t){stat.textContent='Write a short message first.';return}
+    btn.disabled=true;stat.textContent='Signing...';
+    try{await db.doc('guestbook/'+uid).set({nick:nick||'Neighbor',msg:t,ts:Date.now()});box.value='';stat.textContent='Thanks for signing. Signing again replaces your entry.'}
+    catch(e){stat.textContent=e&&e.code==='invalid_argument'?'Signing needs Contributor access to this page.':'That did not save. Try again in a moment.'}
+    btn.disabled=false;
+  });
+}
+function drawCounter(text){const box=$('#counter');box.textContent='';text.split('').forEach(c=>box.appendChild(el('span',null,c)))}
+function initCounter(){
+  if(!db||!uid){drawCounter('------');return}
+  let registered=false;
+  db.collection('visitors').limit(1000).onSnapshot(snap=>{
+    drawCounter(String(Math.min(snap.size,999999)).padStart(6,'0'));
+    if(!registered&&!snap.metadata.fromCache&&canWrite!==false){
+      registered=true;
+      if(!snap.docs.some(d=>d.id===uid))db.doc('visitors/'+uid).set({ts:Date.now()}).catch(()=>{});
+    }
+  },()=>{drawCounter('------')});
+}
+
+/* ---------- start ---------- */
+async function initLive(){
+  drawForum();drawCounter('------');
+  const got=await Promise.all([useCap('user'),useCap('db'),useCap('room')]);
+  userCap=got[0];db=got[1];room=got[2];
+  if(userCap){
+    try{uid=await userCap.id()}catch(e){}
+    try{canWrite=await userCap.can('data.write')}catch(e){}
+    try{isAdmin=!!(await userCap.canEdit())}catch(e){}
+  }
+  initSquare();initForum();initGuestbook();initCounter();
+}
+syncControls();setStyle(st.style,true);renderAll();initLive();
+})();
+</script>
+
+
+
+</body></html>

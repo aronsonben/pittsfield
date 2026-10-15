@@ -1,0 +1,2320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pittsfield, MA — Civic Portal · est. 1761</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Caveat:wght@500;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   ROOT — Frutiger Aero (default)
+   ============================================ */
+:root {
+  --bg: #5fb4d8;
+  --bg-2: #c2e8f0;
+  --bg-3: #e8f6fa;
+  --surface: #ffffff;
+  --surface-2: #f0f9fc;
+  --text: #143c52;
+  --text-soft: #4a6c80;
+  --accent: #4caf50;
+  --accent-2: #88d060;
+  --accent-3: #ff8a3d;
+  --link: #0a5fa3;
+  --link-hover: #ff6a00;
+  --border: rgba(20,60,82,0.18);
+  --border-strong: rgba(20,60,82,0.4);
+  --shadow: 0 8px 24px rgba(20,60,82,0.2);
+  --radius: 14px;
+  --aero-bubble-opacity: 0.6;
+  --font-display: 'Outfit', sans-serif;
+  --font-hand: 'Caveat', cursive;
+  --font-mono: 'VT323', monospace;
+  --aero-bubbles: 1;
+}
+
+/* ============================================
+   SKIN — BRICK & BRASS (Pittsfield civic)
+   ============================================ */
+[data-skin="brick"] {
+  --bg: #c4a890;
+  --bg-2: #d4b896;
+  --bg-3: #e8d4b8;
+  --surface: #f8eed8;
+  --surface-2: #efe2c4;
+  --text: #3a2418;
+  --text-soft: #6a4a30;
+  --accent: #8b3a1f;
+  --accent-2: #c4683a;
+  --accent-3: #b8881a;
+  --link: #6a2010;
+  --link-hover: #c4683a;
+  --border: rgba(58,36,24,0.25);
+  --border-strong: rgba(58,36,24,0.5);
+  --shadow: 0 8px 24px rgba(58,36,24,0.3);
+  --aero-bubble-opacity: 0.2;
+}
+
+/* ============================================
+   SKIN — BERKSHIRE FOLIAGE
+   ============================================ */
+[data-skin="foliage"] {
+  --bg: #3a4a30;
+  --bg-2: #5a6a45;
+  --bg-3: #d4c896;
+  --surface: #f0e8c8;
+  --surface-2: #e0d4a8;
+  --text: #2a2018;
+  --text-soft: #5a4a30;
+  --accent: #b54a18;
+  --accent-2: #d4682a;
+  --accent-3: #8a6a18;
+  --link: #8a3010;
+  --link-hover: #d4682a;
+  --border: rgba(42,32,24,0.28);
+  --border-strong: rgba(42,32,24,0.55);
+  --shadow: 0 8px 24px rgba(42,32,24,0.4);
+  --aero-bubble-opacity: 0.25;
+}
+
+/* ============================================
+   SKIN — BBS TERMINAL
+   ============================================ */
+[data-skin="bbs"] {
+  --bg: #0a0a0a;
+  --bg-2: #1a1410;
+  --bg-3: #2a2018;
+  --surface: #141008;
+  --surface-2: #1f1808;
+  --text: #f4a830;
+  --text-soft: #c08820;
+  --accent: #ff8a30;
+  --accent-2: #ffaa50;
+  --accent-3: #88ddff;
+  --link: #ffd060;
+  --link-hover: #88ddff;
+  --border: rgba(244,168,48,0.3);
+  --border-strong: rgba(244,168,48,0.6);
+  --shadow: 0 0 20px rgba(244,168,48,0.2);
+  --radius: 2px;
+  --aero-bubble-opacity: 0;
+  --font-display: 'VT323', monospace;
+  --font-mono: 'VT323', monospace;
+}
+
+[data-skin="bbs"] body {
+  font-size: 19px;
+  line-height: 1.4;
+}
+[data-skin="bbs"] h1,
+[data-skin="bbs"] h2,
+[data-skin="bbs"] h3,
+[data-skin="bbs"] .navbar,
+[data-skin="bbs"] .panel-title,
+[data-skin="bbs"] button {
+  font-family: 'VT323', monospace !important;
+  letter-spacing: 0.5px;
+}
+[data-skin="bbs"] .hero h1 {
+  text-shadow: 0 0 8px rgba(244,168,48,0.5);
+}
+[data-skin="bbs"] a {
+  text-decoration: underline;
+}
+[data-skin="bbs"] .panel {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+
+/* ============================================
+   GLOBAL
+   ============================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-display);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--link-hover); }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ============================================
+   TEXTURED BACKGROUND — layered
+   ============================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.03) 2px 3px),
+    repeating-linear-gradient(90deg, transparent 0 2px, rgba(0,0,0,0.03) 2px 3px),
+    radial-gradient(ellipse at 20% 30%, var(--bg-2) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, var(--bg-2) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, var(--bg-3) 0%, transparent 50%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* noise overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  z-index: -1;
+  pointer-events: none;
+}
+
+[data-skin="bbs"] body::after { mix-blend-mode: screen; opacity: 0.3; }
+
+/* ============================================
+   BUBBLES — Frutiger Aero floaters
+   ============================================ */
+.bubble-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--aero-bubble-opacity);
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -200px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.15) 60%, transparent),
+    radial-gradient(circle at 70% 70%, rgba(140,210,255,0.4), transparent 70%);
+  border: 1px solid rgba(255,255,255,0.5);
+  animation: rise linear infinite;
+}
+
+@keyframes rise {
+  0% { transform: translate(0, 0) scale(0.8); }
+  100% { transform: translate(var(--dx, 30px), -110vh) scale(1.1); }
+}
+
+/* ============================================
+   TOP BAR — table-flavored utility
+   ============================================ */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6px 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.topbar-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-soft);
+}
+.topbar-cell strong { color: var(--text); }
+
+.topbar-sep { color: var(--border-strong); }
+
+.skin-picker {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.skin-btn {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--swatch);
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.skin-btn:hover { transform: scale(1.15); }
+.skin-btn[aria-pressed="true"] {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+[data-skin="bbs"] .skin-btn { border-radius: 0; }
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 18px 18px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.seal {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 35%, var(--accent-2), var(--accent) 70%);
+  border: 3px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--border-strong), var(--shadow);
+  display: grid;
+  place-items: center;
+  color: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.1;
+  position: relative;
+}
+.seal span { display: block; }
+.seal::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px dashed var(--border-strong);
+  pointer-events: none;
+}
+
+.header-titles h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+}
+.header-titles .tagline {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  color: var(--accent);
+  margin-top: 4px;
+  font-weight: 700;
+}
+.header-titles .meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 6px;
+}
+
+.search-box {
+  display: flex;
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.search-box input {
+  border: 0;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  background: transparent;
+  color: var(--text);
+  width: 180px;
+  outline: none;
+}
+.search-box button {
+  background: var(--accent);
+  color: var(--surface);
+  border: 0;
+  padding: 0 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ============================================
+   NAVBAR — glossy tabs
+   ============================================ */
+.navbar {
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 2px solid var(--border-strong);
+  position: sticky;
+  top: 32px;
+  z-index: 99;
+  backdrop-filter: blur(8px);
+}
+
+.navbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 18px;
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.nav-link:hover {
+  background: var(--surface);
+  color: var(--link-hover);
+}
+.nav-link[aria-current="page"] {
+  background: var(--surface);
+  color: var(--accent);
+  border-color: var(--border-strong);
+  border-bottom: 2px solid var(--surface);
+  position: relative;
+  top: 1px;
+}
+
+[data-skin="bbs"] .nav-link {
+  font-size: 18px;
+  border-radius: 0;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  max-width: 1200px;
+  margin: 24px auto 18px;
+  padding: 0 18px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+@media (max-width: 820px) {
+  .hero { grid-template-columns: 1fr; }
+}
+
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--accent-2), transparent 70%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.hero h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.hero h2 em {
+  font-style: normal;
+  color: var(--accent);
+  font-family: var(--font-hand);
+  font-weight: 700;
+}
+
+.hero p {
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 14px;
+  max-width: 56ch;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+.hero-stat {
+  font-family: var(--font-mono);
+}
+.hero-stat .num {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.hero-stat .lbl {
+  font-size: 11px;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* weather card */
+.weather-card {
+  background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.weather-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.6), transparent 70%);
+  pointer-events: none;
+}
+.weather-card .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.weather-card .temp {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+}
+.weather-card .desc {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.weather-card .forecast {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.weather-card .forecast div { text-align: center; }
+.weather-card .forecast .day { color: var(--text-soft); }
+.weather-card .forecast .h { color: var(--accent); font-weight: 700; }
+
+/* ============================================
+   MAIN GRID — table-flavored
+   ============================================ */
+.main-grid {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 0 18px;
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .main-grid { grid-template-columns: 1fr; }
+}
+
+.col-left, .col-right, .col-center {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.panel-title {
+  background: linear-gradient(180deg, var(--bg-2), var(--bg-3));
+  border-bottom: 1px solid var(--border);
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title .badge {
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.panel-body { padding: 14px; }
+
+/* ============================================
+   SIDEBAR — quick services
+   ============================================ */
+.service-list { list-style: none; }
+.service-list li {
+  border-bottom: 1px dotted var(--border);
+}
+.service-list li:last-child { border-bottom: 0; }
+.service-list a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+  border-left: 3px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.service-list a:hover {
+  background: var(--surface-2);
+  border-left-color: var(--accent);
+  color: var(--link-hover);
+}
+.service-list .icon {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  background: var(--bg-2);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   ANNOUNCEMENTS
+   ============================================ */
+.announcement {
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.announcement:last-child { border-bottom: 0; padding-bottom: 0; }
+.announcement:first-child { padding-top: 0; }
+.announcement .stamp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.announcement h4 {
+  font-size: 16px;
+  margin: 2px 0 4px;
+  color: var(--text);
+}
+.announcement p {
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.announcement.urgent h4 { color: var(--accent-3); }
+.announcement.urgent::before {
+  content: '⚠';
+  color: var(--accent-3);
+  margin-right: 6px;
+}
+
+/* ============================================
+   CENTER — town square
+   ============================================ */
+.town-square {
+  position: relative;
+}
+.town-square .canvas {
+  height: 240px;
+  background:
+    linear-gradient(180deg, var(--bg-2) 0%, var(--bg-3) 70%, var(--surface-2) 100%);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.town-square .canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(0deg, var(--surface-2) 0%, transparent 30%),
+    repeating-linear-gradient(90deg, transparent 0 24px, rgba(0,0,0,0.04) 24px 25px);
+}
+.town-square .canvas::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background:
+    radial-gradient(ellipse at 50% 100%, var(--accent-2), transparent 70%),
+    linear-gradient(0deg, var(--accent) 0%, transparent 100%);
+  opacity: 0.4;
+}
+
+.park-bench {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-soft);
+  background: var(--surface);
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+
+.tiny-user {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: left 0.6s linear, top 0.6s linear, opacity 0.4s;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text);
+  pointer-events: none;
+}
+.tiny-user .avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 2px solid var(--surface);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.tiny-user.me .avatar {
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent-3);
+}
+.tiny-user .name {
+  background: var(--surface);
+  padding: 1px 4px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.town-square .footer {
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.town-square .footer .count {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ============================================
+   311 form
+   ============================================ */
+.report-form {
+  display: grid;
+  gap: 10px;
+}
+.report-form label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.report-form select,
+.report-form input,
+.report-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  color: var(--text);
+}
+.report-form textarea {
+  min-height: 60px;
+  resize: vertical;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.report-form button {
+  background: var(--accent);
+  color: var(--surface);
+  border: 0;
+  padding: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.report-form button:hover { background: var(--accent-3); }
+.report-form .success {
+  background: var(--accent);
+  color: var(--surface);
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   HISTORY
+   ============================================ */
+.history-timeline {
+  list-style: none;
+  position: relative;
+  padding-left: 22px;
+}
+.history-timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--accent);
+  opacity: 0.4;
+}
+.history-timeline li {
+  position: relative;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.history-timeline li:last-child { border-bottom: 0; }
+.history-timeline li::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+}
+.history-timeline .year {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 13px;
+}
+.history-timeline .event {
+  font-size: 14px;
+  color: var(--text);
+  display: block;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+/* ============================================
+   FORUM
+   ============================================ */
+.forum-thread {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  align-items: center;
+}
+.forum-thread:last-child { border-bottom: 0; }
+.forum-thread .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  display: grid;
+  place-items: center;
+  color: var(--surface);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.forum-thread .title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+}
+.forum-thread .title:hover { color: var(--link-hover); }
+.forum-thread .meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-soft);
+  margin-top: 2px;
+}
+.forum-thread .meta .author { color: var(--link); }
+.forum-thread .replies {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: right;
+  color: var(--text-soft);
+}
+.forum-thread .replies .num {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.forum-thread.sticky .title::before {
+  content: '📌 ';
+}
+
+/* ============================================
+   RIGHT COLUMN
+   ============================================ */
+.garbage-schedule {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.garbage-schedule .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px dotted var(--border);
+}
+.garbage-schedule .row:last-child { border-bottom: 0; }
+.garbage-schedule .day { color: var(--text); font-weight: 700; }
+.garbage-schedule .desc { color: var(--text-soft); text-align: right; }
+.garbage-schedule .desc .pin {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.counter {
+  display: flex;
+  gap: 4px;
+  font-family: var(--font-mono);
+}
+.counter .digit {
+  background: var(--text);
+  color: var(--accent-3);
+  padding: 4px 6px;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 18px;
+  border: 1px solid var(--border-strong);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+  letter-spacing: 0.05em;
+}
+
+.guestbook-form { display: grid; gap: 8px; }
+.guestbook-form input,
+.guestbook-form textarea {
+  padding: 6px 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  color: var(--text);
+}
+.guestbook-form button {
+  background: var(--accent);
+  color: var(--surface);
+  border: 0;
+  padding: 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.guestbook-form button:hover { background: var(--accent-3); }
+
+.guestbook-entries {
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.guestbook-entry {
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--border);
+}
+.guestbook-entry .author {
+  color: var(--link);
+  font-weight: 700;
+}
+.guestbook-entry .when {
+  color: var(--text-soft);
+  font-size: 10px;
+}
+.guestbook-entry .msg {
+  display: block;
+  margin-top: 2px;
+  color: var(--text);
+}
+
+/* ============================================
+   GALLERY + DITHER
+   ============================================ */
+.gallery {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 0 18px;
+}
+
+.gallery-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.gallery-controls button {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.gallery-controls button:hover {
+  background: var(--accent);
+  color: var(--surface);
+}
+.gallery-controls .info {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-left: auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.gallery-item {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.gallery-item canvas,
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background: var(--bg-2);
+  image-rendering: pixelated;
+}
+
+.gallery-item.dithered canvas {
+  image-rendering: pixelated;
+}
+
+.gallery-item .caption {
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  border-top: 1px dashed var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gallery-item .caption .title {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.dither-badge {
+  background: var(--accent);
+  color: var(--surface);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  max-width: 1200px;
+  margin: 24px auto 0;
+  padding: 24px 18px 28px;
+  border-top: 2px solid var(--border-strong);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+@media (max-width: 720px) {
+  .footer { grid-template-columns: repeat(2, 1fr); }
+}
+
+.footer h5 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.footer a {
+  display: block;
+  padding: 2px 0;
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: 13px;
+}
+.footer a:hover { color: var(--link-hover); text-decoration: underline; }
+.footer .credits {
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: center;
+}
+.footer .credits .webring {
+  display: inline-block;
+  margin: 0 8px;
+  color: var(--accent);
+}
+
+/* ============================================
+   MOBILE
+   ============================================ */
+@media (max-width: 720px) {
+  .header { grid-template-columns: auto 1fr; }
+  .search-box { grid-column: 1 / -1; }
+  .search-box input { width: 100%; }
+  .topbar-inner { font-size: 12px; gap: 10px; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bubble { animation: none; opacity: 0.4; }
+  .tiny-user { transition: none; }
+  * { scroll-behavior: auto !important; }
+}
+
+/* focus */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+</style>
+</head>
+<body>
+
+<!-- Bubble field for Frutiger Aero -->
+<div class="bubble-field" id="bubbleField" aria-hidden="true"></div>
+
+<!-- ============================================
+     TOP UTILITY BAR
+     ============================================ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-cell">📅 <strong id="todayDate">—</strong></span>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-cell">🌡 <strong id="todayTemp">42°F</strong> overcast</span>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-cell">👥 <strong id="onlineCount">1</strong> online</span>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-cell">📍 42.4519°N, 73.2451°W</span>
+    <div class="skin-picker" role="group" aria-label="Choose a skin">
+      <button class="skin-btn" data-skin="aero" style="--swatch: linear-gradient(135deg, #5fb4d8, #4caf50);" aria-pressed="true" title="Frutiger Aero"></button>
+      <button class="skin-btn" data-skin="brick" style="--swatch: linear-gradient(135deg, #c4a890, #8b3a1f);" aria-pressed="false" title="Brick & Brass"></button>
+      <button class="skin-btn" data-skin="foliage" style="--swatch: linear-gradient(135deg, #3a4a30, #b54a18);" aria-pressed="false" title="Berkshire Foliage"></button>
+      <button class="skin-btn" data-skin="bbs" style="--swatch: linear-gradient(135deg, #0a0a0a, #f4a830);" aria-pressed="false" title="BBS Terminal"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header class="header">
+  <div class="seal" aria-label="Town seal">
+    <span>PITTS</span>
+    <span>·FIELD·</span>
+    <span style="font-size:9px;margin-top:2px;">1761</span>
+  </div>
+  <div class="header-titles">
+    <h1>Pittsfield, Massachusetts</h1>
+    <div class="tagline">Heart of the Berkshires</div>
+    <div class="meta">County seat of Berkshire · Pop. 43,927 · Chartered 1761</div>
+  </div>
+  <form class="search-box" onsubmit="event.preventDefault(); document.querySelector('[data-section=town-square]').scrollIntoView({behavior:'smooth'});">
+    <input type="text" placeholder="search the portal…" aria-label="Search">
+    <button type="submit">GO</button>
+  </form>
+</header>
+
+<!-- ============================================
+     NAVBAR
+     ============================================ -->
+<nav class="navbar" aria-label="Sections">
+  <div class="navbar-inner">
+    <a class="nav-link" data-section="town-square" aria-current="page">Town Square</a>
+    <a class="nav-link" data-section="services">Services</a>
+    <a class="nav-link" data-section="news">News &amp; Notes</a>
+    <a class="nav-link" data-section="history">History</a>
+    <a class="nav-link" data-section="forum">Message Board</a>
+    <a class="nav-link" data-section="politics">City Gov</a>
+    <a class="nav-link" data-section="culture">Culture</a>
+    <a class="nav-link" data-section="gallery">Photo Album</a>
+    <a class="nav-link" data-section="guestbook">Guestbook</a>
+  </div>
+</nav>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero">
+  <div class="hero-card">
+    <h2>Welcome, neighbor. <em>The kettle's on.</em></h2>
+    <p>You've reached the unofficial-but-affectionate civic portal for Pittsfield, Massachusetts — built by a resident, for residents, with fewer stock photos and more accurate bus timetables than the municipal site. Pull up a bench in the Town Square, file a 311 ticket, or wander through two and a half centuries of Berkshire history.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">1761</span><span class="lbl">Chartered</span></div>
+      <div class="hero-stat"><span class="num">43,927</span><span class="lbl">Residents</span></div>
+      <div class="hero-stat"><span class="num">42</span><span class="lbl">Sq. miles</span></div>
+      <div class="hero-stat"><span class="num">1,039ft</span><span class="lbl">Elevation</span></div>
+    </div>
+  </div>
+  <div class="weather-card">
+    <span class="label">Pittsfield Municipal Airport · KGTM</span>
+    <div class="temp">38°F</div>
+    <div class="desc">light snow, light breeze out of the NW</div>
+    <div class="forecast">
+      <div><div class="day">TUE</div><div class="h">34°</div></div>
+      <div><div class="day">WED</div><div class="h">28°</div></div>
+      <div><div class="day">THU</div><div class="h">31°</div></div>
+      <div><div class="day">FRI</div><div class="h">36°</div></div>
+      <div><div class="day">SAT</div><div class="h">29°</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     MAIN GRID
+     ============================================ -->
+<main class="main-grid">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="col-left">
+    <div class="panel" data-section="services">
+      <div class="panel-title">Quick Services <span class="badge">A–Z</span></div>
+      <div class="panel-body" style="padding:0;">
+        <ul class="service-list">
+          <li><a href="#"><span class="icon">🗑</span><span>Trash &amp; Recycling</span></a></li>
+          <li><a href="#"><span class="icon">🚰</span><span>Water &amp; Sewer</span></a></li>
+          <li><a href="#"><span class="icon">🚌</span><span>Berkshire RTA Bus</span></a></li>
+          <li><a href="#"><span class="icon">🏛</span><span>City Clerk</span></a></li>
+          <li><a href="#"><span class="icon">🚓</span><span>Police Non-Emergency</span></a></li>
+          <li><a href="#"><span class="icon">🔥</span><span>Fire Department</span></a></li>
+          <li><a href="#"><span class="icon">📚</span><span>Berkshire Athenaeum</span></a></li>
+          <li><a href="#"><span class="icon">🌳</span><span>Parks &amp; Rec</span></a></li>
+          <li><a href="#"><span class="icon">🎫</span><span>Parking Permits</span></a></li>
+          <li><a href="#"><span class="icon">🐕</span><span>Animal Control</span></a></li>
+          <li><a href="#"><span class="icon">🩺</span><span>Public Health</span></a></li>
+          <li><a href="#"><span class="icon">🗳</span><span>Voter Registration</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Important Numbers</div>
+      <div class="panel-body" style="font-family:var(--font-mono);font-size:13px;">
+        <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>Emergency</span><strong style="color:var(--accent-3);">911</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>Police (non-em)</span><strong>(413) 448-9700</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>Fire Dept</span><strong>(413) 448-9640</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>City Hall</span><strong>(413) 499-9300</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>DPW</span><strong>(413) 499-9330</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>BRTA Bus</span><strong>(413) 499-2782</strong></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTER COLUMN -->
+  <section class="col-center">
+
+    <!-- TOWN SQUARE -->
+    <div class="panel town-square" data-section="town-square">
+      <div class="panel-title">
+        <span>⊙ The Town Square · Live</span>
+        <span class="badge" id="squareBadge">1 present</span>
+      </div>
+      <div class="canvas" id="squareCanvas">
+        <div class="park-bench">— park bench · est. 1893 —</div>
+      </div>
+      <div class="footer">
+        <span>look around — these are real people, on this page, right now</span>
+        <span><span class="count" id="squareCount">1</span> visitor(s) wandering</span>
+      </div>
+    </div>
+
+    <!-- NEWS & NOTES -->
+    <div class="panel" data-section="news">
+      <div class="panel-title">News &amp; Notes from City Hall</div>
+      <div class="panel-body">
+        <div class="announcement urgent">
+          <span class="stamp">Mon, Mar 17 · Department of Public Works</span>
+          <h4>Snow Emergency in Effect — 11:00 PM Tuesday</h4>
+          <p>On-street parking prohibited on posted emergency arteries. Move vehicles to municipal lots (Mellon, Columbus, McKay). Sidewalks must be cleared within 24 hours of storm's end per §235-12.</p>
+        </div>
+        <div class="announcement">
+          <span class="stamp">Fri, Mar 14 · Mayor's Office</span>
+          <h4>Capital Budget Public Hearing — March 26</h4>
+          <p>The City Council invites comment on the FY26 capital plan. TY2013 bond refinancing is also on the agenda. All ward residents welcome; comment cards at the door.</p>
+        </div>
+        <div class="announcement">
+          <span class="stamp">Wed, Mar 12 · Parks &amp; Recreation</span>
+          <h4>Springfield Street Playground Re-Opens April 1</h4>
+          <p>New equipment installed. Ribbon-cutting 11am; coffee provided by the Common Crow. Volunteers needed to spread woodchips on Saturday March 29 — bring gloves.</p>
+        </div>
+        <div class="announcement">
+          <span class="stamp">Mon, Mar 10 · Building Department</span>
+          <h4>Permit Fees Updated — Effective April 1</h4>
+          <p>Residential building permit base fee increases from $85 to $110. Electrical and plumbing fees unchanged. Schedule available at the Building Department, City Hall Room 207.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 311 FORM -->
+    <div class="panel" data-section="311">
+      <div class="panel-title">File a 311 Report <span class="badge">non-emergency</span></div>
+      <div class="panel-body">
+        <form class="report-form" id="reportForm">
+          <div>
+            <label for="r-type">Issue type</label>
+            <select id="r-type" required>
+              <option value="">— choose one —</option>
+              <option value="pothole">Pothole / road surface</option>
+              <option value="streetlight">Streetlight out</option>
+              <option value="blight">Blighted property</option>
+              <option value="noise">Noise complaint</option>
+              <option value="trash">Missed trash pickup</option>
+              <option value="sidewalk">Sidewalk obstruction</option>
+              <option value="animal">Animal control</option>
+              <option value="park">Park / playground issue</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="r-loc">Location</label>
+            <input id="r-loc" type="text" placeholder="street address or nearest cross-street" required>
+          </div>
+          <div>
+            <label for="r-desc">Description</label>
+            <textarea id="r-desc" placeholder="Blighted property at…" required></textarea>
+          </div>
+          <div>
+            <label for="r-name">Your name (optional)</label>
+            <input id="r-name" type="text" placeholder="Anonymous">
+          </div>
+          <button type="submit">Submit to 311</button>
+          <div id="reportSuccess" class="success" hidden></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="panel" data-section="history">
+      <div class="panel-title">A Brief History of the Town</div>
+      <div class="panel-body">
+        <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px;line-height:1.6;">
+          Pittsfield sits on the homelands of the Mohican people. Chartered in 1761 and named for British politician William Pitt the Elder, the town grew around the confluence of the east and west branches of the Housatonic River. For most of the 20th century, the city's pulse was set by the whistle of the General Electric plant — at its peak, the company employed over 13,000 people in Pittsfield and shaped nearly everything else. The plant closed in the late 1980s; the city is still, in many ways, working out what comes next.
+        </p>
+        <ul class="history-timeline">
+          <li>
+            <span class="year">1737</span>
+            <span class="event">First permanent English settlement in the area, called "Pontoosuck" after the Mohican name for the meadow.</span>
+          </li>
+          <li>
+            <span class="year">1761</span>
+            <span class="event">Town chartered as "Pittsfield" by Governor Francis Bernard, naming it for William Pitt.</span>
+          </li>
+          <li>
+            <span class="year">1891</span>
+            <span class="event">City incorporated under a mayor–council form of government. Stanley S. Moseley serves as first mayor.</span>
+          </li>
+          <li>
+            <span class="year">1903</span>
+            <span class="event">Stanley Electric Manufacturing Company (later GE) opens its Pittsfield plant, transforming the city's economy and skyline for the next eighty years.</span>
+          </li>
+          <li>
+            <span class="year">1942</span>
+            <span class="event">Herman Melville writes <em>Moby-Dick</em> at Arrowhead, his Pittsfield farm; the view of Mount Greylock from his study window is said to resemble a whale.</span>
+          </li>
+          <li>
+            <span class="year">1965</span>
+            <span class="event">Bousquet Ski Area opens, the first commercial ski area in the Berkshires with snowmaking.</span>
+          </li>
+          <li>
+            <span class="year">1987</span>
+            <span class="event">GE announces closure of the Pittsfield transformer division; 3,200 jobs lost within 18 months.</span>
+          </li>
+          <li>
+            <span class="year">2000</span>
+            <span class="event">GE and EPA reach agreement on the Housatonic River PCB cleanup — one of the longest-running environmental remediation projects in New England.</span>
+          </li>
+          <li>
+            <span class="year">2005</span>
+            <span class="event">Berkshire Museum completes major renovation; Barrington Stage Company establishes permanent home on Union Street.</span>
+          </li>
+          <li>
+            <span class="year">2024</span>
+            <span class="event">Tyler Street revitalization plan breaks ground; new Berkshire Innovation Center opens on the former GE campus.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FORUM -->
+    <div class="panel" data-section="forum">
+      <div class="panel-title">
+        <span>Message Board · /bbs/</span>
+        <span class="badge">10 threads</span>
+      </div>
+      <div class="panel-body" id="forumList">
+        <div class="forum-thread sticky">
+          <div class="avatar">MOD</div>
+          <div>
+            <a href="#" class="title">📌 READ BEFORE POSTING — forum rules &amp; etiquette</a>
+            <div class="meta">by <span class="author">admin</span> · pinned · Mar 2</div>
+          </div>
+          <div class="replies"><span class="num">—</span>locked</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">DB</div>
+          <div>
+            <a href="#" class="title">Anyone else lose power on West Housatonic last night?</a>
+            <div class="meta">by <span class="author">dave_from_dalton</span> · 2h ago</div>
+          </div>
+          <div class="replies"><span class="num">14</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">MK</div>
+          <div>
+            <a href="#" class="title">Best place for a quiet beer in the North Street area?</a>
+            <div class="meta">by <span class="author">molly_k</span> · 5h ago</div>
+          </div>
+          <div class="replies"><span class="num">23</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">RC</div>
+          <div>
+            <a href="#" class="title">BRTA route 1 still running 20 min late — anyone heard why?</a>
+            <div class="meta">by <span class="author">rustycan</span> · yesterday</div>
+          </div>
+          <div class="replies"><span class="num">8</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">JT</div>
+          <div>
+            <a href="#" class="title">Where's the best maple syrup in Berkshire County? Asking for a friend.</a>
+            <div class="meta">by <span class="author">jt_pittsfield</span> · 2d ago</div>
+          </div>
+          <div class="replies"><span class="num">41</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">PW</div>
+          <div>
+            <a href="#" class="title">Bousquet mountain biking trails — spring conditions report?</a>
+            <div class="meta">by <span class="author">pedaling_wendy</span> · 3d ago</div>
+          </div>
+          <div class="replies"><span class="num">6</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">GH</div>
+          <div>
+            <a href="#" class="title">City Council at-large — who's actually running this year?</a>
+            <div class="meta">by <span class="author">greg_h</span> · 4d ago</div>
+          </div>
+          <div class="replies"><span class="num">19</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">SP</div>
+          <div>
+            <a href="#" class="title">Lost cat near Clapp Park — orange tabby, answers to "Mittens"</a>
+            <div class="meta">by <span class="author">susan_p</span> · 5d ago</div>
+          </div>
+          <div class="replies"><span class="num">3</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">TW</div>
+          <div>
+            <a href="#" class="title">Common Park free summer concerts — 2025 lineup?</a>
+            <div class="meta">by <span class="author">townsquare_watcher</span> · 6d ago</div>
+          </div>
+          <div class="replies"><span class="num">11</span>replies</div>
+        </div>
+        <div class="forum-thread">
+          <div class="avatar">BH</div>
+          <div>
+            <a href="#" class="title">Tyler Street traffic study — observations from a commuter</a>
+            <div class="meta">by <span class="author">berkshire_hans</span> · 1w ago</div>
+          </div>
+          <div class="replies"><span class="num">27</span>replies</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POLITICS -->
+    <div class="panel" data-section="politics">
+      <div class="panel-title">City Government · Mayor–Council</div>
+      <div class="panel-body">
+        <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px;line-height:1.6;">
+          Pittsfield operates under a Plan D city charter, adopted in 1932. The Mayor serves a four-year term; the City Council has eleven members — seven elected from wards and four at-large — each serving two-year terms. The current mayor is <strong>Peter M. Marchetti</strong>, sworn in January 2024.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;font-size:13px;margin-bottom:14px;">
+          <div><strong style="color:var(--accent);">Mayor</strong><br>Peter M. Marchetti (D)</div>
+          <div><strong style="color:var(--accent);">City Clerk</strong><br>Michele L. Matiocco</div>
+          <div><strong style="color:var(--accent);">Council President</strong><br>Peter White (Ward 4)</div>
+          <div><strong style="color:var(--accent);">Vice President</strong><br>Earle T. Persse III</div>
+          <div><strong style="color:var(--accent);">State Rep, 3rd Berkshire</strong><br>Tricia Farley-Bouvier (D)</div>
+          <div><strong style="color:var(--accent);">State Senator</strong><br>Paul W. Mark (D, Berkshire)</div>
+          <div><strong style="color:var(--accent);">U.S. Representative</strong><br>Richard Neal (D, MA-01)</div>
+          <div><strong style="color:var(--accent);">U.S. Senators</strong><br>Elizabeth Warren · Ed Markey</div>
+        </div>
+        <div style="background:var(--surface-2);border-left:3px solid var(--accent);padding:10px 12px;font-family:var(--font-mono);font-size:12px;color:var(--text-soft);">
+          <strong style="color:var(--text);">📌 Upcoming election:</strong> Tuesday, November 4, 2025. Polls open 7am–8pm at the Pittsfield High School gymnasium (Ward 1–4) and Taconic High School (Ward 5–7). Registration deadline Oct 25.
+        </div>
+      </div>
+    </div>
+
+    <!-- CULTURE -->
+    <div class="panel" data-section="culture">
+      <div class="panel-title">Culture &amp; What's Going On</div>
+      <div class="panel-body">
+        <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px;line-height:1.6;">
+          The city hosts <strong>Barrington Stage Company</strong> (a regional Tony-winner), the <strong>Berkshire Museum</strong>, the <strong>Colonial Theatre</strong> (restored 2006, said to be one of the best-preserved acoustic halls in New England), and <strong>Berkshire Theatre Group</strong>. Herman Melville wrote <em>Moby-Dick</em> at <strong>Arrowhead</strong>, his house on Holmes Road — now a museum and the occasional site of staged readings each August.
+        </p>
+        <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px;line-height:1.6;">
+          October brings the <strong>Haunted Happenings</strong> walking tours through the downtown historic district. June is the <strong>Berkshire Jazz Festival</strong> at the Common. The farmers' market runs Saturday mornings April through October in the parking lot behind the Athenaeum.
+        </p>
+        <ul style="list-style:none;display:grid;gap:8px;font-size:14px;">
+          <li><a href="#">Berkshire Athenaeum (public library)</a></li>
+          <li><a href="#">Berkshire Museum — natural history &amp; fine art</a></li>
+          <li><a href="#">Barrington Stage Company — Union Street</a></li>
+          <li><a href="#">Colonial Theatre — South Street</a></li>
+          <li><a href="#">Arrowhead — Herman Melville's home</a></li>
+          <li><a href="#">Bousquet Mountain — skiing &amp; biking</a></li>
+          <li><a href="#">Berkshire Bike Path — Ashuwillticook Rail Trail</a></li>
+          <li><a href="#">Pittsfield Farmers' Market · Saturdays 9–1</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="col-right">
+
+    <!-- TRASH -->
+    <div class="panel">
+      <div class="panel-title">Trash &amp; Recycling</div>
+      <div class="panel-body">
+        <div class="garbage-schedule">
+          <div class="row"><span class="day">MON</span><span class="desc"><span class="pin">●</span> Trash only — Ward 1, 2, 7</span></div>
+          <div class="row"><span class="day">TUE</span><span class="desc"><span class="pin">●</span> Recycling — all wards</span></div>
+          <div class="row"><span class="day">WED</span><span class="desc"><span class="pin">●</span> Trash — Ward 3, 4, 5, 6</span></div>
+          <div class="row"><span class="day">THU</span><span class="desc"><span class="pin">●</span> Yard waste — Apr to Nov</span></div>
+          <div class="row"><span class="day">FRI</span><span class="desc"><span class="pin">●</span> Bulk pickup — by appt</span></div>
+        </div>
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-soft);margin-top:10px;line-height:1.5;">
+          Place bins at curb by 7am. Recycling is single-stream. Electronics &amp; hazardous waste drop-off first Sat of month at the transfer station.
+        </p>
+      </div>
+    </div>
+
+    <!-- 311 QUICK -->
+    <div class="panel">
+      <div class="panel-title">311 · Non-Emergency</div>
+      <div class="panel-body" style="text-align:center;">
+        <div style="font-family:var(--font-mono);font-size:28px;font-weight:700;color:var(--accent);line-height:1;">413 · 499 · 9300</div>
+        <div style="font-size:12px;color:var(--text-soft);margin-top:6px;">Mon–Fri, 8:30am–4:00pm</div>
+        <div style="font-size:12px;color:var(--text-soft);">Or use the form on this page →</div>
+        <a href="#" data-scroll="311" style="display:inline-block;margin-top:8px;background:var(--accent);color:var(--surface);padding:6px 12px;border-radius:4px;text-decoration:none;font-weight:700;font-size:13px;">File a Report</a>
+      </div>
+    </div>
+
+    <!-- HIT COUNTER -->
+    <div class="panel">
+      <div class="panel-title">Visitor Counter</div>
+      <div class="panel-body" style="text-align:center;">
+        <div class="counter" id="hitCounter" aria-label="Total visitors">
+          <span class="digit">0</span>
+          <span class="digit">0</span>
+          <span class="digit">0</span>
+          <span class="digit">0</span>
+          <span class="digit">0</span>
+          <span class="digit">0</span>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-soft);margin-top:6px;">you are visitor №<span id="hitNum">—</span></div>
+      </div>
+    </div>
+
+    <!-- TOWN SQUARE MINI -->
+    <div class="panel">
+      <div class="panel-title">Who's Online</div>
+      <div class="panel-body" style="font-family:var(--font-mono);font-size:12px;max-height:140px;overflow-y:auto;">
+        <div id="onlineList"></div>
+      </div>
+    </div>
+
+    <!-- GUESTBOOK -->
+    <div class="panel" data-section="guestbook">
+      <div class="panel-title">Sign the Guestbook</div>
+      <div class="panel-body">
+        <form class="guestbook-form" id="guestbookForm">
+          <input id="gb-name" type="text" placeholder="your name or handle" required maxlength="32">
+          <textarea id="gb-msg" placeholder="leave a note for the next visitor" required maxlength="280"></textarea>
+          <button type="submit">Sign it</button>
+        </form>
+        <div class="guestbook-entries" id="guestbookEntries" style="margin-top:10px;"></div>
+      </div>
+    </div>
+
+  </aside>
+
+</main>
+
+<!-- ============================================
+     PHOTO GALLERY + DITHER
+     ============================================ -->
+<section class="gallery" data-section="gallery">
+  <div class="panel-title" style="border:1px solid var(--border-strong);border-bottom:0;border-radius:var(--radius) var(--radius) 0 0;">
+    <span>📷 Photo Album — Berkshire Views</span>
+    <span class="badge">click any image</span>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border-strong);border-top:0;border-radius:0 0 var(--radius) var(--radius);padding:14px;">
+    <div class="gallery-controls">
+      <button id="ditherAllBtn">Dither all images</button>
+      <button id="ditherNoneBtn">Show originals</button>
+      <button id="ditherBayerBtn">Try Bayer (4×4)</button>
+      <button id="ditherFSBtn">Try Floyd–Steinberg</button>
+      <span class="info">dithering runs in your browser · ~200ms per image</span>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- items injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <div>
+    <h5>City Hall</h5>
+    <a href="#">70 Allen Street, Pittsfield MA 01201</a>
+    <a href="#">Hours: Mon–Fri, 8:30am–4:00pm</a>
+    <a href="#">(413) 499-9300</a>
+    <a href="#">cityclerk@pittsfieldma.gov</a>
+  </div>
+  <div>
+    <h5>Departments</h5>
+    <a href="#">Building &amp; Inspection</a>
+    <a href="#">Public Works</a>
+    <a href="#">Police / Fire / EMS</a>
+    <a href="#">Parks &amp; Recreation</a>
+    <a href="#">Health Department</a>
+    <a href="#">Assessor / Treasurer</a>
+  </div>
+  <div>
+    <h5>Boards &amp; Commissions</h5>
+    <a href="#">City Council agendas</a>
+    <a href="#">School Committee</a>
+    <a href="#">Planning Board</a>
+    <a href="#">Zoning Board of Appeals</a>
+    <a href="#">Conservation Commission</a>
+  </div>
+  <div>
+    <h5>Civic Life</h5>
+    <a href="#">Berkshire Athenaeum</a>
+    <a href="#">BRTA bus schedules</a>
+    <a href="#">Voter registration (MA)</a>
+    <a href="#">Pittsfield Public Schools</a>
+    <a href="#">Berkshire Regional Planning</a>
+  </div>
+  <div class="credits">
+    <span class="webring">⬅ previous</span>
+    · maintained by neighbors · last updated <span id="lastUpdated">—</span> · no cookies, no trackers, no AI summary at the top ·
+    <span class="webring">next ➡</span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   1. BUBBLE FIELD — Frutiger Aero
+   ============================================================ */
+(function makeBubbles() {
+  const field = document.getElementById('bubbleField');
+  const count = 14;
+  for (let i = 0; i < count; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = 18 + Math.random() * 60;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = (Math.random() * 100) + '%';
+    b.style.animationDuration = (10 + Math.random() * 18) + 's';
+    b.style.animationDelay = (-Math.random() * 20) + 's';
+    b.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
+    field.appendChild(b);
+  }
+})();
+
+/* ============================================================
+   2. DATE / TIME
+   ============================================================ */
+(function clock() {
+  const d = new Date();
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  document.getElementById('todayDate').textContent =
+    `${days[d.getDay()]} ${months[d.getMonth()]} ${d.getDate()} ${d.getFullYear()}`;
+  document.getElementById('lastUpdated').textContent =
+    d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+})();
+
+/* ============================================================
+   3. SKIN SWITCHER
+   ============================================================ */
+(function skinSwitcher() {
+  const buttons = document.querySelectorAll('.skin-btn');
+  const root = document.documentElement;
+  const saved = localStorage.getItem('pittsfield-skin') || 'aero';
+  applySkin(saved);
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const skin = btn.dataset.skin;
+      applySkin(skin);
+      localStorage.setItem('pittsfield-skin', skin);
+    });
+  });
+
+  function applySkin(skin) {
+    if (skin === 'aero') {
+      root.removeAttribute('data-skin');
+    } else {
+      root.setAttribute('data-skin', skin);
+    }
+    buttons.forEach(b => {
+      b.setAttribute('aria-pressed', b.dataset.skin === skin ? 'true' : 'false');
+    });
+  }
+})();
+
+/* ============================================================
+   4. NAV — smooth scroll + active state
+   ============================================================ */
+(function nav() {
+  const links = document.querySelectorAll('.nav-link, [data-scroll]');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = link.dataset.section || link.dataset.scroll;
+      if (!target) return;
+      const el = document.querySelector(`[data-section="${target}"]`) ||
+                 document.getElementById(target);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelectorAll('.nav-link').forEach(l => l.removeAttribute('aria-current'));
+        const matching = document.querySelector(`.nav-link[data-section="${target}"]`);
+        if (matching) matching.setAttribute('aria-current', 'page');
+      }
+    });
+  });
+})();
+
+/* ============================================================
+   5. HIT COUNTER (localStorage)
+   ============================================================ */
+(function hitCounter() {
+  const KEY = 'pittsfield-visits';
+  let n = parseInt(localStorage.getItem(KEY) || '1', 10);
+  // add some randomness so first visit isn't 000001 — looks more authentic
+  const base = 14782;
+  const total = base + n;
+  const str = String(total).padStart(6, '0');
+  const digits = document.querySelectorAll('#hitCounter .digit');
+  digits.forEach((d, i) => { d.textContent = str[i]; });
+  document.getElementById('hitNum').textContent = total.toLocaleString();
+  localStorage.setItem(KEY, String(n + 1));
+})();
+
+/* ============================================================
+   6. GUESTBOOK (localStorage)
+   ============================================================ */
+(function guestbook() {
+  const KEY = 'pittsfield-guestbook';
+  const entries = JSON.parse(localStorage.getItem(KEY) || '[]');
+  if (entries.length === 0) {
+    // seed with a few authentic-feeling entries
+    entries.push(
+      { name: 'molly_k', msg: 'love the new look of the portal — the bubbles are a vibe', when: Date.now() - 86400000 * 2 },
+      { name: 'Anonymous', msg: 'is the BRTA route 1 actually running on Saturdays now??', when: Date.now() - 86400000 },
+      { name: 'berkshire_hans', msg: 'thanks for the trash schedule — finally a page that just tells me', when: Date.now() - 3600000 * 6 }
+    );
+    localStorage.setItem(KEY, JSON.stringify(entries));
+  }
+
+  const listEl = document.getElementById('guestbookEntries');
+  const form = document.getElementById('guestbookForm');
+
+  function render() {
+    listEl.innerHTML = '';
+    const items = JSON.parse(localStorage.getItem(KEY) || '[]');
+    items.slice().reverse().slice(0, 20).forEach(e => {
+      const div = document.createElement('div');
+      div.className = 'guestbook-entry';
+      const d = new Date(e.when);
+      const ago = relativeTime(e.when);
+      div.innerHTML = `
+        <span class="author">${escapeHtml(e.name)}</span>
+        <span class="when">· ${ago}</span>
+        <span class="msg">${escapeHtml(e.msg)}</span>
+      `;
+      listEl.appendChild(div);
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('gb-name').value.trim();
+    const msg = document.getElementById('gb-msg').value.trim();
+    if (!name || !msg) return;
+    const items = JSON.parse(localStorage.getItem(KEY) || '[]');
+    items.push({ name, msg, when: Date.now() });
+    localStorage.setItem(KEY, JSON.stringify(items));
+    form.reset();
+    render();
+  });
+
+  render();
+})();
+
+function relativeTime(ts) {
+  const diff = Date.now() - ts;
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return m + 'm ago';
+  const h = Math.floor(m / 60);
+  if (h < 24) return h + 'h ago';
+  return Math.floor(h / 24) + 'd ago';
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[c]));
+}
+
+/* ============================================================
+   7. 311 FORM
+   ============================================================ */
+(function report311() {
+  const form = document.getElementById('reportForm');
+  const success = document.getElementById('reportSuccess');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const type = document.getElementById('r-type').value;
+    const loc = document.getElementById('r-loc').value;
+    const desc = document.getElementById('r-desc').value;
+    const ticketId = 'P' + Math.floor(Math.random() * 90000 + 10000);
+    success.hidden = false;
+    success.textContent = `✓ Ticket ${ticketId} filed. Routing to ${departmentFor(type)}. You'll receive a callback within 1 business day.`;
+    setTimeout(() => { success.hidden = true; }, 6000);
+    form.reset();
+  });
+
+  function departmentFor(type) {
+    return {
+      pothole: 'DPW',
+      streetlight: 'DPW',
+      blight: 'Building Department',
+      noise: 'Police',
+      trash: 'DPW',
+      sidewalk: 'DPW',
+      animal: 'Animal Control',
+      park: 'Parks & Rec',
+      other: 'City Clerk'
+    }[type] || 'City Clerk';
+  }
+})();
+
+/* ============================================================
+   8. TOWN SQUARE — live users
+   Uses BroadcastChannel to sync between tabs.
+   Each user is a little dot wandering around the canvas.
+   ============================================================ */
+(function townSquare() {
+  const canvas = document.getElementById('squareCanvas');
+  const countEl = document.getElementById('squareCount');
+  const badgeEl = document.getElementById('squareBadge');
+  const onlineCountTop = document.getElementById('onlineCount');
+  const onlineList = document.getElementById('onlineList');
+
+  // pick a handle
+  const firstNames = ['dave','molly','susan','greg','hans','wendy','rusty','pat','tom','joan','ellen','marcus','lou','annette','ray','patty','sam','gus','ines'];
+  const suffixes = ['_pittsfield','_from_ward3','','_ma','_62','_vt','_transplant','_native','from_dalton','from_becket'];
+  const myHandle = firstNames[Math.floor(Math.random()*firstNames.length)] +
+                   suffixes[Math.floor(Math.random()*suffixes.length)];
+  const myId = 'u-' + Math.random().toString(36).slice(2, 8);
+
+  // positions
+  const users = new Map(); // id -> {x, y, handle, lastSeen, el, me}
+  users.set(myId, {
+    id: myId, handle: myHandle, me: true,
+    x: 0.5, y: 0.7, vx: 0, vy: 0, lastSeen: Date.now()
+  });
+
+  // broadcast
+  const channel = new BroadcastChannel('pittsfield-square');
+  function announce() {
+    channel.postMessage({
+      type: 'presence', id: myId, handle: myHandle, ts: Date.now()
+    });
+  }
+  channel.onmessage = (e) => {
+    const m = e.data;
+    if (m.type === 'presence') {
+      if (!users.has(m.id)) {
+        users.set(m.id, {
+          id: m.id, handle: m.handle, me: false,
+          x: Math.random(), y: 0.3 + Math.random() * 0.5,
+          vx: 0, vy: 0, lastSeen: m.ts
+        });
+        renderUser(m.id);
+      } else {
+        users.get(m.id).lastSeen = m.ts;
+      }
+    } else if (m.type === 'bye') {
+      if (users.has(m.id)) {
+        if (users.get(m.id).el) users.get(m.id).el.remove();
+        users.delete(m.id);
+      }
+    }
+  };
+  announce();
+  const announceInterval = setInterval(announce, 2000);
+
+  // prune stale
+  setInterval(() => {
+    const now = Date.now();
+    for (const [id, u] of users) {
+      if (u.me) continue;
+      if (now - u.lastSeen > 6000) {
+        if (u.el) u.el.remove();
+        users.delete(id);
+      }
+    }
+    updateCount();
+  }, 1500);
+
+  // cleanup on unload
+  window.addEventListener('beforeunload', () => {
+    channel.postMessage({ type: 'bye', id: myId });
+  });
+
+  // create DOM element for a user
+  function renderUser(id) {
+    const u = users.get(id);
+    if (!u) return;
+    if (u.el) return;
+    const el = document.createElement('div');
+    el.className = 'tiny-user' + (u.me ? ' me' : '');
+    el.innerHTML = `
+      <div class="avatar"></div>
+      <div class="name">${escapeHtml(u.handle)}</div>
+    `;
+    canvas.appendChild(el);
+    u.el = el;
+    positionUser(u);
+  }
+
+  function positionUser(u) {
+    if (!u.el) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.max(20, Math.min(rect.width - 80, u.x * rect.width));
+    const y = Math.max(40, Math.min(rect.height - 50, u.y * rect.height));
+    u.el.style.left = x + 'px';
+    u.el.style.top = y + 'px';
+  }
+
+  // wander
+  function wander() {
+    const rect = canvas.getBoundingClientRect();
+    for (const [id, u] of users) {
+      if (Math.random() < 0.02) {
+        // pick new target
+        u.tx = 0.1 + Math.random() * 0.8;
+        u.ty = 0.3 + Math.random() * 0.6;
+      }
+      if (u.tx !== undefined) {
+        const dx = u.tx - u.x;
+        const dy = u.ty - u.y;
+        u.x += dx * 0.02;
+        u.y += dy * 0.02;
+        if (Math.abs(dx) < 0.01 && Math.abs(dy) < 0.01) {
+          u.tx = undefined;
+        }
+      }
+      positionUser(u);
+    }
+  }
+  setInterval(wander, 80);
+
+  function updateCount() {
+    const n = users.size;
+    countEl.textContent = n;
+    badgeEl.textContent = n + ' present';
+    onlineCountTop.textContent = n;
+    // update online list
+    const list = [];
+    for (const [id, u] of users) {
+      list.push(u);
+    }
+    onlineList.innerHTML = list.map(u =>
+      `<div>${u.me ? '★ ' : '• '}${escapeHtml(u.handle)}</div>`
+    ).join('');
+  }
+
+  // initial render
+  renderUser(myId);
+  updateCount();
+
+  // mouse interaction — clicking the canvas draws the others' attention
+  canvas.addEventListener('click', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const me = users.get(myId);
+    me.tx = x;
+    me.ty = y;
+  });
+
+  // resize repositioning
+  window.addEventListener('resize', () => {
+    for (const [id, u] of users) positionUser(u);
+  });
+})();
+
+/* ============================================================
+   9. GALLERY + DITHERING
+   Loads images from picsum, then offers client-side dithering.
+   ============================================================ */
+(function gallery() {
+  const grid = document.getElementById('galleryGrid');
+  const items = [
+    { seed: 'pittsfield-park', title: 'Common Park', desc: 'fall foliage' },
+    { seed: 'pittsfield-street', title: 'North Street', desc: 'downtown' },
+    { seed: 'pittsfield-mountain', title: 'Mt. Greylock', desc: 'from West St.' },
+    { seed: 'pittsfield-river', title: 'Housatonic', desc: 'west branch' },
+    { seed: 'pittsfield-mill', title: 'Old GE Plant', desc: ' Tyler Street' },
+    { seed: 'pittsfield-theatre', title: 'Colonial', desc: 'South Street' },
+    { seed: 'pittsfield-library', title: 'Athenaeum', desc: 'Berkshire Ave' },
+    { seed: 'pittsfield-farm', title: 'Maple Farm', desc: 'Lanesborough Rd' }
+  ];
+
+  let ditherMode = null; // null | 'bayer' | 'floydsteinberg'
+
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    div.innerHTML = `
+      <canvas width="320" height="200" data-seed="${item.seed}"></canvas>
+      <div class="caption">
+        <span><span class="title">${item.title}</span> · ${item.desc}</span>
+      </div>
+    `;
+    grid.appendChild(div);
+
+    const canvas = div.querySelector('canvas');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      drawToCanvas(canvas, img);
+      div.dataset.original = '1';
+    };
+    img.onerror = () => {
+      // fallback pattern
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'var(--bg-2)';
+      ctx.fillRect(0, 0, 320, 200);
+      ctx.fillStyle = 'var(--text-soft)';
+      ctx.font = '14px monospace';
+      ctx.fillText('[ image unavailable ]', 60, 100);
+    };
+    img.src = `https://picsum.photos/seed/${item.seed}/320/200`;
+  });
+
+  function drawToCanvas(canvas, img) {
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    if (ditherMode) {
+      applyDither(canvas, ditherMode);
+    }
+  }
+
+  function applyDither(canvas, mode) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const imageData = ctx.getImageData(0, 0, w, h);
+    const data = imageData.data;
+    // compute luminance array
+    const lum = new Float32Array(w * h);
+    for (let i = 0; i < w * h; i++) {
+      const r = data[i*4], g = data[i*4+1], b = data[i*4+2];
+      lum[i] = 0.299 * r + 0.587 * g + 0.114 * b;
+    }
+
+    // palette: 4 grays
+    const palette = [[10,20,30], [80,90,100], [160,170,180], [240,245,250]];
+
+    function nearest(l) {
+      // 4 levels
+      const idx = l < 64 ? 0 : (l < 128 ? 1 : (l < 200 ? 2 : 3));
+      return palette[idx];
+    }
+
+    if (mode === 'bayer') {
+      // 4x4 Bayer matrix
+      const m = [
+        [ 0, 8, 2,10],
+        [12, 4,14, 6],
+        [ 3,11, 1, 9],
+        [15, 7,13, 5]
+      ];
+      const strength = 48;
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const i = y * w + x;
+          const t = (m[y % 4][x % 4] / 16 - 0.5) * strength;
+          const v = lum[i] + t;
+          const c = nearest(v);
+          data[i*4] = c[0]; data[i*4+1] = c[1]; data[i*4+2] = c[2];
+        }
+      }
+    } else if (mode === 'floydsteinberg') {
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const i = y * w + x;
+          const old = lum[i];
+          const c = nearest(old);
+          data[i*4] = c[0]; data[i*4+1] = c[1]; data[i*4+2] = c[2];
+          const err = old - (c[0] + c[1] + c[2]) / 3;
+          if (x + 1 < w) lum[i + 1] += err * 7 / 16;
+          if (y + 1 < h) {
+            if (x > 0) lum[i + w - 1] += err * 3 / 16;
+            lum[i + w] += err * 5 / 16;
+            if (x + 1 < w) lum[i + w + 1] += err * 1 / 16;
+          }
+        }
+      }
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+  }
+
+  function applyToAll(mode) {
+    ditherMode = mode;
+    document.querySelectorAll('.gallery-item').forEach(div => {
+      const canvas = div.querySelector('canvas');
+      if (canvas.dataset.original) {
+        // reload original from cache
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => drawToCanvas(canvas, img);
+        img.src = `https://picsum.photos/seed/${canvas.dataset.seed}/320/200`;
+      }
+    });
+  }
+
+  // dither badges
+  function updateBadges() {
+    document.querySelectorAll('.gallery-item').forEach(div => {
+      const cap = div.querySelector('.caption');
+      const existing = div.querySelector('.dither-badge');
+      if (ditherMode && !existing) {
+        const b = document.createElement('span');
+        b.className = 'dither-badge';
+        b.textContent = ditherMode === 'bayer' ? 'BAYER' : 'F-S';
+        cap.appendChild(b);
+      } else if (!ditherMode && existing) {
+        existing.remove();
+      } else if (ditherMode && existing) {
+        existing.textContent = ditherMode === 'bayer' ? 'BAYER' : 'F-S';
+      }
+    });
+  }
+
+  document.getElementById('ditherAllBtn').addEventListener('click', () => {
+    applyToAll('floydsteinberg');
+    updateBadges();
+  });
+  document.getElementById('ditherBayerBtn').addEventListener('click', () => {
+    applyToAll('bayer');
+    updateBadges();
+  });
+  document.getElementById('ditherFSBtn').addEventListener('click', () => {
+    applyToAll('floydsteinberg');
+    updateBadges();
+  });
+  document.getElementById('ditherNoneBtn').addEventListener('click', () => {
+    ditherMode = null;
+    document.querySelectorAll('.gallery-item').forEach(div => {
+      const canvas = div.querySelector('canvas');
+      if (canvas.dataset.original) {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = `https://picsum.photos/seed/${canvas.dataset.seed}/320/200`;
+      }
+    });
+    updateBadges();
+  });
+
+  // click individual image to toggle dither on just that one
+  grid.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item');
+    if (!item) return;
+    const canvas = item.querySelector('canvas');
+    if (!canvas.dataset.original) return;
+    // cycle: original -> bayer -> floydsteinberg -> original
+    const current = canvas.dataset.dither || 'none';
+    const next = current === 'none' ? 'bayer' : (current === 'bayer' ? 'floydsteinberg' : 'none');
+    canvas.dataset.dither = next;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      if (next !== 'none') applyDither(canvas, next);
+    };
+    img.src = `https://picsum.photos/seed/${canvas.dataset.seed}/320/200`;
+  });
+})();
+
+/* ============================================================
+   10. SECTION OBSERVER — active nav highlight
+   ============================================================ */
+(function sectionObserver() {
+  const sections = document.querySelectorAll('[data-section]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.removeAttribute('aria-current'));
+        const matching = document.querySelector(`.nav-link[data-section="${e.target.dataset.section}"]`);
+        if (matching) matching.setAttribute('aria-current', 'page');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => obs.observe(s));
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>City of Pittsfield, Massachusetts - Official Digital Home & Civic Portal</title>
+  <style>
+    /* ==========================================================================
+       PITTSFIELD, MA - CIVIC HOMEPAGE & FRUTIGER AERO STYLESHEET
+       ========================================================================== */
+
+    :root {
+      /* Theme 1: Frutiger Aero Berkshire (Default) */
+      --bg-gradient: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.45), transparent 60%),
+                     linear-gradient(180deg, #1fa2ff 0%, #12d8fa 45%, #a6ffcb 100%);
+      --bg-pattern-opacity: 0.28;
+      --panel-bg: rgba(255, 255, 255, 0.72);
+      --panel-border: rgba(255, 255, 255, 0.9);
+      --panel-shadow: 0 10px 30px rgba(0, 80, 160, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --panel-header-bg: linear-gradient(180deg, #ffffff 0%, #cce5ff 48%, #99ccff 52%, #b3d9ff 100%);
+      --panel-header-text: #0a3d62;
+      --accent-primary: #0078d7;
+      --accent-glow: rgba(0, 180, 255, 0.6);
+      --accent-secondary: #27ae60;
+      --text-main: #1a252f;
+      --text-muted: #4a6572;
+      --btn-grad: linear-gradient(180deg, #ffffff 0%, #b8e2f8 50%, #68bde8 51%, #a4daf5 100%);
+      --btn-border: #3c9ad6;
+      --btn-text: #04395e;
+      --btn-hover: linear-gradient(180deg, #ffffff 0%, #d4effd 50%, #87cefa 51%, #bce6fe 100%);
+      --badge-bg: #e1f5fe;
+      --font-body: "Segoe UI", "Lucida Grande", Tahoma, Verdana, sans-serif;
+      --font-display: "Trebuchet MS", "Lucida Grande", sans-serif;
+      --font-mono: "Lucida Console", "Courier New", monospace;
+      --scanline-display: none;
+      --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.15) 50%, transparent 51%);
+    }
+
+    /* Theme 2: GE Dynamo & Transformer Heritage (Industrial Slate & Amber) */
+    body.theme-ge-industrial {
+      --bg-gradient: radial-gradient(circle at 80% 20%, rgba(255, 140, 0, 0.18), transparent 45%),
+                     linear-gradient(180deg, #2b303a 0%, #3a4150 40%, #1e222a 100%);
+      --bg-pattern-opacity: 0.15;
+      --panel-bg: rgba(36, 42, 53, 0.85);
+      --panel-border: rgba(255, 165, 0, 0.4);
+      --panel-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 200, 120, 0.3);
+      --panel-header-bg: linear-gradient(180deg, #596173 0%, #383e4c 49%, #272c36 51%, #3b4251 100%);
+      --panel-header-text: #ffaa33;
+      --accent-primary: #ff8c00;
+      --accent-glow: rgba(255, 140, 0, 0.5);
+      --accent-secondary: #00bcd4;
+      --text-main: #e8ecf1;
+      --text-muted: #a4b0be;
+      --btn-grad: linear-gradient(180deg, #6c757d 0%, #495057 50%, #343a40 51%, #495057 100%);
+      --btn-border: #ff9900;
+      --btn-text: #ffcc66;
+      --btn-hover: linear-gradient(180deg, #868e96 0%, #5a6268 50%, #42494f 51%, #6c757d 100%);
+      --badge-bg: #343a40;
+      --font-body: "Lucida Console", "Courier New", monospace;
+      --scanline-display: block;
+      --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 51%);
+    }
+
+    /* Theme 3: Moby-Dick / Melville Parchment (Classic 1996 Web 1.0) */
+    body.theme-melville-1996 {
+      --bg-gradient: linear-gradient(180deg, #000080 0%, #102a71 20%, #ece5cf 20.1%, #e5dcbe 100%);
+      --bg-pattern-opacity: 0.35;
+      --panel-bg: #fffdf7;
+      --panel-border: #8b7355;
+      --panel-shadow: 4px 4px 0px #4a3c2c;
+      --panel-header-bg: linear-gradient(180deg, #000080 0%, #0000aa 50%, #000080 100%);
+      --panel-header-text: #ffffff;
+      --accent-primary: #000080;
+      --accent-glow: rgba(0, 0, 128, 0.3);
+      --accent-secondary: #8b0000;
+      --text-main: #2b1d0c;
+      --text-muted: #614e36;
+      --btn-grad: linear-gradient(180deg, #ffffff 0%, #e0ded8 100%);
+      --btn-border: #7f7f7f;
+      --btn-text: #000000;
+      --btn-hover: linear-gradient(180deg, #f5f5f5 0%, #d0cec8 100%);
+      --badge-bg: #efe8d3;
+      --font-body: "Times New Roman", Times, Georgia, serif;
+      --font-display: Georgia, serif;
+      --scanline-display: none;
+      --glass-gloss: none;
+    }
+
+    /* Theme 4: Berkshire Autumn Foliage (Maple Crimson & Gold Ochre) */
+    body.theme-berkshire-foliage {
+      --bg-gradient: radial-gradient(circle at 30% 20%, rgba(255, 230, 150, 0.4), transparent 50%),
+                     linear-gradient(180deg, #8b1e0f 0%, #c44d18 35%, #d97724 65%, #2d5a27 100%);
+      --bg-pattern-opacity: 0.22;
+      --panel-bg: rgba(255, 252, 245, 0.85);
+      --panel-border: rgba(255, 215, 140, 0.8);
+      --panel-shadow: 0 10px 30px rgba(90, 20, 5, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --panel-header-bg: linear-gradient(180deg, #fff2db 0%, #f7b267 48%, #e85d04 51%, #f48c06 100%);
+      --panel-header-text: #4d1502;
+      --accent-primary: #c44d18;
+      --accent-glow: rgba(244, 140, 6, 0.6);
+      --accent-secondary: #2d5a27;
+      --text-main: #2c1810;
+      --text-muted: #684132;
+      --btn-grad: linear-gradient(180deg, #ffffff 0%, #fed8b1 49%, #f79d65 51%, #fdbb84 100%);
+      --btn-border: #b84a1e;
+      --btn-text: #501705;
+      --btn-hover: linear-gradient(180deg, #ffffff 0%, #ffe8cc 50%, #fdb583 51%, #ffd299 100%);
+      --badge-bg: #ffe8cc;
+      --font-body: "Trebuchet MS", "Segoe UI", sans-serif;
+      --scanline-display: none;
+      --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 51%);
+    }
+
+    /* Theme 5: Lake Onota Twilight (Cyber Y2K / Win98 Dusk) */
+    body.theme-onota-twilight {
+      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(0, 245, 212, 0.25), transparent 60%),
+                     linear-gradient(180deg, #1b0c33 0%, #351a5c 40%, #006064 100%);
+      --bg-pattern-opacity: 0.3;
+      --panel-bg: rgba(28, 18, 48, 0.88);
+      --panel-border: rgba(0, 245, 212, 0.5);
+      --panel-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(0, 245, 212, 0.5);
+      --panel-header-bg: linear-gradient(180deg, #5e35b1 0%, #4527a0 48%, #1a237e 51%, #00838f 100%);
+      --panel-header-text: #00f5d4;
+      --accent-primary: #00f5d4;
+      --accent-glow: rgba(0, 245, 212, 0.7);
+      --accent-secondary: #ff007f;
+      --text-main: #f0f4f8;
+      --text-muted: #9fa8da;
+      --btn-grad: linear-gradient(180deg, #7c4dff 0%, #536dfe 49%, #304ffe 51%, #00b0ff 100%);
+      --btn-border: #00f5d4;
+      --btn-text: #ffffff;
+      --btn-hover: linear-gradient(180deg, #9575cd 0%, #7986cb 49%, #3d5afe 51%, #18ffff 100%);
+      --badge-bg: #311b92;
+      --font-body: "Segoe UI", Tahoma, sans-serif;
+      --scanline-display: block;
+      --glass-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 50%, transparent 51%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      font-family: var(--font-body);
+      color: var(--text-main);
+      line-height: 1.5;
+      position: relative;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* Textured Background Canvas Overlay */
+    #texture-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: var(--bg-pattern-opacity);
+    }
+
+    /* CRT Scanlines for tech/twilight themes */
+    .scanlines {
+      display: var(--scanline-display);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Floating Aero Bubbles in Background */
+    .floating-bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bubble {
+      position: absolute;
+      bottom: -120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 70%, rgba(130, 210, 255, 0.4) 100%);
+      box-shadow: inset -4px -4px 10px rgba(0, 100, 200, 0.3), inset 3px 3px 6px rgba(255, 255, 255, 0.8), 0 8px 20px rgba(0, 120, 255, 0.25);
+      animation: floatUp 16s linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-120vh) scale(1.1) rotate(360deg); opacity: 0; }
+    }
+
+    /* Outer Wrapper */
+    .app-container {
+      position: relative;
+      z-index: 2;
+      max-width: 1260px;
+      margin: 15px auto 40px auto;
+      padding: 0 15px;
+    }
+
+    /* Top Utility Bar (Early Web + Frutiger Controls) */
+    .top-controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      box-shadow: var(--panel-shadow);
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .top-meta-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .live-clock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: var(--accent-primary);
+      background: var(--badge-bg);
+      padding: 3px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--panel-border);
+    }
+
+    .weather-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .style-dither-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .custom-select, .action-btn-small {
+      font-family: inherit;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-grad);
+      color: var(--btn-text);
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.7);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .action-btn-small:hover {
+      background: var(--btn-hover);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .action-btn-small:active {
+      transform: translateY(1px);
+    }
+
+    /* Main Header Banner */
+    .civic-header {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--panel-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--panel-border);
+      box-shadow: var(--panel-shadow);
+      margin-bottom: 14px;
+    }
+
+    .civic-header-gloss {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48%;
+      background: var(--glass-gloss);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .civic-header-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      position: relative;
+      z-index: 1;
+      gap: 15px;
+    }
+
+    .town-seal-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Glossy Frutiger Orb / Seal */
+    .frutiger-seal-orb {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #4facfe 35%, #00f2fe 75%, #006699 100%);
+      box-shadow: 0 8px 18px rgba(0, 120, 255, 0.45), inset 0 3px 5px rgba(255,255,255,0.9), inset -4px -4px 8px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      flex-shrink: 0;
+      cursor: pointer;
+      animation: orbPulse 6s ease-in-out infinite alternate;
+    }
+    @keyframes orbPulse {
+      0% { transform: scale(1); filter: drop-shadow(0 4px 10px rgba(0, 180, 255, 0.4)); }
+      100% { transform: scale(1.04); filter: drop-shadow(0 6px 16px rgba(0, 245, 212, 0.6)); }
+    }
+    .frutiger-seal-orb::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 10px;
+      width: 48px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.1));
+      pointer-events: none;
+    }
+    .orb-text {
+      font-size: 28px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    }
+
+    .town-title-container h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, var(--text-main) 0%, var(--accent-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .town-tagline {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .town-motto {
+      display: inline-block;
+      font-size: 11px;
+      font-style: italic;
+      background: rgba(0,0,0,0.06);
+      padding: 1px 8px;
+      border-radius: 8px;
+      margin-top: 4px;
+      color: var(--accent-primary);
+    }
+
+    /* Right Side Stats & Hit Counter */
+    .header-quick-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .hit-counter-box {
+      background: #000000;
+      border: 2px solid #555555;
+      border-radius: 6px;
+      padding: 4px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.8), 0 2px 5px rgba(255,255,255,0.3);
+    }
+    .hit-counter-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #88ff88;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .odometer-digits {
+      display: flex;
+      gap: 2px;
+    }
+    .digit-cell {
+      background: #111111;
+      color: #00ff66;
+      font-family: "Courier New", monospace;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 0 4px;
+      border: 1px solid #333333;
+      border-radius: 2px;
+      text-shadow: 0 0 5px #00ff66;
+    }
+
+    /* Civic Marquee Ticker */
+    .civic-marquee-wrapper {
+      background: var(--panel-header-bg);
+      border-top: 1px solid var(--panel-border);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--panel-header-text);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+      position: relative;
+    }
+    .marquee-badge {
+      background: var(--accent-primary);
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-right: 12px;
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .marquee-content {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      flex-grow: 1;
+    }
+    .marquee-track {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marqueeScroll 28s linear infinite;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Navigation Bar (Frutiger Aero Skeuomorphic Tabs) */
+    .civic-nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 16px 0;
+      padding: 6px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--panel-border);
+      border-radius: 30px;
+      box-shadow: var(--panel-shadow);
+      justify-content: center;
+    }
+
+    .nav-tab-btn {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-grad);
+      color: var(--btn-text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-tab-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 45%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.05));
+      border-radius: 20px 20px 0 0;
+      pointer-events: none;
+    }
+    .nav-tab-btn:hover {
+      background: var(--btn-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    .nav-tab-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: #ffffff;
+      box-shadow: 0 0 14px var(--accent-glow), inset 0 1px 3px rgba(0,0,0,0.3);
+      transform: scale(1.03);
+    }
+
+    /* Main Grid Layout */
+    .civic-grid {
+      display: grid;
+      grid-template-columns: 290px 1fr 310px;
+      gap: 16px;
+    }
+    @media (max-width: 1080px) {
+      .civic-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Windows / Panels (Frutiger Vista / Early Web aesthetic) */
+    .civic-panel {
+      background: var(--panel-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      box-shadow: var(--panel-shadow);
+      margin-bottom: 16px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .civic-panel:hover {
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .panel-header {
+      background: var(--panel-header-bg);
+      color: var(--panel-header-text);
+      padding: 9px 14px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .panel-header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 100%);
+      pointer-events: none;
+    }
+    .panel-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1;
+    }
+    .window-controls {
+      display: flex;
+      gap: 5px;
+      z-index: 1;
+    }
+    .win-btn {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+    .win-btn-min { background: #ffbd2e; border: 1px solid #df9800; }
+    .win-btn-max { background: #28c840; border: 1px solid #1a9e2d; }
+    .win-btn-close { background: #ff5f56; border: 1px solid #e0443e; }
+
+    .panel-body {
+      padding: 14px;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    /* 311 & Services Widgets */
+    .service-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-item-card {
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      padding: 10px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .service-item-card:hover {
+      background: rgba(255, 255, 255, 0.75);
+      border-color: var(--accent-primary);
+      transform: translateX(3px);
+    }
+    .service-item-header {
+      font-weight: 700;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .service-badge {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: var(--badge-bg);
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    /* Trash Lookup Interactive Form */
+    .interactive-lookup-box {
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 8px;
+    }
+    .input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .civic-input {
+      flex: 1;
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--btn-border);
+      background: rgba(255, 255, 255, 0.9);
+      font-family: inherit;
+      font-size: 12px;
+      outline: none;
+    }
+    .civic-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 6px var(--accent-glow);
+    }
+
+    .trash-result-display {
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 8px;
+      background: var(--badge-bg);
+      font-size: 12px;
+      border-left: 3px solid var(--accent-primary);
+      display: none;
+    }
+
+    /* 311 Citizen Hotline Form */
+    .hotline-banner {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(255, 75, 43, 0.35);
+    }
+    .hotline-dial {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Live Town Square Canvas & Simulation */
+    .town-square-container {
+      position: relative;
+      background: #80c060;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--panel-border);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    #town-square-canvas {
+      display: block;
+      width: 100%;
+      height: 340px;
+      cursor: crosshair;
+    }
+
+    .square-overlay-hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 10px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #04395e;
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .live-pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00e676;
+      box-shadow: 0 0 8px #00e676;
+      animation: pulseGreen 1.5s infinite;
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    .square-chat-input-bar {
+      display: flex;
+      gap: 6px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      border-top: 1px solid var(--panel-border);
+      border-radius: 0 0 14px 14px;
+    }
+
+    /* Forum / BBS Section */
+    .forum-category-header {
+      background: var(--panel-header-bg);
+      color: var(--panel-header-text);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      margin: 10px 0 6px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .bbs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .bbs-table th {
+      text-align: left;
+      padding: 6px;
+      background: rgba(0, 0, 0, 0.04);
+      border-bottom: 2px solid var(--panel-border);
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .bbs-table td {
+      padding: 8px 6px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .bbs-row {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .bbs-row:hover {
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .thread-title {
+      font-weight: 700;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .thread-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Modal for Forum Thread / New Thread */
+    .civic-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .civic-modal.active {
+      display: flex;
+    }
+    .modal-box {
+      background: var(--panel-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 2px solid var(--panel-border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.9);
+      overflow: hidden;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      animation: modalPop 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    @keyframes modalPop {
+      0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-scrollable-body {
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    /* History & Lore Cards */
+    .lore-card {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .lore-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: var(--accent-primary);
+      color: white;
+      margin-bottom: 6px;
+    }
+    .lore-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-primary);
+      margin-bottom: 4px;
+    }
+
+    /* Dither Lab & Interactive Canvas Studio */
+    .dither-studio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 650px) {
+      .dither-studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .dither-canvas-wrapper {
+      background: #000000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--panel-border);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: relative;
+      text-align: center;
+    }
+    .dither-canvas-wrapper canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: pixelated;
+    }
+    .dither-label-pill {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .dither-controls-panel {
+      background: rgba(255,255,255,0.4);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Guestbook Section */
+    .guestbook-entry {
+      border-left: 3px solid var(--accent-primary);
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 0 10px 10px 0;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .guestbook-author {
+      font-weight: bold;
+      color: var(--accent-primary);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    /* 88x31 Vintage Web Badges & Webrings */
+    .badges-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 12px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+    }
+    .badge-88x31 {
+      width: 88px;
+      height: 31px;
+      border: 1px solid #333333;
+      border-radius: 2px;
+      font-family: "Courier New", monospace;
+      font-size: 8px;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      color: #ffffff;
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease;
+    }
+    .badge-88x31:hover {
+      transform: scale(1.05);
+    }
+    .badge-netscape { background: linear-gradient(180deg, #003366, #006699); }
+    .badge-notepad { background: linear-gradient(180deg, #ff9900, #cc6600); }
+    .badge-berkshire { background: linear-gradient(180deg, #006633, #009944); }
+    .badge-html4 { background: linear-gradient(180deg, #990000, #cc0000); }
+    .badge-ge { background: linear-gradient(180deg, #111111, #444444); color: #ffaa00; border-color: #ffaa00; }
+
+    /* Webring bar */
+    .webring-bar {
+      margin-top: 14px;
+      padding: 8px;
+      background: var(--panel-header-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--panel-header-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .webring-link {
+      color: var(--accent-primary);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Sound FX status pill */
+    .sound-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    .civic-footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 15px;
+    }
+    .civic-footer a {
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .civic-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="theme-aero-classic">
+
+  <!-- Background Textured Canvas for procedural dither & noise -->
+  <canvas id="texture-canvas"></canvas>
+
+  <!-- Scanlines for CRT/Tech Themes -->
+  <div class="scanlines"></div>
+
+  <!-- Frutiger Aero Floating Specular Bubbles -->
+  <div class="floating-bubbles" id="floating-bubbles"></div>
+
+  <div class="app-container">
+
+    <!-- Top Utility & Customization Bar -->
+    <div class="top-controls-bar">
+      <div class="top-meta-group">
+        <div class="live-clock-badge">
+          <span>🕒</span> <span id="clock-display">Loading...</span>
+        </div>
+        <div class="weather-pill">
+          <span>🌤️</span> <span>Park Square: <strong>64°F</strong> • Wind: <strong>4 mph NW</strong> • Lake Onota: <strong>62°F</strong></span>
+        </div>
+      </div>
+
+      <div class="style-dither-tools">
+        <!-- Sound FX Synth Toggle -->
+        <button class="action-btn-small sound-toggle-btn" id="sound-toggle" title="Toggle 2000s Web Audio UI sound effects">
+          🔊 Sound: <span id="sound-status-text">ON</span>
+        </button>
+
+        <!-- Theme Selector (5 Styles based on Pittsfield & Early Web) -->
+        <label for="theme-selector" style="font-weight: 600; font-size: 12px;">🎨 Style:</label>
+        <select id="theme-selector" class="custom-select">
+          <option value="theme-aero-classic" selected>1. Frutiger Berkshire (Aero Sky & Water)</option>
+          <option value="theme-ge-industrial">2. GE Dynamo (Gray & Transformer Orange)</option>
+          <option value="theme-melville-1996">3. Melville / Moby-Dick (1996 Web 1.0)</option>
+          <option value="theme-berkshire-foliage">4. Berkshire Autumn (Crimson & Gold)</option>
+          <option value="theme-onota-twilight">5. Lake Onota Twilight (Cyber Y2K)</option>
+        </select>
+
+        <!-- Global Dither Texture Toggle -->
+        <button class="action-btn-small" id="toggle-bg-dither-btn">
+          ✨ Dither Texture: <span id="bg-dither-state">Floyd-Steinberg</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Header Banner (Skeuomorphic Aero Glass + Historic Seal) -->
+    <header class="civic-header">
+      <div class="civic-header-gloss"></div>
+      <div class="civic-header-inner">
+        <div class="town-seal-group">
+          <!-- Glossy Aero Seal Orb -->
+          <div class="frutiger-seal-orb" id="seal-orb" title="Click for Civic Sparkle!">
+            <span class="orb-text">🏛️</span>
+          </div>
+          <div class="town-title-container">
+            <h1>City of Pittsfield <span>★</span> Massachusetts</h1>
+            <div class="town-tagline">The Heart of the Berkshires • Berkshire County Seat • Inc. Town 1761, City 1891</div>
+            <span class="town-motto">« Benigno Numine » Under Divine Providence</span>
+          </div>
+        </div>
+
+        <div class="header-quick-stats">
+          <div class="hit-counter-box" title="Historical visitor counter honoring Pittsfield's 1791 Baseball Bylaw">
+            <span class="hit-counter-label">Visitor #</span>
+            <div class="odometer-digits">
+              <span class="digit-cell">0</span>
+              <span class="digit-cell">0</span>
+              <span class="digit-cell">1</span>
+              <span class="digit-cell">7</span>
+              <span class="digit-cell">9</span>
+              <span class="digit-cell" id="counter-live-digit">2</span>
+            </div>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); font-weight: 600;">
+            🟢 <strong>42</strong> Citizens online at Park Square
+          </div>
+        </div>
+      </div>
+
+      <!-- Civic Marquee Ticker -->
+      <div class="civic-marquee-wrapper">
+        <span class="marquee-badge">MUNICIPAL WIRE</span>
+        <div class="marquee-content">
+          <div class="marquee-track" id="marquee-text">
+            📢 <strong>CITY BULLETIN:</strong> Autumn Leaf Collection begins in Ward 1 & 2 this Monday! • ⚾ <strong>WAHCONAH PARK:</strong> Historic wooden grandstand preservation workshop Thursday at 6:30 PM • 🐋 <strong>ARROWHEAD:</strong> Melville Herman Society hosts sunset reading of Moby-Dick chapters overlooking Mount Greylock • 💧 <strong>DPW:</strong> Lake Onota boat launch winterization prep starting Oct 24 • 🚨 <strong>311 DISPATCH:</strong> Pothole repair crews active along North & South Street corridor • 🗳️ <strong>CITY COUNCIL:</strong> Next meeting live on PCTV Ch. 1302 and City Hall Chambers.
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="civic-nav-bar" id="main-nav">
+      <button class="nav-tab-btn active" data-target="section-hub">
+        <span>🏛️</span> Town Services & 311
+      </button>
+      <button class="nav-tab-btn" data-target="section-square">
+        <span>👥</span> Live Town Square
+      </button>
+      <button class="nav-tab-btn" data-target="section-bbs">
+        <span>💬</span> Community BBS Forum
+      </button>
+      <button class="nav-tab-btn" data-target="section-lore">
+        <span>📜</span> History, Melville & Politics
+      </button>
+      <button class="nav-tab-btn" data-target="section-dither">
+        <span>🎨</span> Dither Matrix Studio
+      </button>
+      <button class="nav-tab-btn" data-target="section-guestbook">
+        <span>📖</span> Guestbook & Badges
+      </button>
+    </nav>
+
+    <!-- 3-Column Civic Dashboard Layout -->
+    <div class="civic-grid">
+
+      <!-- LEFT SIDEBAR: City Directory & Quick Services -->
+      <aside class="civic-sidebar-left">
+        
+        <!-- 311 Citizen Hotline Panel -->
+        <div class="civic-panel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <span>🚨</span> Pittsfield 311 Hotline
+            </div>
+            <div class="window-controls">
+              <span class="win-btn win-btn-min"></span>
+              <span class="win-btn win-btn-max"></span>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="hotline-banner">
+              <div style="font-size: 24px;">☎️</div>
+              <div>
+                <div style="font-size: 11px; text-transform: uppercase;">Direct Non-Emergency</div>
+                <div class="hotline-dial">DIAL 3-1-1</div>
+                <div style="font-size: 10px;">or (413) 499-9300</div>
+              </div>
+            </div>
+            <p style="font-size: 11px; margin-bottom: 8px;">Submit quick incident dispatch to DPW & City Hall:</p>
+            <form id="form-311-quick">
+              <select class="custom-select" id="311-category" style="width: 100%; margin-bottom: 6px;">
+                <option value="Pothole / Road Repair">🕳️ Pothole / Road Repair</option>
+                <option value="Streetlight Outage">💡 Streetlight Outage</option>
+                <option value="Illegal Dumping / Trash">🗑️ Illegal Dumping / Trash</option>
+                <option value="Downed Tree Limb">🌲 Downed Tree Limb</option>
+                <option value="Park Maintenance">🌳 Park Maintenance</option>
+              </select>
+              <input type="text" id="311-street" class="civic-input" placeholder="Street name or intersection..." required style="width: 100%; margin-bottom: 6px;">
+              <button type="submit" class="action-btn-small" style="width: 100%; padding: 6px;">Dispatch Work Order</button>
+            </form>
+            <div id="311-feedback" style="display: none; margin-top: 8px; font-size: 11px; padding: 6px; background: #e8f5e9; color: #2e7d32; border-radius: 6px;"></div>
+          </div>
+        </div>
+
+        <!-- Garbage & Recycling Schedule Lookup -->
+        <div class="civic-panel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <span>♻️</span> Trash & Recycling Lookup
+            </div>
+            <div class="window-controls">
+              <span class="win-btn win-btn-min"></span>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p style="font-size: 12px;">Casella Waste Systems Curbside Pickup Service. Check your collection day & single-stream recycling week:</p>
+            
+            <div class="interactive-lookup-box">
+              <label style="font-size: 11px; font-weight: bold;">Select your Ward or Street:</label>
+              <div class="input-row">
+                <select id="trash-street-select" class="custom-select" style="flex: 1;">
+                  <option value="">-- Choose Pittsfield Street --</option>
+                  <option value="north">North Street (Downtown)</option>
+                  <option value="south">South Street / Route 7</option>
+                  <option value="east">East Street / Merrill Rd</option>
+                  <option value="west">West Street / Lake Onota</option>
+                  <option value="tyler">Tyler Street (Morningside)</option>
+                  <option value="dalton">Dalton Avenue</option>
+                  <option value="holmes">Holmes Road (Melville District)</option>
+                  <option value="pecks">Pecks Road</option>
+                  <option value="lebanon">West Housatonic / Rt 20</option>
+                </select>
+                <button type="button" id="btn-lookup-trash" class="action-btn-small">Find</button>
+              </div>
+              <div id="trash-lookup-result" class="trash-result-display"></div>
+            </div>
+
+            <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted); line-height: 1.4;">
+              <strong>ℹ️ Note:</strong> Yard waste drop-off at 81 Hawthorne Ave. Hazardous waste day every May at Berkshire Community College.
+            </div>
+          </div>
+        </div>
+
+        <!-- Essential Town Services Link Directory -->
+        <div class="civic-panel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <span>📂</span> Municipal Directory
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="service-card-list">
+              <div class="service-item-card">
+                <div class="service-item-header">
+                  <span>🏛️ Mayor's Office</span>
+                  <span class="service-badge">City Hall Rm 110</span>
+                </div>
+                <div style="font-size: 11px;">Mayor Peter Marchetti • (413) 499-9321</div>
+              </div>
+
+              <div class="service-item-card">
+                <div class="service-item-header">
+                  <span>📚 Berkshire Athenaeum</span>
+                  <span class="service-badge">Public Library</span>
+                </div>
+                <div style="font-size: 11px;">1 Wendell Ave • Free WiFi, Local History Room & Herman Melville Memorial Room</div>
+              </div>
+
+              <div class="service-item-card">
+                <div class="service-item-header">
+                  <span>🚌 BRTA Transit Hub</span>
+                  <span class="service-badge">Columbus Ave</span>
+                </div>
+                <div style="font-size: 11px;">Berkshire Regional Transit Authority • Routes 1, 2, 4, 11 to Dalton, Adams & Lenox</div>
+              </div>
+
+              <div class="service-item-card">
+                <div class="service-item-header">
+                  <span>💧 Water & Sewer Dept</span>
+                  <span class="service-badge">Utilities</span>
+                </div>
+                <div style="font-size: 11px;">Reservoir monitoring, water meter readings & Ashley Lake reservoir watershed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- CENTER COLUMN: Interactive Town Square, BBS, Lore & Dither Studio -->
+      <main class="civic-main-content">
+
+        <!-- SECTION 1: TOWN SQUARE (Live-Time Real-Time Resident Presence) -->
+        <section id="section-square" class="tab-content-section">
+          <div class="civic-panel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <span>⛲</span> Park Square Virtual Town Common (Live Citizen Presence)
+              </div>
+              <div class="window-controls">
+                <span class="win-btn win-btn-close"></span>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div style="margin-bottom: 8px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <span>Click anywhere on Park Square to walk your avatar! Send greetings to live Berkshire residents.</span>
+                <span style="font-size: 11px; background: var(--badge-bg); padding: 2px 8px; border-radius: 10px; font-weight: bold;">
+                  📍 Historic Park Square • Lat 42.4497° N, Long 73.2536° W
+                </span>
+              </div>
+
+              <!-- Town Square Canvas -->
+              <div class="town-square-container">
+                <canvas id="town-square-canvas" width="600" height="340"></canvas>
+                <div class="square-overlay-hud">
+                  <span class="live-pulse-dot"></span>
+                  <span id="town-square-user-count">42 Citizens Active</span>
+                  <span>|</span>
+                  <span>Avatar: <strong id="current-avatar-name">Herman Melville</strong></span>
+                </div>
+              </div>
+
+              <!-- Avatar Selection & Chat Bar -->
+              <div class="square-chat-input-bar">
+                <select id="user-avatar-select" class="custom-select" style="max-width: 140px;" title="Pick your virtual Pittsfield resident">
+                  <option value="Herman Melville">🐋 Herman Melville</option>
+                  <option value="Berkshire Bear">🐻 Berkshire Bear</option>
+                  <option value="GE Dynamo Engineer">⚡ GE Engineer</option>
+                  <option value="Little Leaguer">⚾ Little Leaguer</option>
+                  <option value="North St Flâneur">☕ North St Local</option>
+                  <option value="Park Ranger">🌲 Greylock Ranger</option>
+                </select>
+                <input type="text" id="square-chat-input" class="civic-input" placeholder="Type a message to speak in Park Square..." maxlength="80">
+                <button type="button" id="btn-send-square-chat" class="action-btn-small">Say</button>
+              </div>
+
+              <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                <span>💡 <em>Tip: Sprites in the town square wander between the fountain, gazebo, and Park Square war memorial.</em></span>
+                <button id="btn-spawn-parade" class="action-btn-small" style="font-size: 10px; padding: 2px 8px;">🎈 Trigger Third Thursday Crowd</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: COMMUNITY BBS & FORUM BOARD -->
+        <section id="section-bbs" class="tab-content-section" style="display: none;">
+          <div class="civic-panel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <span>💬</span> Pittsfield Civic BBS & Community Bulletin Board
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="action-btn-small" id="btn-open-new-thread" style="padding: 2px 10px; font-size: 11px;">✍️ Post New Topic</button>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 12px; font-weight: 600;">Welcome to the official Pittsfield Board! Keep it civil & Berkshire-friendly.</span>
+                <span style="font-size: 11px; color: var(--text-muted);">Platform: vBulletin Civic Edition 3.8.2</span>
+              </div>
+
+              <!-- BBS Thread List -->
+              <div class="forum-category-header">📌 Pinned & Civic Announcements</div>
+              <table class="bbs-table" id="bbs-pinned-table">
+                <thead>
+                  <tr>
+                    <th style="width: 55%;">Topic / Started By</th>
+                    <th style="width: 15%;">Replies</th>
+                    <th style="width: 15%;">Views</th>
+                    <th style="width: 15%;">Last Post</th>
+                  </tr>
+                </thead>
+                <tbody id="bbs-pinned-tbody">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+
+              <div class="forum-category-header" style="margin-top: 14px;">☕ General Town Square & Local Discussions</div>
+              <table class="bbs-table" id="bbs-general-table">
+                <thead>
+                  <tr>
+                    <th style="width: 55%;">Topic / Started By</th>
+                    <th style="width: 15%;">Replies</th>
+                    <th style="width: 15%;">Views</th>
+                    <th style="width: 15%;">Last Post</th>
+                  </tr>
+                </thead>
+                <tbody id="bbs-general-tbody">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: PITTSFIELD HISTORY, CULTURE & POLITICS -->
+        <section id="section-lore" class="tab-content-section" style="display: none;">
+          <div class="civic-panel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <span>📜</span> The Pittsfield Chronicle: History, Culture & Governance
+              </div>
+            </div>
+            <div class="panel-body">
+              
+              <!-- 1791 Baseball Bylaw -->
+              <div class="lore-card">
+                <span class="lore-tag">⚾ Oldest Baseball Document in North America</span>
+                <div class="lore-title">The Historic 1791 Pittsfield Baseball By-law</div>
+                <p style="font-size: 12px; margin-bottom: 8px;">
+                  On <strong>September 5, 1791</strong>, the Pittsfield town meeting voted an official ordinance to protect the windows of the newly erected First Congregational Meeting House on Park Square:
+                </p>
+                <blockquote style="font-family: var(--font-display); font-style: italic; background: rgba(0,0,0,0.05); padding: 8px 12px; border-left: 3px solid var(--accent-primary); margin: 6px 0; font-size: 12px;">
+                  "Voted, that for the Preservation of the Windows in the New Meeting House… no Person or Inhabitant of said Town, shall be permitted to play at any Game called Wicket, Cricket, <strong>Baseball</strong>, Batball, Football, Catskinn, Fives, or any other Game with Balls, within eighty yards from said Meeting House."
+                </blockquote>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+                  Discovered in the town vault in 2004 by baseball historian John Thorn, this stands as the earliest authenticated printed and manuscript reference to baseball in North America!
+                </p>
+              </div>
+
+              <!-- Herman Melville & Arrowhead -->
+              <div class="lore-card">
+                <span class="lore-tag">🐋 Herman Melville & Moby-Dick</span>
+                <div class="lore-title">Arrowhead & Mount Greylock’s Great White Whale</div>
+                <p style="font-size: 12px; margin-bottom: 6px;">
+                  In 1850, author Herman Melville moved his family to <strong>Arrowhead</strong> on Holmes Road in Pittsfield. Looking north from his second-floor study, the snow-covered ridge of <strong>Mount Greylock</strong> resembled a colossal white sperm whale breaching the mountainous Berkshire waves.
+                </p>
+                <p style="font-size: 12px;">
+                  Here in Pittsfield, Melville wrote <em>Moby-Dick</em> (1851), forging a close friendship with Nathaniel Hawthorne, who lived nearby in Lenox. The home is now preserved by the Berkshire County Historical Society.
+                </p>
+              </div>
+
+              <!-- GE Legacy & Electrical Transformer Pioneer -->
+              <div class="lore-card">
+                <span class="lore-tag">⚡ The Industrial Dynamo</span>
+                <div class="lore-title">William Stanley & General Electric Transformer Heritage</div>
+                <p style="font-size: 12px; margin-bottom: 6px;">
+                  In 1886, inventor <strong>William Stanley Jr.</strong> tested the world’s first practical alternating current (AC) transformer system right in Great Barrington, soon establishing the Stanley Electric Manufacturing Company in Pittsfield.
+                </p>
+                <p style="font-size: 12px;">
+                  Acquired by <strong>General Electric</strong> in 1903, Pittsfield became the global powerhouse of high-voltage transformer manufacturing, naval ordnance, and modern plastics engineering, employing over 13,000 Berkshire residents in its golden era.
+                </p>
+              </div>
+
+              <!-- Cultural & Political Landscape -->
+              <div class="lore-card">
+                <span class="lore-tag">🏛️ Civic Governance & Arts Capital</span>
+                <div class="lore-title">Mayor Peter Marchetti, 11-Member Council & Upstreet Arts</div>
+                <p style="font-size: 12px; margin-bottom: 6px;">
+                  Pittsfield is governed by a Mayor and an 11-member City Council (4 Councillors-at-Large and 7 Ward Councillors representing districts from Morningside to West Pittsfield).
+                </p>
+                <p style="font-size: 12px;">
+                  The city is also the cultural heartbeat of Western Mass, home to the historic <strong>Colonial Theatre (built 1903)</strong>, the Tony Award-winning <strong>Barrington Stage Company</strong>, the <strong>Berkshire Museum</strong> (founded by Zenas Crane in 1903), and scenic <strong>Wahconah Park</strong>—one of the last remaining wooden ballparks in the United States!
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: DITHER MATRIX STUDIO & IMAGE LAB -->
+        <section id="section-dither" class="tab-content-section" style="display: none;">
+          <div class="civic-panel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <span>🎨</span> Pittsfield Vintage Dither Matrix Studio
+              </div>
+              <span style="font-size: 11px; background: var(--badge-bg); padding: 2px 8px; border-radius: 10px;">
+                Client-Side Canvas Processing
+              </span>
+            </div>
+            <div class="panel-body">
+              <p style="font-size: 12px; margin-bottom: 10px;">
+                Early web graphics relied heavily on <strong>ordered and error-diffusion dithering</strong> to render rich photos on 8-bit / 16-color displays. Use this interactive laboratory to switch algorithms, test retro Berkshire palettes, or dither your own uploaded photo!
+              </p>
+
+              <!-- Studio Controls -->
+              <div class="dither-controls-panel">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                  <label style="font-size: 12px; font-weight: bold;">Select Scene:</label>
+                  <select id="dither-preset-select" class="custom-select">
+                    <option value="greylock">Arrowhead & Mount Greylock</option>
+                    <option value="park-square">Park Square & First Church</option>
+                    <option value="wahconah">Wahconah Park Grandstand</option>
+                    <option value="lake-onota">Lake Onota Sunset & Waters</option>
+                    <option value="frutiger-orb">Frutiger Aero Water Bubble</option>
+                  </select>
+
+                  <label style="font-size: 12px; font-weight: bold;">Algorithm:</label>
+                  <select id="dither-algo-select" class="custom-select">
+                    <option value="floyd">Floyd-Steinberg Diffusion</option>
+                    <option value="bayer4">Bayer 4x4 Ordered Matrix</option>
+                    <option value="bayer8">Bayer 8x8 Ordered Matrix</option>
+                    <option value="atkinson">Atkinson (Mac Classic 1984)</option>
+                    <option value="none">Original (No Dither)</option>
+                  </select>
+
+                  <label style="font-size: 12px; font-weight: bold;">Color Palette:</label>
+                  <select id="dither-palette-select" class="custom-select">
+                    <option value="aero16">Frutiger Aero 16-Color (Cyan/Sky/Lime)</option>
+                    <option value="websafe">216 Netscape Web-Safe Palette</option>
+                    <option value="foliage">Berkshire Foliage (Amber/Maple/Moss)</option>
+                    <option value="ge-amber">GE Dynamo Amber Phosphor</option>
+                    <option value="monochrome">1-Bit Berkshire Black & White</option>
+                  </select>
+                </div>
+
+                <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
+                  <button id="btn-process-dither" class="action-btn-small" style="padding: 6px 14px;">⚡ Render Dither Matrix</button>
+                  <label class="action-btn-small" style="padding: 6px 12px; cursor: pointer;">
+                    📁 Upload Custom Photo
+                    <input type="file" id="dither-file-upload" accept="image/*" style="display: none;">
+                  </label>
+                  <button id="btn-download-dither" class="action-btn-small" style="padding: 6px 12px;">💾 Save Dithered PNG</button>
+                </div>
+              </div>
+
+              <!-- Side-by-Side Canvas Viewport -->
+              <div class="dither-studio-grid">
+                <div class="dither-canvas-wrapper">
+                  <canvas id="canvas-source" width="300" height="225"></canvas>
+                  <div class="dither-label-pill">SOURCE: True Color</div>
+                </div>
+
+                <div class="dither-canvas-wrapper">
+                  <canvas id="canvas-dithered" width="300" height="225"></canvas>
+                  <div class="dither-label-pill" id="dithered-tag">DITHERED: Floyd-Steinberg</div>
+                </div>
+              </div>
+
+              <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted);">
+                ℹ️ <em>Engine utilizes real-time quantization, luma calculation ($Y = 0.299R + 0.587G + 0.114B$), and mathematical error dispersion vectors across neighboring pixels.</em>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5: TOWN GUESTBOOK & WEBRINGS -->
+        <section id="section-guestbook" class="tab-content-section" style="display: none;">
+          <div class="civic-panel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <span>📖</span> Official Pittsfield Guestbook & Berkshire Webring
+              </div>
+            </div>
+            <div class="panel-body">
+              <p style="font-size: 12px; margin-bottom: 10px;">
+                Are you an expat, a visitor from Boston or New York, or a lifelong Berkshire County local? Leave your mark in our digital visitor registry!
+              </p>
+
+              <!-- Sign Guestbook Form -->
+              <form id="guestbook-form" style="background: rgba(255,255,255,0.4); padding: 10px; border-radius: 12px; border: 1px solid var(--panel-border); margin-bottom: 14px;">
+                <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; color: var(--accent-primary);">✍️ Sign the Official Town Guestbook</div>
+                <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+                  <input type="text" id="gb-name" class="civic-input" placeholder="Your Name or Alias" required style="flex: 1;">
+                  <input type="text" id="gb-loc" class="civic-input" placeholder="Where are you from? (e.g. Ward 6, Lenox, NYC)" required style="flex: 1;">
+                </div>
+                <textarea id="gb-msg" class="civic-input" placeholder="Your message for Pittsfield..." rows="2" style="width: 100%; margin-bottom: 6px;" required></textarea>
+                <button type="submit" class="action-btn-small" style="padding: 6px 14px;">Submit Entry to Archives</button>
+              </form>
+
+              <!-- Guestbook Entry Stream -->
+              <div id="guestbook-entries-container">
+                <!-- Entries populated dynamically -->
+              </div>
+
+              <!-- Vintage 88x31 Badges -->
+              <div style="margin-top: 20px;">
+                <div style="font-weight: bold; font-size: 12px; text-align: center; color: var(--text-muted); margin-bottom: 6px;">
+                  ★ EARLY WEB BUTTON BAR & AFFILIATES ★
+                </div>
+                <div class="badges-strip">
+                  <div class="badge-88x31 badge-netscape" title="Optimized for Netscape 4.0">
+                    <div>NETSCAPE</div>
+                    <div style="font-size: 6px;">NAVIGATOR 4.0</div>
+                  </div>
+                  <div class="badge-88x31 badge-notepad" title="Crafted in Notepad">
+                    <div>MADE WITH</div>
+                    <div style="font-size: 7px;">NOTEPAD</div>
+                  </div>
+                  <div class="badge-88x31 badge-berkshire" title="Powered by Housatonic Green Hydro">
+                    <div>BERKSHIRE</div>
+                    <div style="font-size: 7px;">HYDRO-POWER</div>
+                  </div>
+                  <div class="badge-88x31 badge-html4" title="W3C Valid HTML 4.01 Strict">
+                    <div>W3C VALID</div>
+                    <div style="font-size: 6px;">HTML 4.01</div>
+                  </div>
+                  <div class="badge-88x31 badge-ge" title="General Electric Transformers">
+                    <div>GE TRANSFORMER</div>
+                    <div style="font-size: 6px;">STANLEY ELEC</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Berkshire Webring Widget -->
+              <div class="webring-bar">
+                <span>🌲 [ Berkshire County Pioneer Webring ] 🌲</span>
+                <span class="webring-link" id="webring-prev">&laquo; Previous Site</span>
+                <span>|</span>
+                <span class="webring-link" id="webring-hub">Ring Hub (413)</span>
+                <span>|</span>
+                <span class="webring-link" id="webring-next">Next Site &raquo;</span>
+                <span>|</span>
+                <span class="webring-link" id="webring-rand">Random Site 🎲</span>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- RIGHT SIDEBAR: Berkshire Culture, Weather Cam & Audio -->
+      <aside class="civic-sidebar-right">
+        
+        <!-- Live Mount Greylock & Lake Onota Cam Widget -->
+        <div class="civic-panel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <span>📷</span> Live Berkshire Skycam
+            </div>
+            <div class="window-controls">
+              <span class="win-btn win-btn-min"></span>
+            </div>
+          </div>
+          <div class="panel-body" style="text-align: center;">
+            <div style="background: #000; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid var(--panel-border);">
+              <canvas id="skycam-canvas" width="280" height="170" style="display: block; width: 100%;"></canvas>
+              <div style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.65); color: #00ff66; font-family: monospace; font-size: 9px; padding: 2px 6px; border-radius: 4px;">
+                ● LIVE REC: MT GREYLOCK VISTA
+              </div>
+              <div style="position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.65); color: #ffffff; font-family: monospace; font-size: 9px; padding: 2px 6px; border-radius: 4px;">
+                ELEV: 3,491 FT
+              </div>
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; display: flex; justify-content: space-between; align-items: center;">
+              <span>Peak Foliage: <strong>88% Orange/Crimson</strong></span>
+              <button id="btn-refresh-cam" class="action-btn-small" style="font-size: 10px; padding: 2px 8px;">Refresh</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Berkshire Events Calendar -->
+        <div class="civic-panel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <span>📅</span> Civic Calendar & Culture
+            </div>
+          </div>
+          <div class="panel-body">
+            <ul style="list-style: none; font-size: 12px; display: flex; flex-direction: column; gap: 8px;">
+              <li style="border-left: 3px solid #ff416c; padding-left: 8px;">
+                <strong>Oct 17 • 5:00 PM</strong><br>
+                <em>Third Thursday Street Festival</em><br>
+                <span style="font-size: 11px; color: var(--text-muted);">North Street Arts & Food Truck Walk</span>
+              </li>
+              <li style="border-left: 3px solid #00c6ff; padding-left: 8px;">
+                <strong>Oct 20 • 7:00 PM</strong><br>
+                <em>Colonial Theatre: Berkshire Symphony</em><br>
+                <span style="font-size: 11px; color: var(--text-muted);">Historic 1903 Auditorium</span>
+              </li>
+              <li style="border-left: 3px solid #2ecc71; padding-left: 8px;">
+                <strong>Oct 24 • 10:00 AM</strong><br>
+                <em>Canoe Meadows Wildlife Sanctuary Walk</em><br>
+                <span style="font-size: 11px; color: var(--text-muted);">Mass Audubon Housatonic River loop</span>
+              </li>
+              <li style="border-left: 3px solid #f39c12; padding-left: 8px;">
+                <strong>Oct 28 • 6:30 PM</strong><br>
+                <em>City Council Regular Session</em><br>
+                <span style="font-size: 11px; color: var(--text-muted);">Council Chambers, City Hall</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Berkshire Weather & Lake Sensor Readings -->
+        <div class="civic-panel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <span>💧</span> Environmental Telemetry
+            </div>
+          </div>
+          <div class="panel-body">
+            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 3px 0; color: var(--text-muted);">Lake Onota Elevation:</td>
+                <td style="text-align: right; font-weight: bold;">1,085.4 ft</td>
+              </tr>
+              <tr>
+                <td style="padding: 3px 0; color: var(--text-muted);">Pontoosuc Lake Clarity:</td>
+                <td style="text-align: right; font-weight: bold;">9.2 ft Secchi</td>
+              </tr>
+              <tr>
+                <td style="padding: 3px 0; color: var(--text-muted);">Housatonic Flow Rate:</td>
+                <td style="text-align: right; font-weight: bold;">142 cfs</td>
+              </tr>
+              <tr>
+                <td style="padding: 3px 0; color: var(--text-muted);">Berkshire Air Quality:</td>
+                <td style="text-align: right; font-weight: bold; color: #2ecc71;">22 AQI (Pristine)</td>
+              </tr>
+              <tr>
+                <td style="padding: 3px 0; color: var(--text-muted);">Burbank Park Sunset:</td>
+                <td style="text-align: right; font-weight: bold;">6:12 PM EDT</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Berkshire Web Safety & Dial-Up Tip -->
+        <div class="civic-panel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <span>💾</span> Berkshire Net Tip
+            </div>
+          </div>
+          <div class="panel-body" style="font-size: 11px; line-height: 1.4;">
+            <p><strong>Dial-up users:</strong> Set your modem to 56k V.90 for fastest loading of the Park Square live sprite stream. If textures appear heavy, turn on the Floyd-Steinberg dither accelerator!</p>
+          </div>
+        </div>
+
+      </aside>
+
+    </div><!-- /civic-grid -->
+
+    <!-- FOOTER -->
+    <footer class="civic-footer">
+      <div style="margin-bottom: 6px;">
+        <strong>City of Pittsfield Municipal Portal</strong> • 70 Allen Street, Pittsfield, MA 01201 • Phone: (413) 499-9300
+      </div>
+      <div>
+        Designed in the classic <strong>Frutiger Aero & Early Web</strong> aesthetic with procedural canvas dithering, live-time Park Square avatar synthesis, and client-side audio rendering.
+      </div>
+      <div style="margin-top: 6px; font-size: 10px; opacity: 0.8;">
+        Best viewed with Netscape Communicator 4.7+, Internet Explorer 6.0+, or modern standards-compliant browser at 1024×768 resolution.
+      </div>
+    </footer>
+
+  </div><!-- /app-container -->
+
+  <!-- MODAL: Thread Reader / Reply Window -->
+  <div class="civic-modal" id="thread-view-modal">
+    <div class="modal-box">
+      <div class="panel-header">
+        <div class="panel-header-title" id="modal-thread-title">
+          <span>💬</span> Thread View
+        </div>
+        <div class="window-controls">
+          <span class="win-btn win-btn-close" id="btn-close-thread-modal"></span>
+        </div>
+      </div>
+      <div class="modal-scrollable-body" id="modal-thread-content">
+        <!-- Thread messages loaded dynamically -->
+      </div>
+      <!-- Reply Box -->
+      <div style="padding: 12px; background: rgba(0,0,0,0.04); border-top: 1px solid var(--panel-border);">
+        <form id="form-thread-reply" style="display: flex; gap: 8px;">
+          <input type="text" id="reply-author" class="civic-input" placeholder="Your Handle" style="max-width: 140px;" required>
+          <input type="text" id="reply-text" class="civic-input" placeholder="Post a reply to this thread..." style="flex: 1;" required>
+          <button type="submit" class="action-btn-small">Reply</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: New Thread Creation Window -->
+  <div class="civic-modal" id="new-thread-modal">
+    <div class="modal-box">
+      <div class="panel-header">
+        <div class="panel-header-title">
+          <span>✍️</span> Create New Discussion Topic
+        </div>
+        <div class="window-controls">
+          <span class="win-btn win-btn-close" id="btn-close-new-thread-modal"></span>
+        </div>
+      </div>
+      <div class="modal-scrollable-body">
+        <form id="form-create-new-thread">
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 12px; font-weight: bold;">Topic Category:</label>
+            <select id="new-thread-category" class="custom-select" style="width: 100%; margin-top: 4px;">
+              <option value="general">General Town Square & Local Discussions</option>
+              <option value="pinned">Civic Announcements (Town Hall Watch)</option>
+            </select>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 12px; font-weight: bold;">Thread Subject / Title:</label>
+            <input type="text" id="new-thread-subject" class="civic-input" style="width: 100%; margin-top: 4px;" placeholder="e.g. Favorite spots around Lake Onota this October" required>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 12px; font-weight: bold;">Your Name or Handle:</label>
+            <input type="text" id="new-thread-author" class="civic-input" style="width: 100%; margin-top: 4px;" placeholder="e.g. BerkshireHiker99" required>
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 12px; font-weight: bold;">Message Content:</label>
+            <textarea id="new-thread-body" class="civic-input" rows="5" style="width: 100%; margin-top: 4px;" placeholder="Write your post here..." required></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 8px;">
+            <button type="button" class="action-btn-small" id="btn-cancel-new-thread">Cancel</button>
+            <button type="submit" class="action-btn-small" style="background: var(--accent-primary); color: white;">Publish Topic</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC ENGINE -->
+  <script>
+    /* ==========================================================================
+       PITTSFIELD, MA - CIVIC HOMEPAGE JAVASCRIPT ENGINE
+       1. Audio Synthesizer (Web Audio API)
+       2. Real-time Clock & Hit Counter
+       3. Theme Switcher & Textured Dither Canvas
+       4. Navigation Tab Switcher
+       5. Trash Pickup & 311 Hotline Dispatchers
+       6. Live Town Square Simulation (2D Multi-User Avatars & Chat)
+       7. Community BBS / Forum State Machine
+       8. Procedural Dither Matrix Studio (Floyd-Steinberg, Bayer 4x4, Bayer 8x8, Atkinson)
+       9. Skycam Animation Engine
+       10. Guestbook & Webring Navigator
+       ========================================================================== */
+
+    (function() {
+      'use strict';
+
+      // ------------------------------------------------------------------------
+      // 1. Web Audio API Sound Synthesizer (No external sound files required)
+      // ------------------------------------------------------------------------
+      let audioCtx = null;
+      let soundEnabled = true;
+
+      function getAudioContext() {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            audioCtx = new AudioContext();
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playUiSound(type) {
+        if (!soundEnabled) return;
+        try {
+          const ctx = getAudioContext();
+          if (!ctx) return;
+
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          if (type === 'bubble') {
+            // Frutiger Aero bubble pop: quick upward chirp
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(420, now);
+            osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+            gain.gain.setValueAtTime(0.18, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+            osc.start(now);
+            osc.stop(now + 0.09);
+          } else if (type === 'click') {
+            // Classic early web click
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(800, now);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+            osc.start(now);
+            osc.stop(now + 0.03);
+          } else if (type === 'alert') {
+            // Modern aero chime
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, now); // C5
+            osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+            osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+            osc.start(now);
+            osc.stop(now + 0.4);
+          } else if (type === 'shutter') {
+            // Camera click
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(1200, now);
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+            osc.start(now);
+            osc.stop(now + 0.05);
+          }
+        } catch (e) {
+          // Audio autoplay block safeguard
+        }
+      }
+
+      // Audio Toggle Handler
+      const soundToggleBtn = document.getElementById('sound-toggle');
+      const soundStatusText = document.getElementById('sound-status-text');
+      soundToggleBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        soundStatusText.textContent = soundEnabled ? 'ON' : 'MUTED';
+        soundToggleBtn.style.opacity = soundEnabled ? '1' : '0.6';
+        if (soundEnabled) playUiSound('bubble');
+      });
+
+      // ------------------------------------------------------------------------
+      // 2. Real-time Clock & Hit Counter
+      // ------------------------------------------------------------------------
+      const clockDisplay = document.getElementById('clock-display');
+      function updateClock() {
+        const now = new Date();
+        const options = {
+          timeZone: 'America/New_York',
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        };
+        clockDisplay.textContent = now.toLocaleString('en-US', options) + ' EDT';
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // Hit counter tick simulation
+      const counterLiveDigit = document.getElementById('counter-live-digit');
+      let countDigit = 2;
+      setInterval(() => {
+        if (Math.random() > 0.65) {
+          countDigit = (countDigit + 1) % 10;
+          counterLiveDigit.textContent = countDigit;
+        }
+      }, 9000);
+
+      // ------------------------------------------------------------------------
+      // 3. Floating Aero Bubbles Generator
+      // ------------------------------------------------------------------------
+      const bubblesContainer = document.getElementById('floating-bubbles');
+      function spawnAeroBubbles() {
+        for (let i = 0; i < 18; i++) {
+          const bubble = document.createElement('div');
+          bubble.className = 'bubble';
+          const size = Math.floor(Math.random() * 55) + 20;
+          bubble.style.width = size + 'px';
+          bubble.style.height = size + 'px';
+          bubble.style.left = Math.random() * 98 + '%';
+          bubble.style.animationDuration = (Math.random() * 12 + 10) + 's';
+          bubble.style.animationDelay = (Math.random() * 15) + 's';
+          bubblesContainer.appendChild(bubble);
+        }
+      }
+      spawnAeroBubbles();
+
+      // ------------------------------------------------------------------------
+      // 4. Procedural Background Texture Canvas (Dither Pattern)
+      // ------------------------------------------------------------------------
+      const bgCanvas = document.getElementById('texture-canvas');
+      const bgCtx = bgCanvas.getContext('2d');
+      let bgDitherActive = true;
+
+      function renderBgTexture() {
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+        
+        if (!bgDitherActive) {
+          bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+          return;
+        }
+
+        const patternCanvas = document.createElement('canvas');
+        patternCanvas.width = 16;
+        patternCanvas.height = 16;
+        const pCtx = patternCanvas.getContext('2d');
+        const imgData = pCtx.createImageData(16, 16);
+        const d = imgData.data;
+
+        // Subtle Bayer-inspired cross-dither grid
+        const bayer4 = [
+          [ 0,  8,  2, 10],
+          [12,  4, 14,  6],
+          [ 3, 11,  1,  9],
+          [15,  7, 13,  5]
+        ];
+
+        for (let y = 0; y < 16; y++) {
+          for (let x = 0; x < 16; x++) {
+            const idx = (y * 16 + x) * 4;
+            const threshold = bayer4[y % 4][x % 4];
+            const isDot = threshold < 6;
+            if (isDot) {
+              d[idx] = 255;     // R
+              d[idx + 1] = 255; // G
+              d[idx + 2] = 255; // B
+              d[idx + 3] = 40;  // Alpha
+            } else {
+              d[idx + 3] = 0;
+            }
+          }
+        }
+        pCtx.putImageData(imgData, 0, 0);
+
+        const pattern = bgCtx.createPattern(patternCanvas, 'repeat');
+        bgCtx.fillStyle = pattern;
+        bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+      }
+
+      window.addEventListener('resize', renderBgTexture);
+      renderBgTexture();
+
+      // Global Dither Texture Toggle
+      const toggleBgDitherBtn = document.getElementById('toggle-bg-dither-btn');
+      const bgDitherStateText = document.getElementById('bg-dither-state');
+      toggleBgDitherBtn.addEventListener('click', () => {
+        bgDitherActive = !bgDitherActive;
+        bgDitherStateText.textContent = bgDitherActive ? 'Bayer Matrix' : 'Smooth Glass';
+        renderBgTexture();
+        playUiSound('click');
+      });
+
+      // ------------------------------------------------------------------------
+      // 5. Theme Switcher (5 Styles)
+      // ------------------------------------------------------------------------
+      const themeSelector = document.getElementById('theme-selector');
+      themeSelector.addEventListener('change', (e) => {
+        document.body.className = e.target.value;
+        renderBgTexture();
+        playUiSound('bubble');
+      });
+
+      // Seal Click Sparkle
+      const sealOrb = document.getElementById('seal-orb');
+      sealOrb.addEventListener('click', () => {
+        playUiSound('alert');
+        sealOrb.style.transform = 'scale(1.15) rotate(15deg)';
+        setTimeout(() => {
+          sealOrb.style.transform = '';
+        }, 300);
+      });
+
+      // ------------------------------------------------------------------------
+      // 6. Navigation Tabs Switcher
+      // ------------------------------------------------------------------------
+      const navButtons = document.querySelectorAll('.nav-tab-btn');
+      const tabSections = {
+        'section-hub': null, // default grid shows services in sidebar and square in center
+        'section-square': document.getElementById('section-square'),
+        'section-bbs': document.getElementById('section-bbs'),
+        'section-lore': document.getElementById('section-lore'),
+        'section-dither': document.getElementById('section-dither'),
+        'section-guestbook': document.getElementById('section-guestbook')
+      };
+
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          navButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const targetId = btn.getAttribute('data-target');
+
+          // Hide all center sections
+          Object.values(tabSections).forEach(section => {
+            if (section) section.style.display = 'none';
+          });
+
+          if (targetId === 'section-hub') {
+            // Default: show Town Square + quick info
+            tabSections['section-square'].style.display = 'block';
+          } else if (tabSections[targetId]) {
+            tabSections[targetId].style.display = 'block';
+          }
+
+          playUiSound('bubble');
+        });
+      });
+
+      // ------------------------------------------------------------------------
+      // 7. Municipal Services: 311 Dispatch & Trash Lookup
+      // ------------------------------------------------------------------------
+      const form311 = document.getElementById('form-311-quick');
+      const feedback311 = document.getElementById('feedback-311');
+
+      form311.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const cat = document.getElementById('311-category').value;
+        const street = document.getElementById('311-street').value.trim();
+        if (!street) return;
+
+        const ticketNum = 'PFS-2026-' + Math.floor(1000 + Math.random() * 9000);
+        feedback311.style.display = 'block';
+        feedback311.innerHTML = `✅ <strong>Work Order Dispatched #${ticketNum}</strong><br>Category: ${cat}<br>Location: ${street}<br>Crew priority: Normal (DPW notified).`;
+        document.getElementById('311-street').value = '';
+        playUiSound('alert');
+      });
+
+      const trashData = {
+        'north': { day: 'Tuesday', week: 'Week A (Paper/Cardboard)', zone: 'Downtown Commercial / Ward 1' },
+        'south': { day: 'Wednesday', week: 'Week B (Glass/Metals/Plastics)', zone: 'Ward 4 & South St Corridor' },
+        'east': { day: 'Thursday', week: 'Week A (Paper/Cardboard)', zone: 'Ward 2 & Merrill Road Area' },
+        'west': { day: 'Monday', week: 'Week A (Paper/Cardboard)', zone: 'Ward 6 & Lake Onota Shore' },
+        'tyler': { day: 'Wednesday', week: 'Week B (Glass/Metals/Plastics)', zone: 'Ward 1 Morningside' },
+        'dalton': { day: 'Thursday', week: 'Week B (Glass/Metals/Plastics)', zone: 'Ward 2 Upper Dalton Ave' },
+        'holmes': { day: 'Friday', week: 'Week A (Paper/Cardboard)', zone: 'Ward 3 Arrowhead / Melville District' },
+        'pecks': { day: 'Monday', week: 'Week B (Glass/Metals/Plastics)', zone: 'Ward 7 Pecks Rd & Wahconah' },
+        'lebanon': { day: 'Friday', week: 'Week B (Glass/Metals/Plastics)', zone: 'Ward 5 West Housatonic' }
+      };
+
+      const btnLookupTrash = document.getElementById('btn-lookup-trash');
+      const trashStreetSelect = document.getElementById('trash-street-select');
+      const trashResultDisplay = document.getElementById('trash-lookup-result');
+
+      btnLookupTrash.addEventListener('click', () => {
+        const val = trashStreetSelect.value;
+        if (!val || !trashData[val]) {
+          trashResultDisplay.style.display = 'block';
+          trashResultDisplay.innerHTML = '⚠️ Please select a street from the dropdown.';
+          return;
+        }
+
+        const info = trashData[val];
+        trashResultDisplay.style.display = 'block';
+        trashResultDisplay.innerHTML = `
+          <strong>🚛 Collection Day:</strong> ${info.day}<br>
+          <strong>♻️ Recycling:</strong> ${info.week}<br>
+          <strong>📍 District:</strong> ${info.zone}<br>
+          <span style="font-size: 10px; color: var(--text-muted);">Please place Casella totes curbside by 6:30 AM.</span>
+        `;
+        playUiSound('click');
+      });
+
+      // ------------------------------------------------------------------------
+      // 8. Live Town Square Simulation (2D Canvas with Multi-Resident Avatars)
+      // ------------------------------------------------------------------------
+      const squareCanvas = document.getElementById('town-square-canvas');
+      const sCtx = squareCanvas.getContext('2d');
+
+      // Sprites list: includes bots + the user
+      const avatars = [
+        { id: 'user', name: 'Herman Melville', icon: '🐋', x: 260, y: 160, tx: 260, ty: 160, color: '#0078d7', message: 'Moby-Dick was born here!', timer: 280 },
+        { id: 'bot1', name: 'Zenas Crane', icon: '📜', x: 120, y: 140, tx: 150, ty: 180, color: '#27ae60', message: 'Inspecting the bank note paper...', timer: 180 },
+        { id: 'bot2', name: 'William Stanley', icon: '⚡', x: 420, y: 200, tx: 380, ty: 170, color: '#e67e22', message: 'Testing the 1886 AC transformer!', timer: 220 },
+        { id: 'bot3', name: 'Little Leaguer', icon: '⚾', x: 200, y: 230, tx: 240, ty: 220, color: '#e74c3c', message: '1791 baseball rules at Wahconah!', timer: 150 },
+        { id: 'bot4', name: 'Berkshire Bear', icon: '🐻', x: 490, y: 90, tx: 470, ty: 120, color: '#795548', message: 'Any apples left near Onota?', timer: 260 },
+        { id: 'bot5', name: 'Colonial Player', icon: '🎭', x: 330, y: 100, tx: 310, ty: 80, color: '#9c27b0', message: 'Rehearsing on North St tonight!', timer: 190 }
+      ];
+
+      const userAvatarSelect = document.getElementById('user-avatar-select');
+      const currentAvatarNameLabel = document.getElementById('current-avatar-name');
+      const squareChatInput = document.getElementById('square-chat-input');
+      const btnSendSquareChat = document.getElementById('btn-send-square-chat');
+      const btnSpawnParade = document.getElementById('btn-spawn-parade');
+
+      userAvatarSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        const userObj = avatars.find(a => a.id === 'user');
+        if (userObj) {
+          userObj.name = val;
+          if (val === 'Herman Melville') userObj.icon = '🐋';
+          else if (val === 'Berkshire Bear') userObj.icon = '🐻';
+          else if (val === 'GE Dynamo Engineer') userObj.icon = '⚡';
+          else if (val === 'Little Leaguer') userObj.icon = '⚾';
+          else if (val === 'North St Flâneur') userObj.icon = '☕';
+          else if (val === 'Park Ranger') userObj.icon = '🌲';
+          currentAvatarNameLabel.textContent = val;
+        }
+        playUiSound('bubble');
+      });
+
+      // User click on Town Square to move
+      squareCanvas.addEventListener('click', (e) => {
+        const rect = squareCanvas.getBoundingClientRect();
+        const scaleX = squareCanvas.width / rect.width;
+        const scaleY = squareCanvas.height / rect.height;
+        const targetX = (e.clientX - rect.left) * scaleX;
+        const targetY = (e.clientY - rect.top) * scaleY;
+
+        const userObj = avatars.find(a => a.id === 'user');
+        if (userObj) {
+          userObj.tx = Math.max(30, Math.min(squareCanvas.width - 30, targetX));
+          userObj.ty = Math.max(40, Math.min(squareCanvas.height - 40, targetY));
+          playUiSound('click');
+        }
+      });
+
+      // Send Chat Message in Town Square
+      function sendSquareChat() {
+        const msg = squareChatInput.value.trim();
+        if (!msg) return;
+        const userObj = avatars.find(a => a.id === 'user');
+        if (userObj) {
+          userObj.message = msg;
+          userObj.timer = 320; // frame lifetime
+        }
+        squareChatInput.value = '';
+        playUiSound('bubble');
+      }
+
+      btnSendSquareChat.addEventListener('click', sendSquareChat);
+      squareChatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') sendSquareChat();
+      });
+
+      // Spawn Third Thursday Crowd
+      btnSpawnParade.addEventListener('click', () => {
+        for (let i = 0; i < 4; i++) {
+          avatars.push({
+            id: 'extra_' + Date.now() + '_' + i,
+            name: ['North St Artist', 'Berkshire Biker', 'Athenaeum Scholar', 'Canoe Paddler'][i],
+            icon: ['🎨', '🚲', '📖', '🛶'][i],
+            x: Math.random() * (squareCanvas.width - 60) + 30,
+            y: Math.random() * (squareCanvas.height - 80) + 40,
+            tx: Math.random() * (squareCanvas.width - 60) + 30,
+            ty: Math.random() * (squareCanvas.height - 80) + 40,
+            color: '#00a8ff',
+            message: ['Third Thursday is here!', 'Great day on Park Square!', 'Heading to Colonial Theatre!'][i % 3],
+            timer: 300
+          });
+        }
+        document.getElementById('town-square-user-count').textContent = (avatars.length + 38) + ' Citizens Active';
+        playUiSound('alert');
+      });
+
+      // Draw Park Square Grass & Paths
+      function drawParkSquareBackdrop() {
+        const w = squareCanvas.width;
+        const h = squareCanvas.height;
+
+        // Lush Berkshire grass gradient
+        const grassGrad = sCtx.createLinearGradient(0, 0, 0, h);
+        grassGrad.addColorStop(0, '#74b850');
+        grassGrad.addColorStop(1, '#5ca237');
+        sCtx.fillStyle = grassGrad;
+        sCtx.fillRect(0, 0, w, h);
+
+        // Brick & cobblestone pathways intersecting in Park Square
+        sCtx.fillStyle = '#d3b898';
+        sCtx.strokeStyle = '#b89d7d';
+        sCtx.lineWidth = 1;
+
+        // Diagonal walkways
+        sCtx.beginPath();
+        sCtx.moveTo(0, 0); sCtx.lineTo(w, h);
+        sCtx.lineWidth = 26; sCtx.stroke();
+
+        sCtx.beginPath();
+        sCtx.moveTo(0, h); sCtx.lineTo(w, 0);
+        sCtx.lineWidth = 26; sCtx.stroke();
+
+        // Central circular plaza around fountain
+        sCtx.beginPath();
+        sCtx.arc(w / 2, h / 2, 54, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.stroke();
+
+        // Park Square Water Fountain
+        sCtx.fillStyle = '#00a8e8';
+        sCtx.beginPath();
+        sCtx.arc(w / 2, h / 2, 28, 0, Math.PI * 2);
+        sCtx.fill();
+
+        // Water ripple
+        sCtx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+        sCtx.lineWidth = 2;
+        const pulse = (Date.now() / 300) % 18;
+        sCtx.beginPath();
+        sCtx.arc(w / 2, h / 2, pulse + 6, 0, Math.PI * 2);
+        sCtx.stroke();
+
+        // Fountain jet centerpiece
+        sCtx.fillStyle = '#ffffff';
+        sCtx.beginPath();
+        sCtx.arc(w / 2, h / 2, 5, 0, Math.PI * 2);
+        sCtx.fill();
+
+        // Historic Park Gazebo (North-East quadrant)
+        sCtx.fillStyle = '#f8f9fa';
+        sCtx.fillRect(w * 0.75 - 18, 45, 36, 26);
+        sCtx.fillStyle = '#8e2a2a';
+        sCtx.beginPath();
+        sCtx.moveTo(w * 0.75 - 24, 45);
+        sCtx.lineTo(w * 0.75, 25);
+        sCtx.lineTo(w * 0.75 + 24, 45);
+        sCtx.fill();
+        sCtx.font = '9px sans-serif';
+        sCtx.fillStyle = '#333';
+        sCtx.fillText('GAZEBO', w * 0.75 - 16, 62);
+
+        // First Church Meetinghouse marker (1791 Baseball bylaw landmark)
+        sCtx.fillStyle = '#ffffff';
+        sCtx.fillRect(35, 30, 44, 30);
+        sCtx.fillStyle = '#2c3e50';
+        sCtx.beginPath();
+        sCtx.moveTo(30, 30); sCtx.lineTo(57, 10); sCtx.lineTo(84, 30);
+        sCtx.fill();
+        sCtx.font = '8px sans-serif';
+        sCtx.fillText('1791 CHURCH', 33, 48);
+
+        // Park trees
+        drawTree(110, 80);
+        drawTree(470, 80);
+        drawTree(120, 270);
+        drawTree(480, 260);
+      }
+
+      function drawTree(tx, ty) {
+        sCtx.fillStyle = '#5d4037';
+        sCtx.fillRect(tx - 3, ty, 6, 12);
+        sCtx.fillStyle = '#2e7d32';
+        sCtx.beginPath();
+        sCtx.arc(tx, ty - 4, 14, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = '#388e3c';
+        sCtx.beginPath();
+        sCtx.arc(tx - 3, ty - 7, 9, 0, Math.PI * 2);
+        sCtx.fill();
+      }
+
+      // Animation loop for Town Square
+      function animateTownSquare() {
+        drawParkSquareBackdrop();
+
+        avatars.forEach(avatar => {
+          // Wander behavior for bots
+          if (avatar.id !== 'user') {
+            if (Math.random() < 0.015) {
+              avatar.tx = Math.random() * (squareCanvas.width - 80) + 40;
+              avatar.ty = Math.random() * (squareCanvas.height - 80) + 40;
+            }
+            // Occasional chat thought
+            if (Math.random() < 0.003 && avatar.timer <= 0) {
+              const quotes = [
+                'Heading over to Bartlett’s Orchards!',
+                'Foliage along Greylock is unbelievable.',
+                'Wahconah Park game starts at 6:30!',
+                'Remember when GE employed 13,000 here?',
+                'Taking my kayak out on Lake Onota!',
+                'Reading chapter 36 of Moby-Dick today.'
+              ];
+              avatar.message = quotes[Math.floor(Math.random() * quotes.length)];
+              avatar.timer = 240;
+            }
+          }
+
+          // Move toward target position
+          const dx = avatar.tx - avatar.x;
+          const dy = avatar.ty - avatar.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > 1.5) {
+            avatar.x += (dx / dist) * 1.6;
+            avatar.y += (dy / dist) * 1.6;
+          }
+
+          // Draw avatar shadow
+          sCtx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+          sCtx.beginPath();
+          sCtx.ellipse(avatar.x, avatar.y + 12, 11, 5, 0, 0, Math.PI * 2);
+          sCtx.fill();
+
+          // Draw avatar bubble sprite
+          sCtx.fillStyle = avatar.id === 'user' ? '#ffffff' : '#e3f2fd';
+          sCtx.strokeStyle = avatar.color || '#0078d7';
+          sCtx.lineWidth = 2;
+          sCtx.beginPath();
+          sCtx.arc(avatar.x, avatar.y, 14, 0, Math.PI * 2);
+          sCtx.fill();
+          sCtx.stroke();
+
+          // Draw emoji icon inside
+          sCtx.font = '14px sans-serif';
+          sCtx.textAlign = 'center';
+          sCtx.textBaseline = 'middle';
+          sCtx.fillText(avatar.icon, avatar.x, avatar.y + 1);
+
+          // Name plate
+          sCtx.font = 'bold 9px sans-serif';
+          sCtx.fillStyle = '#0a3d62';
+          sCtx.fillText(avatar.name, avatar.x, avatar.y + 24);
+
+          // Draw speech bubble if message active
+          if (avatar.timer > 0 && avatar.message) {
+            avatar.timer--;
+            sCtx.font = '10px "Segoe UI", sans-serif';
+            const textWidth = sCtx.measureText(avatar.message).width;
+            const bWidth = Math.max(textWidth + 14, 50);
+            const bHeight = 20;
+            const bx = avatar.x - bWidth / 2;
+            const by = avatar.y - 34;
+
+            // Speech bubble background
+            sCtx.fillStyle = '#ffffff';
+            sCtx.strokeStyle = '#333333';
+            sCtx.lineWidth = 1;
+            sCtx.beginPath();
+            sCtx.roundRect(bx, by, bWidth, bHeight, 6);
+            sCtx.fill();
+            sCtx.stroke();
+
+            // Little triangle pointer
+            sCtx.beginPath();
+            sCtx.moveTo(avatar.x - 4, by + bHeight);
+            sCtx.lineTo(avatar.x, by + bHeight + 5);
+            sCtx.lineTo(avatar.x + 4, by + bHeight);
+            sCtx.fillStyle = '#ffffff';
+            sCtx.fill();
+            sCtx.stroke();
+
+            // Speech text
+            sCtx.fillStyle = '#000000';
+            sCtx.textBaseline = 'middle';
+            sCtx.fillText(avatar.message, avatar.x, by + bHeight / 2);
+          }
+        });
+
+        requestAnimationFrame(animateTownSquare);
+      }
+      animateTownSquare();
+
+      // ------------------------------------------------------------------------
+      // 9. Community BBS Forum System (Data & Modal Interaction)
+      // ------------------------------------------------------------------------
+      let forumData = {
+        pinned: [
+          {
+            id: 'pin1',
+            title: '📜 Notice: Wahconah Park Grandstand Restoration Update',
+            author: 'Parks & Rec Committee',
+            date: 'Oct 12, 2026',
+            replies: 19,
+            views: 412,
+            posts: [
+              { author: 'Parks & Rec Committee', date: 'Oct 12, 2026 - 9:15 AM', content: 'Phase 2 engineering assessment on the historic 1892/1919 wooden grandstand has commenced. Wahconah is one of only two ballparks in America facing west, making sunset baseball an authentic Berkshire treasure!' },
+              { author: 'PittsfieldSoxFan', date: 'Oct 12, 2026 - 11:40 AM', content: 'Preserving that wooden roof is essential. There is nothing like sitting there on a summer evening watching the sun drop behind the outfield.' },
+              { author: 'Ward7Resident', date: 'Oct 13, 2026 - 2:05 PM', content: 'Glad the city is investing in this landmark. Our kids play Little League right nearby.' }
+            ]
+          },
+          {
+            id: 'pin2',
+            title: '🚨 Annual Leaf & Brush Collection Schedule - Autumn 2026',
+            author: 'DPW Superintendent',
+            date: 'Oct 10, 2026',
+            replies: 8,
+            views: 288,
+            posts: [
+              { author: 'DPW Superintendent', date: 'Oct 10, 2026 - 8:00 AM', content: 'Please do not rake leaves into street storm gutters! Raked piles should be placed within 5 feet of the curb for the vacuum trucks.' },
+              { author: 'NorthStGardener', date: 'Oct 11, 2026 - 4:20 PM', content: 'Can we drop off extra bags directly at the Hawthorne Ave compost site on Saturdays?' },
+              { author: 'DPW Superintendent', date: 'Oct 11, 2026 - 4:45 PM', content: 'Yes! Hawthorne Ave facility is open 7:30 AM to 3:00 PM Tuesday through Saturday.' }
+            ]
+          }
+        ],
+        general: [
+          {
+            id: 'gen1',
+            title: 'Best cider donuts in the Berkshires: Bartlett’s vs Whitney’s?',
+            author: 'BerkshireFoodie',
+            date: 'Oct 14, 2026',
+            replies: 24,
+            views: 520,
+            posts: [
+              { author: 'BerkshireFoodie', date: 'Oct 14, 2026 - 8:30 AM', content: 'It is peak October foliage. Are you team Bartlett’s Orchard out in Richmond/Pittsfield line or Whitney’s Farm Stand? Warm cinnamon sugar verdict?' },
+              { author: 'OnotaLakeKayaker', date: 'Oct 14, 2026 - 9:02 AM', content: 'Bartlett’s cider donuts straight out of the fryer while looking at the apple trees cannot be beaten.' },
+              { author: 'MelvilleScholar', date: 'Oct 14, 2026 - 10:14 AM', content: 'Legend has it Melville ate fried cider cakes while revising chapters on the Pequod!' }
+            ]
+          },
+          {
+            id: 'gen2',
+            title: 'Who is joining the 24-Hour Moby-Dick Marathon Reading at Arrowhead?',
+            author: 'ArrowheadDocent',
+            date: 'Oct 13, 2026',
+            replies: 14,
+            views: 310,
+            posts: [
+              { author: 'ArrowheadDocent', date: 'Oct 13, 2026 - 1:15 PM', content: 'Signups are open to read 10-minute segments in Melville’s historic study. Looking out the window at Mount Greylock while reading chapter 135 is unforgettable.' },
+              { author: 'PCTV_Volunteer', date: 'Oct 13, 2026 - 3:00 PM', content: 'PCTV will be livestreaming the entire marathon on our local access channel and web feed!' }
+            ]
+          },
+          {
+            id: 'gen3',
+            title: 'Night fishing for bass on Lake Onota: Burbanks Park access',
+            author: 'BerkshireAngler',
+            date: 'Oct 12, 2026',
+            replies: 6,
+            views: 180,
+            posts: [
+              { author: 'BerkshireAngler', date: 'Oct 12, 2026 - 7:45 PM', content: 'Water temp is at 62°F. Anyone having luck with spinnerbaits near the northern weedlines?' },
+              { author: 'BassMaster413', date: 'Oct 13, 2026 - 8:12 AM', content: 'Caught a 4.5 lb smallmouth just off the double islands near dusk. Gorgeous night.' }
+            ]
+          }
+        ]
+      };
+
+      const bbsPinnedTbody = document.getElementById('bbs-pinned-tbody');
+      const bbsGeneralTbody = document.getElementById('bbs-general-tbody');
+      const threadViewModal = document.getElementById('thread-view-modal');
+      const modalThreadTitle = document.getElementById('modal-thread-title');
+      const modalThreadContent = document.getElementById('modal-thread-content');
+      const btnCloseThreadModal = document.getElementById('btn-close-thread-modal');
+      const formThreadReply = document.getElementById('form-thread-reply');
+      let currentActiveThread = null;
+
+      function renderBbsTables() {
+        bbsPinnedTbody.innerHTML = '';
+        forumData.pinned.forEach(thread => {
+          const tr = document.createElement('tr');
+          tr.className = 'bbs-row';
+          tr.innerHTML = `
+            <td>
+              <div class="thread-title">${thread.title}</div>
+              <div class="thread-meta">By <strong>${thread.author}</strong> • ${thread.date}</div>
+            </td>
+            <td><strong>${thread.replies}</strong></td>
+            <td>${thread.views}</td>
+            <td>${thread.posts[thread.posts.length - 1].date.split(' - ')[0]}</td>
+          `;
+          tr.addEventListener('click', () => openThreadModal(thread));
+          bbsPinnedTbody.appendChild(tr);
+        });
+
+        bbsGeneralTbody.innerHTML = '';
+        forumData.general.forEach(thread => {
+          const tr = document.createElement('tr');
+          tr.className = 'bbs-row';
+          tr.innerHTML = `
+            <td>
+              <div class="thread-title">${thread.title}</div>
+              <div class="thread-meta">By <strong>${thread.author}</strong> • ${thread.date}</div>
+            </td>
+            <td><strong>${thread.replies}</strong></td>
+            <td>${thread.views}</td>
+            <td>${thread.posts[thread.posts.length - 1].date.split(' - ')[0]}</td>
+          `;
+          tr.addEventListener('click', () => openThreadModal(thread));
+          bbsGeneralTbody.appendChild(tr);
+        });
+      }
+      renderBbsTables();
+
+      function openThreadModal(thread) {
+        currentActiveThread = thread;
+        modalThreadTitle.innerHTML = `<span>💬</span> ${thread.title}`;
+        modalThreadContent.innerHTML = '';
+
+        thread.posts.forEach((post, i) => {
+          const postDiv = document.createElement('div');
+          postDiv.style.cssText = 'background: rgba(255,255,255,0.65); border: 1px solid var(--panel-border); border-radius: 10px; padding: 10px; margin-bottom: 10px;';
+          postDiv.innerHTML = `
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 4px;">
+              <span style="font-weight: bold; color: var(--accent-primary);">👤 ${post.author}</span>
+              <span style="color: var(--text-muted);">${post.date} • Post #${i + 1}</span>
+            </div>
+            <div style="font-size: 13px; line-height: 1.4;">${post.content}</div>
+          `;
+          modalThreadContent.appendChild(postDiv);
+        });
+
+        threadViewModal.classList.add('active');
+        playUiSound('bubble');
+      }
+
+      btnCloseThreadModal.addEventListener('click', () => {
+        threadViewModal.classList.remove('active');
+      });
+
+      // Submit Reply
+      formThreadReply.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!currentActiveThread) return;
+        const author = document.getElementById('reply-author').value.trim();
+        const text = document.getElementById('reply-text').value.trim();
+        if (!author || !text) return;
+
+        const newPost = {
+          author: author,
+          date: 'Just now',
+          content: text
+        };
+        currentActiveThread.posts.push(newPost);
+        currentActiveThread.replies++;
+        renderBbsTables();
+        openThreadModal(currentActiveThread);
+        document.getElementById('reply-text').value = '';
+        playUiSound('alert');
+      });
+
+      // New Thread Creation
+      const newThreadModal = document.getElementById('new-thread-modal');
+      const btnOpenNewThread = document.getElementById('btn-open-new-thread');
+      const btnCloseNewThread = document.getElementById('btn-close-new-thread-modal');
+      const btnCancelNewThread = document.getElementById('btn-cancel-new-thread');
+      const formCreateNewThread = document.getElementById('form-create-new-thread');
+
+      btnOpenNewThread.addEventListener('click', () => {
+        newThreadModal.classList.add('active');
+        playUiSound('bubble');
+      });
+      btnCloseNewThread.addEventListener('click', () => newThreadModal.classList.remove('active'));
+      btnCancelNewThread.addEventListener('click', () => newThreadModal.classList.remove('active'));
+
+      formCreateNewThread.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const category = document.getElementById('new-thread-category').value;
+        const subject = document.getElementById('new-thread-subject').value.trim();
+        const author = document.getElementById('new-thread-author').value.trim();
+        const body = document.getElementById('new-thread-body').value.trim();
+
+        if (!subject || !author || !body) return;
+
+        const newThread = {
+          id: 'th_' + Date.now(),
+          title: subject,
+          author: author,
+          date: 'Oct 14, 2026',
+          replies: 0,
+          views: 1,
+          posts: [
+            { author: author, date: 'Oct 14, 2026 - Just now', content: body }
+          ]
+        };
+
+        if (category === 'pinned') {
+          forumData.pinned.unshift(newThread);
+        } else {
+          forumData.general.unshift(newThread);
+        }
+
+        renderBbsTables();
+        newThreadModal.classList.remove('active');
+        formCreateNewThread.reset();
+        playUiSound('alert');
+      });
+
+      // ------------------------------------------------------------------------
+      // 10. Procedural Dither Matrix Studio (Floyd-Steinberg, Bayer & Retro Palettes)
+      // ------------------------------------------------------------------------
+      const canvasSource = document.getElementById('canvas-source');
+      const sCtxDither = canvasSource.getContext('2d');
+      const canvasDithered = document.getElementById('canvas-dithered');
+      const dCtx = canvasDithered.getContext('2d');
+
+      const ditherPresetSelect = document.getElementById('dither-preset-select');
+      const ditherAlgoSelect = document.getElementById('dither-algo-select');
+      const ditherPaletteSelect = document.getElementById('dither-palette-select');
+      const btnProcessDither = document.getElementById('btn-process-dither');
+      const ditherFileUpload = document.getElementById('dither-file-upload');
+      const btnDownloadDither = document.getElementById('btn-download-dither');
+      const ditheredTag = document.getElementById('dithered-tag');
+
+      // Built-in vector scene generator (renders crisp sample scenes directly into canvas)
+      function renderSceneToSource(sceneName) {
+        const w = canvasSource.width;
+        const h = canvasSource.height;
+        sCtxDither.clearRect(0, 0, w, h);
+
+        if (sceneName === 'greylock') {
+          // Mount Greylock & Arrowhead view
+          const sky = sCtxDither.createLinearGradient(0, 0, 0, h * 0.6);
+          sky.addColorStop(0, '#56ccf2');
+          sky.addColorStop(1, '#2f80ed');
+          sCtxDither.fillStyle = sky;
+          sCtxDither.fillRect(0, 0, w, h);
+
+          // Sun
+          sCtxDither.fillStyle = '#fffa65';
+          sCtxDither.beginPath();
+          sCtxDither.arc(w * 0.8, 40, 24, 0, Math.PI * 2);
+          sCtxDither.fill();
+
+          // Greylock Mountain Ridge (Resembling whale back)
+          sCtxDither.fillStyle = '#1e3c72';
+          sCtxDither.beginPath();
+          sCtxDither.moveTo(0, h * 0.65);
+          sCtxDither.bezierCurveTo(w * 0.3, h * 0.28, w * 0.65, h * 0.22, w, h * 0.6);
+          sCtxDither.lineTo(w, h);
+          sCtxDither.lineTo(0, h);
+          sCtxDither.fill();
+
+          // Snow cap on Greylock
+          sCtxDither.fillStyle = '#ffffff';
+          sCtxDither.beginPath();
+          sCtxDither.moveTo(w * 0.45, h * 0.26);
+          sCtxDither.bezierCurveTo(w * 0.55, h * 0.23, w * 0.62, h * 0.24, w * 0.68, h * 0.32);
+          sCtxDither.lineTo(w * 0.45, h * 0.26);
+          sCtxDither.fill();
+
+          // Rolling autumn foothills
+          sCtxDither.fillStyle = '#d35400';
+          sCtxDither.beginPath();
+          sCtxDither.moveTo(0, h * 0.6);
+          sCtxDither.quadraticCurveTo(w * 0.4, h * 0.48, w, h * 0.68);
+          sCtxDither.lineTo(w, h); sCtxDither.lineTo(0, h);
+          sCtxDither.fill();
+
+          // Arrowhead chimney & farmhouse roof
+          sCtxDither.fillStyle = '#c0392b';
+          sCtxDither.fillRect(40, h * 0.65, 80, 50);
+          sCtxDither.fillStyle = '#7f8c8d';
+          sCtxDither.fillRect(72, h * 0.55, 16, 25);
+          sCtxDither.fillStyle = '#2c3e50';
+          sCtxDither.beginPath();
+          sCtxDither.moveTo(30, h * 0.65); sCtxDither.lineTo(80, h * 0.5); sCtxDither.lineTo(130, h * 0.65);
+          sCtxDither.fill();
+
+        } else if (sceneName === 'park-square') {
+          // Park Square & Fountain
+          const bg = sCtxDither.createLinearGradient(0, 0, 0, h);
+          bg.addColorStop(0, '#89f7fe');
+          bg.addColorStop(1, '#66a6ff');
+          sCtxDither.fillStyle = bg;
+          sCtxDither.fillRect(0, 0, w, h);
+
+          sCtxDither.fillStyle = '#27ae60';
+          sCtxDither.fillRect(0, h * 0.5, w, h * 0.5);
+
+          // Park Square Fountain basin
+          sCtxDither.fillStyle = '#0078d7';
+          sCtxDither.beginPath();
+          sCtxDither.arc(w / 2, h * 0.72, 60, 0, Math.PI * 2);
+          sCtxDither.fill();
+          sCtxDither.strokeStyle = '#ffffff';
+          sCtxDither.lineWidth = 4;
+          sCtxDither.stroke();
+
+        } else if (sceneName === 'wahconah') {
+          // Wahconah Park
+          sCtxDither.fillStyle = '#1e824c';
+          sCtxDither.fillRect(0, 0, w, h);
+          // Infield diamond
+          sCtxDither.fillStyle = '#d35400';
+          sCtxDither.beginPath();
+          sCtxDither.moveTo(w / 2, h * 0.3);
+          sCtxDither.lineTo(w * 0.75, h * 0.6);
+          sCtxDither.lineTo(w / 2, h * 0.9);
+          sCtxDither.lineTo(w * 0.25, h * 0.6);
+          sCtxDither.fill();
+
+          // Wooden grandstand canopy
+          sCtxDither.fillStyle = '#5c3826';
+          sCtxDither.fillRect(20, 20, w - 40, 45);
+
+        } else if (sceneName === 'lake-onota') {
+          // Lake Onota Sunset
+          const sunset = sCtxDither.createLinearGradient(0, 0, 0, h);
+          sunset.addColorStop(0, '#ff4e50');
+          sunset.addColorStop(0.4, '#f9d423');
+          sunset.addColorStop(0.7, '#2b5876');
+          sunset.addColorStop(1, '#4e4376');
+          sCtxDither.fillStyle = sunset;
+          sCtxDither.fillRect(0, 0, w, h);
+
+          // Mountains across lake
+          sCtxDither.fillStyle = '#1c1c38';
+          sCtxDither.beginPath();
+          sCtxDither.moveTo(0, h * 0.55);
+          sCtxDither.lineTo(80, h * 0.45);
+          sCtxDither.lineTo(160, h * 0.5);
+          sCtxDither.lineTo(240, h * 0.4);
+          sCtxDither.lineTo(w, h * 0.55);
+          sCtxDither.lineTo(w, h);
+          sCtxDither.lineTo(0, h);
+          sCtxDither.fill();
+
+          // Water sheen
+          sCtxDither.fillStyle = 'rgba(255, 230, 100, 0.4)';
+          sCtxDither.fillRect(w * 0.35, h * 0.58, 90, h * 0.42);
+
+        } else if (sceneName === 'frutiger-orb') {
+          // Pure Frutiger Aero water bubble sphere
+          const aeroBg = sCtxDither.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, 120);
+          aeroBg.addColorStop(0, '#ffffff');
+          aeroBg.addColorStop(0.3, '#70e1f5');
+          aeroBg.addColorStop(1, '#ffd194');
+          sCtxDither.fillStyle = aeroBg;
+          sCtxDither.fillRect(0, 0, w, h);
+
+          // Glossy Aero Glass Orb
+          const orbGrad = sCtxDither.createRadialGradient(w / 2 - 25, h / 2 - 25, 10, w / 2, h / 2, 70);
+          orbGrad.addColorStop(0, '#ffffff');
+          orbGrad.addColorStop(0.4, '#00d2ff');
+          orbGrad.addColorStop(0.85, '#0052d4');
+          orbGrad.addColorStop(1, '#001a4d');
+          sCtxDither.fillStyle = orbGrad;
+          sCtxDither.beginPath();
+          sCtxDither.arc(w / 2, h / 2, 65, 0, Math.PI * 2);
+          sCtxDither.fill();
+
+          // Highlight crescent
+          sCtxDither.fillStyle = 'rgba(255, 255, 255, 0.85)';
+          sCtxDither.beginPath();
+          sCtxDither.ellipse(w / 2 - 15, h / 2 - 25, 32, 16, -Math.PI / 6, 0, Math.PI * 2);
+          sCtxDither.fill();
+        }
+      }
+
+      // Palettes definitions [R, G, B]
+      const palettes = {
+        aero16: [
+          [0, 168, 232], [0, 200, 255], [0, 120, 215], [18, 216, 250],
+          [166, 255, 203], [46, 204, 113], [39, 174, 96], [255, 255, 255],
+          [220, 240, 255], [10, 61, 98], [240, 248, 255], [255, 215, 0],
+          [255, 127, 80], [44, 62, 80], [127, 140, 141], [15, 25, 35]
+        ],
+        websafe: [
+          [0,0,0], [255,255,255], [255,0,0], [0,255,0], [0,0,255],
+          [255,255,0], [0,255,255], [255,0,255], [192,192,192], [128,128,128],
+          [128,0,0], [128,128,0], [0,128,0], [128,0,128], [0,128,128], [0,0,128]
+        ],
+        foliage: [
+          [45, 90, 39], [139, 30, 15], [196, 77, 24], [217, 119, 36],
+          [247, 178, 103], [255, 230, 150], [90, 20, 5], [77, 21, 2],
+          [255, 252, 245], [59, 131, 189], [40, 60, 30], [255, 190, 60]
+        ],
+        'ge-amber': [
+          [20, 15, 5], [60, 45, 10], [130, 90, 15], [200, 140, 25],
+          [255, 180, 40], [255, 220, 100], [255, 255, 200]
+        ],
+        monochrome: [
+          [0, 0, 0], [255, 255, 255]
+        ]
+      };
+
+      function findNearestColor(r, g, b, palette) {
+        let bestDist = Infinity;
+        let bestColor = palette[0];
+        for (let i = 0; i < palette.length; i++) {
+          const pr = palette[i][0];
+          const pg = palette[i][1];
+          const pb = palette[i][2];
+          // Euclidean color distance with human eye luma weights
+          const dist = 0.3 * (r - pr) * (r - pr) +
+                       0.59 * (g - pg) * (g - pg) +
+                       0.11 * (b - pb) * (b - pb);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestColor = palette[i];
+          }
+        }
+        return bestColor;
+      }
+
+      // 4x4 Bayer Matrix
+      const bayer4Matrix = [
+        [  0,  8,  2, 10 ],
+        [ 12,  4, 14,  6 ],
+        [  3, 11,  1,  9 ],
+        [ 15,  7, 13,  5 ]
+      ];
+
+      // 8x8 Bayer Matrix
+      const bayer8Matrix = [
+        [  0, 32,  8, 40,  2, 34, 10, 42 ],
+        [ 48, 16, 56, 24, 50, 18, 58, 26 ],
+        [ 12, 44,  4, 36, 14, 46,  6, 38 ],
+        [ 60, 28, 52, 20, 62, 30, 54, 22 ],
+        [  3, 35, 11, 43,  1, 33,  9, 41 ],
+        [ 51, 19, 59, 27, 49, 17, 57, 25 ],
+        [ 15, 47,  7, 39, 13, 45,  5, 37 ],
+        [ 63, 31, 55, 23, 61, 29, 53, 21 ]
+      ];
+
+      function executeDithering() {
+        const w = canvasSource.width;
+        const h = canvasSource.height;
+        canvasDithered.width = w;
+        canvasDithered.height = h;
+
+        const srcData = sCtxDither.getImageData(0, 0, w, h);
+        const sPixels = srcData.data;
+
+        const outData = dCtx.createImageData(w, h);
+        const outPixels = outData.data;
+
+        const algo = ditherAlgoSelect.value;
+        const palette = palettes[ditherPaletteSelect.value] || palettes.aero16;
+
+        ditheredTag.textContent = `DITHERED: ${algo.toUpperCase()} (${palette.length} Colors)`;
+
+        if (algo === 'none') {
+          // Direct copy
+          for (let i = 0; i < sPixels.length; i++) {
+            outPixels[i] = sPixels[i];
+          }
+          dCtx.putImageData(outData, 0, 0);
+          return;
+        }
+
+        if (algo === 'floyd') {
+          // Floyd-Steinberg Error Diffusion
+          // Clone source pixels into floating point buffer
+          const buf = new Float32Array(w * h * 3);
+          for (let i = 0, j = 0; i < sPixels.length; i += 4, j += 3) {
+            buf[j] = sPixels[i];
+            buf[j + 1] = sPixels[i + 1];
+            buf[j + 2] = sPixels[i + 2];
+          }
+
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const idx = (y * w + x) * 3;
+              const r = Math.min(255, Math.max(0, buf[idx]));
+              const g = Math.min(255, Math.max(0, buf[idx + 1]));
+              const b = Math.min(255, Math.max(0, buf[idx + 2]));
+
+              const match = findNearestColor(r, g, b, palette);
+              const errR = r - match[0];
+              const errG = g - match[1];
+              const errB = b - match[2];
+
+              const outIdx = (y * w + x) * 4;
+              outPixels[outIdx] = match[0];
+              outPixels[outIdx + 1] = match[1];
+              outPixels[outIdx + 2] = match[2];
+              outPixels[outIdx + 3] = 255;
+
+              // Distribute error: 7/16 right, 3/16 down-left, 5/16 down, 1/16 down-right
+              if (x + 1 < w) {
+                const i1 = (y * w + (x + 1)) * 3;
+                buf[i1] += errR * (7 / 16);
+                buf[i1 + 1] += errG * (7 / 16);
+                buf[i1 + 2] += errB * (7 / 16);
+              }
+              if (y + 1 < h) {
+                if (x > 0) {
+                  const i2 = ((y + 1) * w + (x - 1)) * 3;
+                  buf[i2] += errR * (3 / 16);
+                  buf[i2 + 1] += errG * (3 / 16);
+                  buf[i2 + 2] += errB * (3 / 16);
+                }
+                const i3 = ((y + 1) * w + x) * 3;
+                buf[i3] += errR * (5 / 16);
+                buf[i3 + 1] += errG * (5 / 16);
+                buf[i3 + 2] += errB * (5 / 16);
+                if (x + 1 < w) {
+                  const i4 = ((y + 1) * w + (x + 1)) * 3;
+                  buf[i4] += errR * (1 / 16);
+                  buf[i4 + 1] += errG * (1 / 16);
+                  buf[i4 + 2] += errB * (1 / 16);
+                }
+              }
+            }
+          }
+          dCtx.putImageData(outData, 0, 0);
+
+        } else if (algo === 'bayer4' || algo === 'bayer8') {
+          // Ordered Bayer Dithering
+          const isBayer8 = algo === 'bayer8';
+          const matrix = isBayer8 ? bayer8Matrix : bayer4Matrix;
+          const mSize = isBayer8 ? 8 : 4;
+          const factor = isBayer8 ? 64 : 16;
+
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const idx = (y * w + x) * 4;
+              const threshold = (matrix[y % mSize][x % mSize] / factor) - 0.5;
+              const spread = 48; // intensity of dithering scatter
+
+              const r = Math.min(255, Math.max(0, sPixels[idx] + threshold * spread));
+              const g = Math.min(255, Math.max(0, sPixels[idx + 1] + threshold * spread));
+              const b = Math.min(255, Math.max(0, sPixels[idx + 2] + threshold * spread));
+
+              const match = findNearestColor(r, g, b, palette);
+              outPixels[idx] = match[0];
+              outPixels[idx + 1] = match[1];
+              outPixels[idx + 2] = match[2];
+              outPixels[idx + 3] = 255;
+            }
+          }
+          dCtx.putImageData(outData, 0, 0);
+
+        } else if (algo === 'atkinson') {
+          // Atkinson Dithering (Macintosh 1984 1/8th spread)
+          const buf = new Float32Array(w * h * 3);
+          for (let i = 0, j = 0; i < sPixels.length; i += 4, j += 3) {
+            buf[j] = sPixels[i];
+            buf[j + 1] = sPixels[i + 1];
+            buf[j + 2] = sPixels[i + 2];
+          }
+
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const idx = (y * w + x) * 3;
+              const r = Math.min(255, Math.max(0, buf[idx]));
+              const g = Math.min(255, Math.max(0, buf[idx + 1]));
+              const b = Math.min(255, Math.max(0, buf[idx + 2]));
+
+              const match = findNearestColor(r, g, b, palette);
+              const errR = (r - match[0]) / 8;
+              const errG = (g - match[1]) / 8;
+              const errB = (b - match[2]) / 8;
+
+              const outIdx = (y * w + x) * 4;
+              outPixels[outIdx] = match[0];
+              outPixels[outIdx + 1] = match[1];
+              outPixels[outIdx + 2] = match[2];
+              outPixels[outIdx + 3] = 255;
+
+              // Atkinson pattern: right 1 & 2; down-left 1; down 1; down-right 1; down 2
+              const spreadPoints = [
+                [x + 1, y], [x + 2, y],
+                [x - 1, y + 1], [x, y + 1], [x + 1, y + 1],
+                [x, y + 2]
+              ];
+
+              spreadPoints.forEach(([px, py]) => {
+                if (px >= 0 && px < w && py >= 0 && py < h) {
+                  const pIdx = (py * w + px) * 3;
+                  buf[pIdx] += errR;
+                  buf[pIdx + 1] += errG;
+                  buf[pIdx + 2] += errB;
+                }
+              });
+            }
+          }
+          dCtx.putImageData(outData, 0, 0);
+        }
+      }
+
+      // Initialize Dither Scene
+      renderSceneToSource('greylock');
+      executeDithering();
+
+      ditherPresetSelect.addEventListener('change', () => {
+        renderSceneToSource(ditherPresetSelect.value);
+        executeDithering();
+        playUiSound('bubble');
+      });
+
+      btnProcessDither.addEventListener('click', () => {
+        executeDithering();
+        playUiSound('bubble');
+      });
+
+      ditherAlgoSelect.addEventListener('change', () => {
+        executeDithering();
+        playUiSound('click');
+      });
+
+      ditherPaletteSelect.addEventListener('change', () => {
+        executeDithering();
+        playUiSound('click');
+      });
+
+      // User Custom Photo Upload for Dithering
+      ditherFileUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            sCtxDither.drawImage(img, 0, 0, canvasSource.width, canvasSource.height);
+            executeDithering();
+            playUiSound('shutter');
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Save Dithered Result
+      btnDownloadDither.addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = 'pittsfield-dithered.png';
+        link.href = canvasDithered.toDataURL();
+        link.click();
+        playUiSound('click');
+      });
+
+      // ------------------------------------------------------------------------
+      // 11. Live Berkshire Skycam Animation
+      // ------------------------------------------------------------------------
+      const skycamCanvas = document.getElementById('skycam-canvas');
+      const skCtx = skycamCanvas.getContext('2d');
+      const btnRefreshCam = document.getElementById('btn-refresh-cam');
+      let camCloudOffset = 0;
+
+      function drawSkycam() {
+        const w = skycamCanvas.width;
+        const h = skycamCanvas.height;
+
+        // Autumn sky gradient
+        const skyGrad = skCtx.createLinearGradient(0, 0, 0, h);
+        skyGrad.addColorStop(0, '#4a90e2');
+        skyGrad.addColorStop(0.5, '#87ceeb');
+        skyGrad.addColorStop(1, '#e0f7fa');
+        skCtx.fillStyle = skyGrad;
+        skCtx.fillRect(0, 0, w, h);
+
+        // Drifting clouds
+        camCloudOffset = (camCloudOffset + 0.2) % (w + 80);
+        skCtx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+        skCtx.beginPath();
+        skCtx.arc(camCloudOffset - 40, 30, 20, 0, Math.PI * 2);
+        skCtx.arc(camCloudOffset - 25, 25, 28, 0, Math.PI * 2);
+        skCtx.arc(camCloudOffset, 32, 22, 0, Math.PI * 2);
+        skCtx.fill();
+
+        // Mount Greylock Profile (Summit War Memorial Tower atop)
+        skCtx.fillStyle = '#2c3e50';
+        skCtx.beginPath();
+        skCtx.moveTo(0, h * 0.7);
+        skCtx.lineTo(w * 0.45, h * 0.28);
+        skCtx.lineTo(w * 0.55, h * 0.28);
+        skCtx.lineTo(w, h * 0.75);
+        skCtx.lineTo(w, h);
+        skCtx.lineTo(0, h);
+        skCtx.fill();
+
+        // Veterans War Memorial Tower silhouette
+        skCtx.fillStyle = '#dcdde1';
+        skCtx.fillRect(w * 0.49, h * 0.28 - 14, 6, 14);
+
+        // Fall foliage slopes: red, amber, gold patches
+        const colors = ['#c0392b', '#d35400', '#f39c12', '#27ae60'];
+        for (let i = 0; i < 28; i++) {
+          skCtx.fillStyle = colors[i % colors.length];
+          const px = (i * 11 + (h * 0.1)) % w;
+          const py = h * 0.5 + (i * 3) % 40;
+          skCtx.beginPath();
+          skCtx.arc(px, py, 7, 0, Math.PI * 2);
+          skCtx.fill();
+        }
+
+        // Cam scanline effect
+        skCtx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        for (let y = 0; y < h; y += 4) {
+          skCtx.fillRect(0, y, w, 1);
+        }
+      }
+      setInterval(drawSkycam, 50);
+
+      btnRefreshCam.addEventListener('click', () => {
+        playUiSound('shutter');
+        camCloudOffset = Math.random() * 100;
+        drawSkycam();
+      });
+
+      // ------------------------------------------------------------------------
+      // 12. Town Guestbook & Webring Navigator
+      // ------------------------------------------------------------------------
+      const guestbookEntries = [
+        { name: 'Sarah & Dan Conroy', loc: 'Ward 4 (South St)', msg: 'Proud to see our town’s baseball history recognized! Wonderful site!' },
+        { name: 'Arthur Hawthorne', loc: 'Lenox, MA', msg: 'Melville would be amazed to see Arrowhead rendered in a Frutiger Aero bubble!' },
+        { name: 'Dave M.', loc: 'Ex-GE Transformer Div (Now Florida)', msg: 'Worked at Building 100 from 1968 to 1989. Greetings to all my old Pittsfield comrades!' }
+      ];
+
+      const guestbookContainer = document.getElementById('guestbook-entries-container');
+      const guestbookForm = document.getElementById('guestbook-form');
+
+      function renderGuestbook() {
+        guestbookContainer.innerHTML = '';
+        guestbookEntries.forEach(entry => {
+          const div = document.createElement('div');
+          div.className = 'guestbook-entry';
+          div.innerHTML = `
+            <div class="guestbook-author">
+              <span>${entry.name}</span>
+              <span style="font-size: 10px; color: var(--text-muted);">${entry.loc}</span>
+            </div>
+            <div>${entry.msg}</div>
+          `;
+          guestbookContainer.appendChild(div);
+        });
+      }
+      renderGuestbook();
+
+      guestbookForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('gb-name').value.trim();
+        const loc = document.getElementById('gb-loc').value.trim();
+        const msg = document.getElementById('gb-msg').value.trim();
+        if (!name || !loc || !msg) return;
+
+        guestbookEntries.unshift({ name, loc, msg });
+        renderGuestbook();
+        guestbookForm.reset();
+        playUiSound('alert');
+      });
+
+      // Webring simulation clicks
+      document.getElementById('webring-prev').addEventListener('click', () => {
+        alert('Navigating to Previous Site in Berkshire Ring: [ North Adams Eclipse Gateway ]');
+        playUiSound('click');
+      });
+      document.getElementById('webring-next').addEventListener('click', () => {
+        alert('Navigating to Next Site in Berkshire Ring: [ Great Barrington W.E.B. Du Bois Archive ]');
+        playUiSound('click');
+      });
+      document.getElementById('webring-hub').addEventListener('click', () => {
+        alert('Berkshire County Pioneer Webring Index: 48 member sites active across Area Code 413.');
+        playUiSound('click');
+      });
+      document.getElementById('webring-rand').addEventListener('click', () => {
+        const sites = ['Dalton Paper Trail', 'Lenox Tanglewood Fan Club', 'Mount Greylock Summit Log', 'Stockbridge Red Lion Inn Portal'];
+        alert('Random Berkshire Destination: [ ' + sites[Math.floor(Math.random() * sites.length)] + ' ]');
+        playUiSound('click');
+      });
+
+    })();
+  </script>
+</body>
+</html>

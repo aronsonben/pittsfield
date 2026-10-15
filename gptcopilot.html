@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en" data-theme="berkshire">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#d5f0d9">
+	<meta name="description" content="A neighborly digital front porch for Pittsfield, Massachusetts: city services, town square, local history and community notices.">
+	<title>Pittsfield, MA — The Town Window</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #183d3a;
+			--muted: #57716c;
+			--paper: #f6f3dc;
+			--panel: #fffdf0;
+			--line: #7da495;
+			--accent: #197d72;
+			--accent-strong: #07574f;
+			--pop: #f2c84b;
+			--sky: #b9e9e6;
+			--hill: #8dbb87;
+			--ridge: #3e8177;
+			--art0: #153d46;
+			--art1: #358278;
+			--art2: #91bd8d;
+			--art3: #f1d77b;
+			--shadow: 4px 4px 0 rgba(27, 65, 56, .16);
+			--serif: Georgia, 'Times New Roman', serif;
+			--mono: 'Courier New', Courier, monospace;
+		}
+		html[data-theme="civic"] {
+			--ink: #292d30; --muted: #67635d; --paper: #ece8de; --panel: #faf8f2;
+			--line: #8e8a7f; --accent: #bd5d2b; --accent-strong: #853711; --pop: #e9a23b;
+			--sky: #d4d3ca; --hill: #a6a295; --ridge: #6f706b;
+			--art0: #303b3c; --art1: #6c7770; --art2: #d17a42; --art3: #f0c96a;
+		}
+		html[data-theme="onota"] {
+			--ink: #16394c; --muted: #55717f; --paper: #e3f2f2; --panel: #f7ffff;
+			--line: #75a9b1; --accent: #18769a; --accent-strong: #075375; --pop: #f28b72;
+			--sky: #a9dcea; --hill: #86bfbb; --ridge: #407d9a;
+			--art0: #174863; --art1: #2589a5; --art2: #7fc9c5; --art3: #f3a17d;
+		}
+		html[data-theme="nightmarket"] {
+			--ink: #382346; --muted: #766184; --paper: #f2e6ed; --panel: #fff8fb;
+			--line: #b78fa7; --accent: #9a3d83; --accent-strong: #682358; --pop: #bbdb55;
+			--sky: #e5bed9; --hill: #a9c988; --ridge: #81618f;
+			--art0: #402d57; --art1: #8b5486; --art2: #a9c988; --art3: #f2d26e;
+		}
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0; color: var(--ink); font-family: var(--mono); font-size: 14px; line-height: 1.5;
+			background-color: var(--paper);
+			background-image: radial-gradient(rgba(21, 60, 51, .095) .65px, transparent .65px), repeating-linear-gradient(0deg, transparent 0 5px, rgba(255,255,255,.15) 5px 6px);
+			background-size: 5px 5px, 100% 6px;
+		}
+		a { color: var(--accent-strong); text-underline-offset: 3px; }
+		a:hover { color: var(--accent); }
+		button, input, textarea { font: inherit; }
+		button, select { color: inherit; }
+		button { cursor: pointer; }
+		:focus-visible { outline: 3px solid var(--pop); outline-offset: 3px; }
+		.skip-link { position: absolute; left: -999px; top: 6px; z-index: 8; padding: 8px; background: var(--panel); }
+		.skip-link:focus { left: 8px; }
+		.shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+		.utility {
+			min-height: 32px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+			border-bottom: 1px dashed var(--line); color: var(--muted); font-size: 11px; text-transform: uppercase;
+		}
+		.utility a { color: inherit; }
+		.masthead { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 0 15px; }
+		.brand { display: flex; align-items: center; gap: 14px; color: inherit; text-decoration: none; }
+		.seal { width: 60px; height: 60px; flex: 0 0 auto; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: 50%; background: var(--pop); box-shadow: 3px 3px 0 var(--ink); font-family: var(--serif); font-size: 29px; font-weight: bold; }
+		.brand h1 { margin: 0; font: bold 31px/1 var(--serif); letter-spacing: 0; }
+		.brand p { margin: 5px 0 0; color: var(--muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+		.theme-box { display: flex; align-items: center; gap: 9px; font-size: 11px; }
+		.theme-box label { color: var(--muted); text-transform: uppercase; }
+		.theme-select { max-width: 190px; padding: 8px 28px 8px 10px; border: 1px solid var(--line); border-radius: 0; background: var(--panel); }
+		.nav { display: flex; flex-wrap: wrap; border: 1px solid var(--ink); background: var(--accent-strong); box-shadow: var(--shadow); }
+		.nav a { flex: 1 1 auto; padding: 10px 15px; color: #fffdf0; text-align: center; text-decoration: none; font-size: 12px; text-transform: uppercase; }
+		.nav a:hover, .nav a:focus-visible { background: var(--pop); color: var(--ink); }
+		.ticker { display: flex; align-items: center; gap: 12px; overflow: hidden; margin: 14px 0; padding: 7px 10px; border: 1px dashed var(--line); background: var(--panel); font-size: 11px; }
+		.ticker-label { flex: 0 0 auto; padding: 2px 6px; background: var(--pop); font-weight: bold; text-transform: uppercase; }
+		.ticker-text { overflow: hidden; white-space: nowrap; }
+		.ticker-text span { display: inline-block; animation: crawl 32s linear infinite; }
+		@keyframes crawl { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+		.hero { display: grid; grid-template-columns: 1.08fr .92fr; border: 1px solid var(--ink); background: var(--panel); box-shadow: var(--shadow); }
+		.hero-copy { padding: clamp(20px, 4vw, 38px); display: flex; flex-direction: column; justify-content: center; }
+		.eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
+		.hero h2 { max-width: 550px; margin: 0; font: bold clamp(34px, 5vw, 57px)/.99 var(--serif); letter-spacing: 0; }
+		.hero-copy > p:not(.eyebrow) { max-width: 460px; color: var(--muted); }
+		.hero-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 8px; }
+		.button-link, .small-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--ink); background: var(--pop); box-shadow: 2px 2px 0 var(--ink); color: var(--ink); font-weight: bold; text-decoration: none; }
+		.button-link.secondary { background: var(--panel); }
+		.button-link:hover, .small-button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); color: var(--ink); }
+		.hero-art { position: relative; min-height: 300px; overflow: hidden; border-left: 1px solid var(--ink); background: var(--sky); }
+		#town-art { display: block; width: 100%; height: 100%; min-height: 300px; image-rendering: pixelated; }
+		.art-caption { position: absolute; left: 12px; bottom: 12px; padding: 5px 8px; border: 1px solid var(--ink); background: var(--panel); font-size: 10px; }
+		.dither-button { position: absolute; right: 12px; top: 12px; padding: 7px 9px; border: 1px solid var(--ink); background: var(--pop); box-shadow: 2px 2px 0 var(--ink); font-size: 11px; font-weight: bold; }
+		.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 31px 0 12px; padding-bottom: 7px; border-bottom: 2px solid var(--ink); }
+		.section-heading h2 { margin: 0; font: bold 24px/1.1 var(--serif); }
+		.section-heading p { margin: 0; color: var(--muted); font-size: 10px; text-transform: uppercase; }
+		.service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+		.service { min-height: 105px; display: flex; flex-direction: column; justify-content: space-between; padding: 13px; border: 1px solid var(--line); background: var(--panel); color: inherit; text-decoration: none; box-shadow: 2px 2px 0 rgba(27,65,56,.1); }
+		.service:hover { border-color: var(--accent-strong); transform: translateY(-2px); }
+		.service .symbol { font-size: 20px; }
+		.service strong { display: block; font-family: var(--serif); font-size: 16px; }
+		.service small { color: var(--muted); font-size: 10px; }
+		.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: start; margin-top: 30px; }
+		.window { border: 1px solid var(--ink); background: var(--panel); box-shadow: var(--shadow); }
+		.window-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 11px; border-bottom: 1px solid var(--ink); background: var(--sky); font-size: 11px; font-weight: bold; text-transform: uppercase; }
+		.window-body { padding: 15px; }
+		.live-state { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-strong); font-size: 10px; }
+		.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #43a65b; box-shadow: 0 0 0 3px rgba(67,166,91,.15); }
+		.local-note { margin: 0 0 14px; color: var(--muted); font-size: 11px; }
+		.presence-list { min-height: 58px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+		.presence-chip { display: inline-flex; align-items: center; gap: 7px; padding: 5px 8px 5px 5px; border: 1px dashed var(--line); background: var(--paper); font-size: 11px; }
+		.avatar { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid var(--ink); border-radius: 50%; background: var(--pop); font-size: 9px; font-weight: bold; }
+		.name-form { display: flex; gap: 7px; }
+		.name-form input, .post-form input, .post-form textarea { min-width: 0; padding: 8px; border: 1px solid var(--line); border-radius: 0; background: #fff; color: var(--ink); }
+		.name-form input { flex: 1; }
+		.small-button { padding: 7px 10px; font-size: 11px; }
+		.post-form { display: grid; gap: 8px; margin-bottom: 14px; }
+		.post-form-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+		.post-form textarea { min-height: 68px; resize: vertical; }
+		.post-list { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+		.post { padding: 10px; border-left: 3px solid var(--accent); background: var(--paper); }
+		.post-meta { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 10px; }
+		.post p { margin: 6px 0 0; font-size: 12px; overflow-wrap: anywhere; }
+		.topic-links { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+		.topic-links a { padding: 5px 7px; border: 1px solid var(--line); background: var(--paper); font-size: 10px; }
+		.fact-strip { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 29px; border: 1px solid var(--ink); background: var(--panel); }
+		.fact { padding: 17px; border-right: 1px dashed var(--line); }
+		.fact:last-child { border-right: 0; }
+		.fact b { display: block; margin-bottom: 5px; color: var(--accent-strong); font: bold 22px/1 var(--serif); }
+		.fact p { margin: 0; color: var(--muted); font-size: 11px; }
+		.bottom-links { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 30px 0; }
+		.bottom-links .window-body { min-height: 160px; }
+		.bottom-links h3 { margin: 0 0 7px; font: bold 19px var(--serif); }
+		.bottom-links p { color: var(--muted); font-size: 12px; }
+		.link-row { display: flex; flex-wrap: wrap; gap: 7px 14px; margin-top: 11px; font-size: 11px; }
+		footer { margin-top: 26px; padding: 17px 0 25px; border-top: 2px solid var(--ink); color: var(--muted); font-size: 10px; }
+		.footer-line { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+		.status-led { color: var(--accent-strong); }
+		@media (max-width: 760px) {
+			.hero { grid-template-columns: 1fr; }
+			.hero-art { min-height: 230px; border-left: 0; border-top: 1px solid var(--ink); }
+			#town-art { min-height: 230px; }
+			.service-grid { grid-template-columns: repeat(2, 1fr); }
+			.columns { grid-template-columns: 1fr; }
+			.masthead { align-items: flex-start; flex-direction: column; }
+			.theme-box { align-self: flex-end; }
+		}
+		@media (max-width: 460px) {
+			.shell { width: min(100% - 20px, 1120px); }
+			.utility { font-size: 9px; }
+			.brand h1 { font-size: 26px; }
+			.seal { width: 52px; height: 52px; }
+			.nav a { flex: 1 1 33%; padding: 9px 5px; font-size: 10px; }
+			.section-heading h2 { font-size: 21px; }
+			.section-heading p { max-width: 130px; text-align: right; }
+			.fact-strip { grid-template-columns: 1fr; }
+			.fact { border-right: 0; border-bottom: 1px dashed var(--line); }
+			.fact:last-child { border-bottom: 0; }
+			.bottom-links { grid-template-columns: 1fr; }
+			.name-form { flex-direction: column; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#main">Skip to town</a>
+	<header class="shell">
+		<div class="utility"><span>Commonwealth of Massachusetts · Berkshire County</span><span><a href="https://www.pittsfieldma.gov/">Official city website ↗</a> &nbsp;·&nbsp; <span id="local-clock">Pittsfield, MA</span></span></div>
+		<div class="masthead">
+			<a class="brand" href="#top" aria-label="Pittsfield Town Window home">
+				<span class="seal" aria-hidden="true">P</span><span><h1>Pittsfield, MA</h1><p>The Town Window · Est. 1761</p></span>
+			</a>
+			<div class="theme-box"><label for="theme-picker">Page colors</label><select class="theme-select" id="theme-picker" aria-label="Choose a page color style"><option value="berkshire">Berkshire evergreen</option><option value="civic">City hall / signal orange</option><option value="onota">Onota lake / sky blue</option><option value="nightmarket">Downtown night market</option></select></div>
+		</div>
+		<nav class="nav" aria-label="Main navigation"><a href="#services">Town services</a><a href="#square">Town square</a><a href="#bulletin">Notice board</a><a href="#history">Our story</a><a href="#culture">Arts & life</a></nav>
+		<div class="ticker" aria-label="Town bulletin"><span class="ticker-label">Town notes</span><div class="ticker-text"><span>Welcome to the Town Window &nbsp; ✦ &nbsp; City Council meetings: second and fourth Tuesday, 6:00 PM &nbsp; ✦ &nbsp; Recycling calendars and collection tools are available from Public Works &nbsp; ✦ &nbsp; Made for Pittsfield, Massachusetts &nbsp; ✦ &nbsp;</span></div></div>
+	</header>
+
+	<main id="main" class="shell">
+		<section class="hero" id="top" aria-labelledby="hero-title">
+			<div class="hero-copy"><p class="eyebrow">A digital front porch for the 01201</p><h2 id="hero-title">Hello from the heart of the Berkshires.</h2><p>Find the city links you need, catch up on what’s happening, and leave a note for the neighbors. Pull up a chair.</p><div class="hero-links"><a class="button-link" href="#services">⌄ &nbsp; Find a town service</a><a class="button-link secondary" href="https://www.pittsfieldma.gov/">↗ &nbsp; City of Pittsfield</a></div></div>
+			<div class="hero-art"><canvas id="town-art" width="640" height="320" role="img" aria-label="A pixel-art view of Pittsfield beneath the Berkshire hills"></canvas><button class="dither-button" id="dither-toggle" type="button" aria-pressed="false">▦ &nbsp; Dither this picture</button><span class="art-caption">A little view from the Berkshires · 01201</span></div>
+		</section>
+
+		<section id="services" aria-labelledby="services-title">
+			<div class="section-heading"><h2 id="services-title">The useful links</h2><p>City services · one click away</p></div>
+			<div class="service-grid">
+				<a class="service" href="https://www.pittsfieldma.gov/598/Trash-Recycling"><span class="symbol" aria-hidden="true">♻</span><span><strong>Trash & recycling</strong><small>Collection details · calendars · toters</small></span></a>
+				<a class="service" href="https://www.pittsfieldma.gov/DocumentCenter/View/1251/Recycling-Calendar-2026-English"><span class="symbol" aria-hidden="true">▤</span><span><strong>2026 recycle calendar</strong><small>English PDF · city schedule</small></span></a>
+				<a class="service" href="https://www.pittsfieldma.gov/455/Report-an-Issue"><span class="symbol" aria-hidden="true">⚑</span><span><strong>Report an issue</strong><small>Submit and track a PittSMART request</small></span></a>
+				<a class="service" href="tel:4134999330"><span class="symbol" aria-hidden="true">☎</span><span><strong>Public Works line</strong><small>413-499-9330 · DPW questions</small></span></a>
+				<a class="service" href="https://www.pittsfieldma.gov/525"><span class="symbol" aria-hidden="true">＄</span><span><strong>Pay a city bill</strong><small>Online payments</small></span></a>
+				<a class="service" href="https://www.pittsfieldma.gov/467"><span class="symbol" aria-hidden="true">▣</span><span><strong>Permits & forms</strong><small>Applications and city forms</small></span></a>
+				<a class="service" href="https://www.pittsfieldma.gov/442/City-Council"><span class="symbol" aria-hidden="true">⌂</span><span><strong>City Council</strong><small>Members, meetings and minutes</small></span></a>
+				<a class="service" href="https://www.pittsfieldma.gov/402/Boards-Commissions"><span class="symbol" aria-hidden="true">✳</span><span><strong>Boards & commissions</strong><small>Get involved in local decisions</small></span></a>
+			</div>
+		</section>
+
+		<div class="columns">
+			<section class="window" id="square" aria-labelledby="square-title">
+				<div class="window-bar"><span id="square-title">▣ &nbsp; Town square</span><span class="live-state"><i class="live-dot" aria-hidden="true"></i><span id="presence-count">Connecting…</span></span></div>
+				<div class="window-body"><p class="local-note">A little live room for this browser. Open this page in another tab to see your other visitors appear here.</p><ul class="presence-list" id="presence-list" aria-live="polite"></ul><form class="name-form" id="name-form"><label class="skip-link" for="display-name">Your name in the square</label><input id="display-name" maxlength="20" placeholder="Name for the square" autocomplete="nickname"><button class="small-button" type="submit">Set my name ↗</button></form></div>
+			</section>
+			<section class="window" id="bulletin" aria-labelledby="bulletin-title">
+				<div class="window-bar"><span id="bulletin-title">▤ &nbsp; The neighborhood board</span><span>Local board</span></div>
+				<div class="window-body"><p class="local-note">A small bulletin board saved in this browser. Posts here aren’t sent to the City or shared online.</p><form class="post-form" id="post-form"><div class="post-form-row"><label class="skip-link" for="post-name">Your name</label><input id="post-name" maxlength="24" placeholder="Your name" autocomplete="nickname" required><button class="small-button" type="submit">Pin a note +</button></div><label class="skip-link" for="post-message">Your town note</label><textarea id="post-message" maxlength="240" placeholder="What would you like the neighborhood to know?" required></textarea></form><ul class="post-list" id="post-list" aria-live="polite"></ul><div class="topic-links"><a href="#services">City services</a><a href="https://www.pittsfieldma.gov/455/Report-an-Issue">Official issue reports</a><a href="https://www.pittsfieldma.gov/agendacenter">Public agendas</a></div></div>
+			</section>
+		</div>
+
+		<section aria-label="Pittsfield by the numbers" class="fact-strip"><div class="fact"><b>1761</b><p>Pittsfield became a township, named for William Pitt.</p></div><div class="fact"><b>1891</b><p>The town was incorporated as a city.</p></div><div class="fact"><b>01201</b><p>A Berkshire home at the headwaters of the Housatonic.</p></div></section>
+
+		<div class="bottom-links">
+			<section class="window" id="history" aria-labelledby="history-title"><div class="window-bar"><span id="history-title">⌘ &nbsp; A little local history</span><span>Since 1752</span></div><div class="window-body"><h3>From Pontoosuck to Pittsfield</h3><p>Known first as Pontoosuck, the area grew around farms, brooks, mills and the Housatonic River. Wool manufacturing shaped the 19th century; William Stanley’s electric company helped make Pittsfield a center of invention. Today, the city’s story continues through its neighborhoods, riverfront and lively downtown.</p><div class="link-row"><a href="https://www.pittsfieldma.gov/646/History-of-Pittsfield">Read the city’s history ↗</a><a href="https://www.pittsfieldlibrary.org/">Berkshire Athenaeum ↗</a></div></div></section>
+			<section class="window" id="culture" aria-labelledby="culture-title"><div class="window-bar"><span id="culture-title">♫ &nbsp; Arts, parks & town life</span><span>Go see something</span></div><div class="window-body"><h3>A town with things going on</h3><p>Catch a show, find a walking trail, hear what City Council is working on, or spend an afternoon in the local history room. Pittsfield’s culture is made by its people: artists, neighbors, small businesses and community groups.</p><div class="link-row"><a href="https://lovepittsfield.com/">Things to do ↗</a><a href="https://www.pittsfieldma.gov/317/Parks-Recreation">Parks & recreation ↗</a><a href="https://www.pittsfieldma.gov/agendacenter">Council agendas ↗</a><a href="https://www.farmersmarketpittsfield.org/">Farmers market ↗</a></div></div></section>
+		</div>
+	</main>
+	<footer class="shell"><div class="footer-line"><span>Pittsfield, Massachusetts · 42.45° N · 73.25° W</span><span>This is a neighbor-made page, not an official City of Pittsfield website.</span><span class="status-led">● All systems local</span></div><div class="footer-line" style="margin-top:8px"><span>Services open the City’s official website. Confirm current information with the City.</span><a href="https://www.pittsfieldma.gov/">Visit pittsfieldma.gov ↗</a></div></footer>
+
+	<script>
+		(() => {
+			const root = document.documentElement;
+			const themePicker = document.querySelector('#theme-picker');
+			const art = document.querySelector('#town-art');
+			const context = art.getContext('2d', { willReadFrequently: true });
+			const ditherButton = document.querySelector('#dither-toggle');
+			let dithered = false;
+
+			const getArtColors = () => {
+				const css = getComputedStyle(root);
+				return ['--art0', '--art1', '--art2', '--art3'].map(name => css.getPropertyValue(name).trim());
+			};
+			function drawTown() {
+				const [deep, mid, light, sun] = getArtColors();
+				const w = art.width, h = art.height;
+				context.clearRect(0, 0, w, h);
+				context.fillStyle = getComputedStyle(root).getPropertyValue('--sky');
+				context.fillRect(0, 0, w, h);
+				context.fillStyle = sun;
+				context.beginPath(); context.arc(516, 72, 38, 0, Math.PI * 2); context.fill();
+				context.fillStyle = 'rgba(255,255,255,.7)';
+				[[120,62,42],[154,62,32],[178,67,24],[385,50,34],[417,52,26],[441,57,20]].forEach(([x,y,r]) => { context.beginPath(); context.arc(x,y,r,Math.PI,Math.PI*2); context.fill(); context.fillRect(x-r,y,x+r*2,r*.5); });
+				context.fillStyle = deep;
+				context.beginPath(); context.moveTo(0,206); context.lineTo(82,122); context.lineTo(140,175); context.lineTo(238,91); context.lineTo(318,176); context.lineTo(413,112); context.lineTo(510,188); context.lineTo(572,133); context.lineTo(640,193); context.lineTo(640,320); context.lineTo(0,320); context.closePath(); context.fill();
+				context.fillStyle = mid;
+				context.beginPath(); context.moveTo(0,226); context.lineTo(101,166); context.lineTo(192,212); context.lineTo(290,160); context.lineTo(386,224); context.lineTo(488,169); context.lineTo(640,221); context.lineTo(640,320); context.lineTo(0,320); context.closePath(); context.fill();
+				context.fillStyle = light; context.fillRect(0,224,640,96);
+				context.fillStyle = sun; context.fillRect(0,236,640,7);
+				context.fillStyle = deep; context.fillRect(0,278,640,42);
+				context.fillStyle = mid;
+				context.beginPath(); context.moveTo(0,286); context.bezierCurveTo(145,255,235,314,351,286); context.bezierCurveTo(447,264,550,267,640,286); context.lineTo(640,320); context.lineTo(0,320); context.fill();
+				// Downtown rooftops and the recognizable town-hall clock tower.
+				const buildings = [[57,222,76,63],[137,205,71,80],[211,218,61,67],[284,198,88,87],[382,215,71,70],[469,205,86,80],[567,220,55,65]];
+				context.fillStyle = deep;
+				buildings.forEach(([x,y,bw,bh]) => { context.fillRect(x,y,bw,bh); context.fillStyle = sun; for(let wx=x+12;wx<x+bw-5;wx+=22) context.fillRect(wx,y+15,8,12); context.fillStyle = deep; });
+				context.fillStyle = light; context.fillRect(314,153,29,67); context.fillRect(308,147,41,10); context.fillRect(320,126,17,22); context.fillRect(324,106,9,20); context.fillStyle = sun; context.fillRect(322,163,13,13); context.fillRect(320,187,17,33);
+				context.fillStyle = deep; context.fillRect(0,263,640,5); context.fillRect(0,270,640,2);
+				if (dithered) applyDither();
+			}
+			function applyDither() {
+				const pattern = [[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+				const colors = getArtColors().map(hex => [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)]);
+				const image = context.getImageData(0,0,art.width,art.height);
+				const pixels = image.data;
+				for (let y=0; y<art.height; y++) for (let x=0; x<art.width; x++) {
+					const i=(y*art.width+x)*4;
+					const lum=.299*pixels[i]+.587*pixels[i+1]+.114*pixels[i+2];
+					const level=Math.max(0,Math.min(3,Math.floor(lum/64+(pattern[y%4][x%4]-7.5)/32)));
+					pixels[i]=colors[level][0]; pixels[i+1]=colors[level][1]; pixels[i+2]=colors[level][2];
+				}
+				context.putImageData(image,0,0);
+			}
+			const savedTheme = localStorage.getItem('pittsfield-theme');
+			if (savedTheme && [...themePicker.options].some(option => option.value === savedTheme)) themePicker.value = savedTheme;
+			root.dataset.theme = themePicker.value;
+			themePicker.addEventListener('change', () => { root.dataset.theme = themePicker.value; localStorage.setItem('pittsfield-theme',themePicker.value); drawTown(); });
+			ditherButton.addEventListener('click', () => {
+				dithered = !dithered; drawTown(); ditherButton.setAttribute('aria-pressed', String(dithered));
+				ditherButton.innerHTML = dithered ? '▦ &nbsp; Restore smooth picture' : '▦ &nbsp; Dither this picture';
+			});
+			drawTown();
+
+			const clock = document.querySelector('#local-clock');
+			function updateClock() { clock.textContent = new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'2-digit'}).format(new Date())+' · Pittsfield'; }
+			updateClock(); setInterval(updateClock,30000);
+
+			const key = 'pittsfield-square-presence-v1';
+			const id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+			const nameInput = document.querySelector('#display-name');
+			const list = document.querySelector('#presence-list');
+			const count = document.querySelector('#presence-count');
+			const channel = 'BroadcastChannel' in window ? new BroadcastChannel(key) : null;
+			let displayName = localStorage.getItem('pittsfield-square-name') || 'Neighbor';
+			nameInput.value = displayName;
+			function getPresence() {
+				try { return JSON.parse(localStorage.getItem(key) || '[]').filter(person => Date.now()-person.seen < 16000); }
+				catch { return []; }
+			}
+			function refreshPresence() {
+				const visitors = getPresence();
+				count.textContent = `${visitors.length} ${visitors.length === 1 ? 'visitor' : 'visitors'} in this browser`;
+				list.replaceChildren();
+				visitors.forEach(person => {
+					const item = document.createElement('li'); item.className='presence-chip';
+					const avatar = document.createElement('span'); avatar.className='avatar'; avatar.setAttribute('aria-hidden','true'); avatar.textContent=person.name.slice(0,2).toUpperCase();
+					const label = document.createElement('span'); label.textContent=person.name+(person.id===id?' · you':'');
+					item.append(avatar,label); list.append(item);
+				});
+			}
+			function pulsePresence() {
+				const people = getPresence().filter(person => person.id !== id);
+				people.push({id,name:displayName,seen:Date.now()});
+				localStorage.setItem(key,JSON.stringify(people)); refreshPresence();
+				if (channel) channel.postMessage('update');
+			}
+			document.querySelector('#name-form').addEventListener('submit',event => {
+				event.preventDefault(); displayName=nameInput.value.trim().slice(0,20)||'Neighbor'; nameInput.value=displayName;
+				localStorage.setItem('pittsfield-square-name',displayName); pulsePresence();
+			});
+			window.addEventListener('storage',event => { if(event.key===key) refreshPresence(); });
+			if (channel) channel.onmessage=refreshPresence;
+			pulsePresence(); setInterval(pulsePresence,5000);
+			window.addEventListener('pagehide',() => {
+				localStorage.setItem(key,JSON.stringify(getPresence().filter(person=>person.id!==id)));
+				if(channel) channel.close();
+			});
+
+			const postsKey='pittsfield-neighborhood-posts-v1';
+			const postList=document.querySelector('#post-list');
+			const postForm=document.querySelector('#post-form');
+			const nameField=document.querySelector('#post-name');
+			nameField.value=displayName;
+			const escapeText=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+			function renderPosts() {
+				let posts=[]; try { posts=JSON.parse(localStorage.getItem(postsKey)||'[]'); } catch { posts=[]; }
+				postList.replaceChildren();
+				if(!posts.length){const empty=document.createElement('li');empty.className='post';empty.textContent='No notes yet. Pin the first one for this browser.';postList.append(empty);return;}
+				posts.slice(0,8).forEach(post=>{
+					const item=document.createElement('li');item.className='post';
+					const meta=document.createElement('div');meta.className='post-meta';
+					const author=document.createElement('strong');author.textContent=post.name;
+					const time=document.createElement('time');time.dateTime=post.iso;time.textContent=new Date(post.iso).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+					const message=document.createElement('p');message.textContent=post.message;
+					meta.append(author,time);item.append(meta,message);postList.append(item);
+				});
+			}
+			postForm.addEventListener('submit',event=>{
+				event.preventDefault();const name=nameField.value.trim().slice(0,24);const message=document.querySelector('#post-message').value.trim();
+				if(!name||!message)return;
+				let posts=[];try{posts=JSON.parse(localStorage.getItem(postsKey)||'[]');}catch{posts=[];}
+				posts.unshift({name,message,iso:new Date().toISOString()});localStorage.setItem(postsKey,JSON.stringify(posts.slice(0,40)));
+				document.querySelector('#post-message').value='';renderPosts();
+			});
+			window.addEventListener('storage',event=>{if(event.key===postsKey)renderPosts();});
+			renderPosts();
+		})();
+	</script>
+</body>
+</html>

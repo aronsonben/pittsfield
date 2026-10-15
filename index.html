@@ -1,0 +1,735 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pittsfield, MA AI Contest - A comparison of AI-generated early internet homepages for the town of Pittsfield, Massachusetts.">
+    <title>Pittsfield, MA AI Contest</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .banner-container {
+        position: relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .banner {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+      .dither-controls {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 8px 12px;
+        border-radius: 4px;
+      }
+      .dither-controls button {
+        padding: 6px 12px;
+        background: #f5c400;
+        border: 1px solid #333;
+        border-radius: 3px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 12px;
+      }
+      .dither-controls button:hover {
+        background: #ffd700;
+      }
+      .dither-mode {
+        color: #fff;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+      .dither-panel {
+        position: absolute;
+        top: 58px;
+        right: 10px;
+        width: 260px;
+        max-width: calc(100% - 20px);
+        max-height: calc(100% - 68px);
+        overflow-y: auto;
+        box-sizing: border-box;
+        background: rgba(0, 0, 0, 0.78);
+        color: #fff;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        padding: 10px 12px;
+        border-radius: 4px;
+      }
+      .dither-panel[hidden] { display: none; }
+      .dither-panel label { display: block; margin: 8px 0 3px; }
+      .dither-panel select,
+      .dither-panel input[type=range] { width: 100%; box-sizing: border-box; }
+      .dither-panel input[type=color] { width: 48%; height: 26px; padding: 0; border: 1px solid #333; }
+      .dither-panel button { margin-top: 10px; }
+      main {
+        padding: 2rem;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      .divya {
+        display: flex;
+        flex-direction: column;;
+        gap: 5px;
+      }
+      .divya p {
+        margin: 2px;
+      }
+      .smalltxt {
+        font-size: 13px;
+        width: 50%;
+      }
+      .linkfo {
+        color: hotpink;
+        font-weight: 900;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+      }
+      .namerino {
+        font-family:'Courier New', Courier, monospace;
+        font-weight: 600;
+        font-size: 12px;
+        color: rgb(175, 175, 175);
+      }
+      footer {
+        background-color: #f5f3f0;
+        color: #2d1b0f;
+        padding: 0.5rem 2rem;
+      }
+      .footer-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        max-width: 80rem;
+        margin: 0 auto;
+        font-style: italic;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.75rem;
+      }
+      .footer-container img {
+        width: 1.5rem;
+        height: 1.5rem;
+        opacity: 0.75;
+      }
+      .footer-container p {
+        opacity: 0.75;
+        margin: 0;
+      }
+      .footer-container a {
+        text-decoration: underline;
+        font-weight: bold;
+        color: #4a3528;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner-container">
+      <canvas id="bannerCanvas" class="banner" aria-label="Pittsfield, MA header image"></canvas>
+      <div class="dither-controls">
+        <button id="ditherBtn" type="button">Dither</button>
+        <span class="dither-mode" id="modeDisplay">original</span>
+        <button id="imgBtn" type="button">Show photo</button>
+        <button id="panelBtn" type="button" aria-expanded="false" aria-controls="ditherPanel">Controls</button>
+      </div>
+      <div class="dither-panel" id="ditherPanel" hidden>
+        <label for="srcSel">Texture</label>
+        <select id="srcSel">
+          <option value="image">Header image</option>
+          <option value="hills">Berkshire hills</option>
+          <option value="ripples">Housatonic ripples</option>
+          <option value="haze">Sky haze</option>
+          <option value="grain">Film grain</option>
+        </select>
+        <label for="lookSel">Look</label>
+        <select id="lookSel">
+          <option value="housatonic">Housatonic</option>
+          <option value="stanley">Stanley Electric</option>
+          <option value="foliage">Berkshire Foliage</option>
+          <option value="arrowhead">Arrowhead</option>
+          <option value="netscape">Netscape '96</option>
+        </select>
+        <label for="modeSel">Method</label>
+        <select id="modeSel"></select>
+        <label for="lvl">Tones per color: <span id="lvlV"></span></label>
+        <input id="lvl" type="range" min="2" max="8" step="1">
+        <label for="px">Dot size: <span id="pxV"></span></label>
+        <input id="px" type="range" min="1" max="8" step="1">
+        <label for="bright">Brightness: <span id="brightV"></span></label>
+        <input id="bright" type="range" min="-50" max="50" step="1">
+        <label for="contrast">Contrast: <span id="contrastV"></span></label>
+        <input id="contrast" type="range" min="-50" max="50" step="1">
+        <label for="palSel">Palette</label>
+        <select id="palSel">
+          <option value="color">Full color, reduced</option>
+          <option value="tone">Look's own tones</option>
+          <option value="gray">Grayscale</option>
+          <option value="duo">Two-color tones</option>
+        </select>
+        <div id="duoRow" hidden>
+          <label>Dark / light</label>
+          <input id="duoA" type="color" value="#06324a" aria-label="Dark tone">
+          <input id="duoB" type="color" value="#f3fdff" aria-label="Light tone">
+        </div>
+        <button id="seedBtn" type="button">New seed / texture</button>
+        <button id="resetBtn" type="button">Reset</button>
+      </div>
+    </div>
+    <main>
+    <h3>welcome to the pittsfield, ma ai contest!</h3>
+    <p style="font-size: 10px;"><em>date created & last updated: oct. 14, 2026</em></p>
+    <p class="linkfo">pittsfield, ma real life home page: <a href="https://pittsfieldma.gov" target="_blank">pittsfieldma.gov</a></p>
+    <div class="divya">
+      <p><b><em>prompt used:</em></b></p>
+      <p class="smalltxt"><em>
+        Using only HTML, CSS and vanilla JavaScript, make me an 'early internet' webpage to act as the digital home for the town of Pittsfield, MA. 
+        It should provide links to all important town services, such as garbage pickup schedules and 311 hotline, but also have "digital homepage" type features like a forum board, a "town square" space where users can view in livetime the other users on the page, and should feature information on the town's history, culture and politics. 
+        It should be informed by the frutiger aero aesthetic and have a textured background, using images that have been dithered or can be manually dithered by the user on the page at the click of a button. Lastly, it should support multiple styles that can be chosen by the user. 
+        One might focus on blues and greens while the other could be gray and orange, so and so forth - you decide the best 3-5 styles to include based on what you know about Pittsfield, MA and early web aesthetics. 
+      </em></p>
+    </div>
+    <h4>outputs:</h4>
+    <ul>
+      <li><a href="claude.html" target="_self">claude.html</a></li>
+      <li><a href="claudecopilot.html" target="_self">claudecopilot.html</a></li>
+      <li><a href="deepseek.html" target="_self">deepseek.html</a></li>
+      <li><a href="gemini.html" target="_self">gemini.html</a></li>
+      <li><a href="gpt.html" target="_self">gpt.html</a></li>
+      <li><a href="gptcopilot.html" target="_self">gptcopilot.html</a></li>
+      <li><a href="kimi.html" target="_self">kimi.html</a></li>
+      <li><a href="mimo.html" target="_self">mimo.html</a></li>
+      <li><a href="reflection.html" target="_self">reflection.html</a></li>
+      <li><a href="zai.html" target="_self">zai.html</a></li>
+    </ul>
+    <h4>models:</h4>
+    <ul>
+      <li><span class="namerino">claude (browser):</span> sonnet 5.5 (medium thinking)</li>
+      <li><span class="namerino">gpt (browser):</span> n/a <em>(???)</em></li>
+      <li><span class="namerino">deepseek (browser): </span>?</li>
+      <li><span class="namerino">z.ai: </span>GLM-5.2</li>
+      <li><span class="namerino">reflections: </span>Beam-1.0-501B-A23B</li>
+      <li><span class="namerino">claude (github copilot in vs code): </span>sonnet 5.5 (high thinking)</li>
+      <li><span class="namerino">gpt (github copilot in vs code): </span>gpt-6 luna (medium thinking)</li>
+      <li><span class="namerino">kimi (github copilot in vs code): </span>kimi k3 (high thinking)</li>
+      <li><span class="namerino">gemini (github copilot in vs code): </span>gemini 3.8 flash (medium thinking)</li>
+      <li></li>
+    </ul>
+    <br/>
+    <h4>overall reflection:</h4>
+    <p>it's really hard to get ai models to generate an artsy old internet web aesthetic. the models seem averse to anything too wacky or not-aligned.</p>
+    <p>that said, my prompt clearly had a big sway on the implementation. i mentioned 311 and trash pickup, they all put that front & center. some understood that i only meant those as examples.</p>
+    <p>kimi was the only one that i felt like got close to a frutiger aero aesthetic</p>
+    <p>most impressive feature-wise was the 20min claude (browser). interactive town square with image as background plus full-page background dithering on svg or user-uplodaed photo. impressed on that.</p>
+    <p>the chinese models were not great at understanding the purpose of the town website, i feel</p>
+    <p>all models can easily handle the tech restrictions and do a lot with them (dithering, town square, etc.). need to review code but good to know that they can do basically anything i throw at them with html, css + vanilal js.</p>
+    <p>simulating user experience: so funny that all models fill out fake human interaction as so wholesome ("who's seeing the show at __ tonight", etc.) instead of the absurdly hot takes and insane shit that happens on town facebook pages, etc.</p>
+    <p>personal reflection on designing cool town pages:</p>
+    <ul>
+      <li>only so sexy you can make city services, town history, and plain-language overview of 'culture'</li>
+      <li>path to make city website cooler is to make more interactive. i liked weather feature. city-run forum could be cool in general.</li>
+      <li>wouldn't be terrible for city sites to have some theme picker, even if typical user doesn't use it</li>
+    </ul>
+    <h4>early reflections:</h4>
+    <ul>
+      <li>claude (browser) took by far the longest (>15min)</li>
+      <li>reflections ai was the fastest, then xiaomi mimo (both browser)</li>
+      <li>chatgpt (copilot) did a ton of link checking with the real pittsfield website</li>
+      <li>the prompt had the model do a spread of work: dithering engine, forum via localStorage, old UI styles, so on</li>
+      <li>claude & gpt (browser) made me download the html file and wouldn't let me copy html code, first time i've seen that</li>
+      <li>deepseek (browser, free acct) did not work</li>
+      <li></li>
+    </ul>
+    <h4>post reflections:</h4>
+    <p><b>claude (browser):</b></p> 
+    <ul>
+      <li>impressed by search to find on page & links to all actual city services. </li>
+      <li>didn't feel very frutiger aero.</li>
+      <li>theme selector was kinda cool. seemed to really focus on accurate information.</li>
+      <li>town square (live view) seemed to work & was cool</li>
+      <li>implemented a whole php-style forum lol</li>
+      <li>dithering engine worked tho used random svgs</li>
+      <li>dithering even let me upload my own photo and use as bkg, cool</li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <p><b>claude (github copilot in vs code):</b></p> 
+    <ul>
+      <li>same style as browser, makes sense as same model</li>
+      <li>a lot less focus on live information from pittsfield website</li>
+      <li>'frutiger aero' and 'early web aesthetic' css themes were similar but slightly different that browser</li>
+      <li>town square feature used fake users which was cute actually</li>
+      <li>but the image for the town square was just a grid of colors, not as cool</li>
+      <li></li>
+    </ul>
+    <p><b>gemini:</b></p> 
+    <ul>
+      <li>very similar in style to claude, though no dithered background - animated bubbles</li>
+      <li>cute: implemented a live view of mt. greylock vista using an svg as simulation</li>
+      <li>town square: more like claude copilot with bots and poor svg background, except more bots and the bots were spastic af</li>
+      <li>populated the forum with fake info. claude copilot did a little, not in browser.</li>
+      <li>wait, town square: "trigger third thursday crowd" adds more bots?? weird, random, kinda fun lol</li>
+      <li>dithering: worked using svgs, kinda cool that it picked known vistas in town as the options. also let me upload custom png.</li>
+      <li>implemented a guestbook. didn't see that on the others, may need to check again.</li>
+      <li>no links to pittsfield city services, only placeholders</li>
+    </ul>
+    <p><b>chat-gpt (browser):</b></p> 
+    <ul>
+      <li>not very frutiger aero at all, though theme isn't terrible (professional)</li>
+      <li>links to city services went to real city site. super thorough like claude browser.</li>
+      <li>town square: no visual representation, just a box of 'users online' you can wave to</li>
+      <li>guestbook yes, forum no</li>
+      <li>weirdly cringe phrases: "best viewed with curiosity", "hand-built with html, css...", "under construction forever"... okay gpt??</li>
+      <li>felt bland as compared thus far</li>
+      <li>dithering: no dithering really at all, except for one random photo (a real one, no svg) that lets me dither it one time. unimpressed.</li>
+      <li>theme changes were tame and boring</li>
+    </ul>
+    <p><b>chat-gpt (copilot):</b></p> 
+    <ul>
+      <li>similar to browser but somehow even more boring, less frutiger, very boxy.</li>
+      <li>no real images like browser one did somehow, big svg image</li>
+      <li>did link to actual site but a lot less, tho most services are still there</li>
+      <li>town square: same as browser, just a "x online" feature no physical represenation</li>
+      <li>guestbook/board but no forum, again</li>
+      <li>style felt a bit more like gumroad website, flat & clean, modern</li>
+      <li>css themes even more boring and dithering just did svg one time, lame</li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <p><b>kimi (copilot):</b></p> 
+    <ul>
+      <li>more frutiger aero feeling, round corners and lots of lil link menus. nice.</li>
+      <li>town square: lots of lil bots and fake messages. somehow they all focus on having a gazebo or foundtain in middle. used svg for this one.</li>
+      <li>linked to plenty of external sites</li>
+      <li>css themes were more holstic and fun, though similar in scheme to other ones. funny how they are all often the same based on having the model pick the theme from the town history</li>
+      <li>another "vista" of mt. greylock via an svg representation, kinda fun. also let me dither it lol.</li>
+      <li>community board was not a forum but a singular message board</li>
+      <li>overall design was pretty nice here across the whole page</li>
+      <li>dithering: none except for the one vista viewer thing</li>
+      <li>the webrings that some models did are fun, this one actually worked to bring me to city sites</li>
+       <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <p><b>xiamo mimo (browser):</b></p> 
+    <ul>
+      <li>first one with a bug! big landing page feature didn't work. will have to investigate</li>
+      <li>had a services search that didn't work</li>
+      <li>call 311 actually tried to open macos phone app</li>
+      <li>css theme changes were minimal and didn't always work that well</li>
+      <li>really did not look frutiger aero at all</li>
+      <li>none of the page seemed rooted in pittsfield at all, mostly generic city services language</li>
+      <li>same goes for forum board, nothing too local, just some filler "best coffee?", etc.</li>
+      <li>town square was ... weird? not really a town square and suggested to show ppl's streets? lol, weird.</li>
+      <li>no dithering at all</li>
+      <li>overall, first one that is an actual fail</li>
+    </ul>
+    <p><b>reflection ai (browser):</b></p> 
+    <ul>
+      <li>def first one to feel "old internet" moreso than an attempt at frutiger aero</li>
+      <li>css theme differences were tame and less pointed as pittsfield references</li>
+      <li>none of the links went to pittsfield site</li>
+      <li>town square did decently at simulating things online but wasn't as interactive</li>
+      <li>community forum more like a single message board, did incorporate some town lore</li>
+      <li>dithering: did have some, one button click to add dither to svg images</li>
+      <li>guestbook did work at very bottom, fair</li>
+      <li></li>
+      <li></li>
+    </ul>
+    <p><b>z ai (browser):</b></p> 
+    <ul>
+      <li>not really frutiger or early web at all, feels very modern</li>
+      <li>first one that incorporated some weather report in there</li>
+      <li>only frutiger is just lots of rounded corner menu link boxes</li>
+      <li>311 submit form instead of a link, okay, but not even fake working</li>
+      <li>forum board populated with local context, but not clickable beyond headline</li>
+      <li>used real images for a gallery, tho stock images tbf, but not svgs</li>
+      <li>suggested that it had dithering but dithering did not work</li>
+      <li>town square: did have interactive viewerd with one mock user floating around a blank space, no imagery</li>
+      <li>i couldn't join the town square though</li>
+      <li>css theme changes were less than others and mostly lame, though did include a cool dark theme with orange</li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </body>
+    </main>
+  <footer>
+    <div class="footer-container">
+      <img alt="monstera leaf" src="/monstera.png">
+      <p>this has been another <a href="https://concourse.codes" target="_blank" rel="noopener noreferrer">Concourse Codes</a> creation.</p>
+    </div>
+  </footer>
+  <script>
+    // Dithering engine
+    const BAY = {};
+    function bayer(n) {
+      let m = [[0]], s = 1;
+      while (s < n) {
+        const t = [];
+        for (let y = 0; y < s * 2; y++) {
+          t.push([]);
+          for (let x = 0; x < s * 2; x++) {
+            const q = m[y % s][x % s], a = y < s ? (x < s ? 0 : 2) : (x < s ? 3 : 1);
+            t[y].push(q * 4 + a);
+          }
+        }
+        m = t;
+        s *= 2;
+      }
+      return m;
+    }
+    BAY[4] = bayer(4);
+    BAY[8] = bayer(8);
+
+    function rng(seed) {
+      let a = seed >>> 0;
+      return function() {
+        a = (a + 0x6D2B79F5) >>> 0;
+        let t = a;
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function dither(d, w, h, ch, mode, levels, seed) {
+      const L = levels - 1;
+      const q = v => {
+        v = Math.round(v * L) / L;
+        return v < 0 ? 0 : v > 1 ? 1 : v;
+      };
+      if (mode === 'bayer4' || mode === 'bayer8') {
+        const n = mode === 'bayer4' ? 4 : 8;
+        const M = BAY[n];
+        const nn = n * n;
+        for (let y = 0; y < h; y++)
+          for (let x = 0; x < w; x++) {
+            const t = (M[y % n][x % n] + 0.5) / nn - 0.5;
+            for (let c = 0; c < ch; c++) {
+              const i = (y * w + x) * ch + c;
+              d[i] = q(d[i] + t / L);
+            }
+          }
+      } else if (mode === 'noise') {
+        const r = rng(seed * 7919 + 13);
+        for (let i = 0; i < d.length; i++) d[i] = q(d[i] + (r() - 0.5) / L);
+      } else {
+        const at = mode === 'atkinson';
+        let ee = 0, cc = 0;
+        const add = (xx, yy, f) => {
+          if (xx >= 0 && xx < w && yy < h) d[(yy * w + xx) * ch + cc] += ee * f;
+        };
+        for (let y = 0; y < h; y++)
+          for (let x = 0; x < w; x++)
+            for (let c = 0; c < ch; c++) {
+              const i = (y * w + x) * ch + c;
+              const o = d[i];
+              const n = q(o);
+              ee = o - n;
+              cc = c;
+              d[i] = n;
+              if (at) {
+                const f = 1 / 8;
+                add(x + 1, y, f);
+                add(x + 2, y, f);
+                add(x - 1, y + 1, f);
+                add(x, y + 1, f);
+                add(x + 1, y + 1, f);
+                add(x, y + 2, f);
+              } else {
+                add(x + 1, y, 7 / 16);
+                add(x - 1, y + 1, 3 / 16);
+                add(x, y + 1, 5 / 16);
+                add(x + 1, y + 1, 1 / 16);
+              }
+            }
+      }
+    }
+
+    const MODES = [
+      ['off', 'Original'],
+      ['bayer8', 'Bayer 8×8'],
+      ['bayer4', 'Bayer 4×4'],
+      ['fs', 'Floyd–Steinberg'],
+      ['atkinson', 'Atkinson'],
+      ['noise', 'Random Noise']
+    ];
+
+    const LOOKS = {
+      housatonic: { sky1:'#5cc8f2', sky2:'#d8f6ff', hill1:'#2e8f6a', hill2:'#4fb286', hill3:'#8fd6a5', water1:'#1d8fc7', water2:'#7fdcf2', sun:'#fff6b8', r:['#06324a','#0f7aa8','#6fd3a0','#f3fdff'] },
+      stanley: { sky1:'#8e969f', sky2:'#e6e8ea', hill1:'#3e444b', hill2:'#69707a', hill3:'#a1a7af', water1:'#555c65', water2:'#aeb4bb', sun:'#ffb066', r:['#15181c','#4f565e','#ff7a00','#f2f3f4'] },
+      foliage: { sky1:'#f2a65a', sky2:'#ffe7bf', hill1:'#8c2f1b', hill2:'#c2571f', hill3:'#e0a030', water1:'#7a8f6a', water2:'#c9d5a8', sun:'#fff1c2', r:['#2b0f08','#8c2f1b','#e08a2e','#fff3d6'] },
+      arrowhead: { sky1:'#0b2a52', sky2:'#4a79a8', hill1:'#06182e', hill2:'#0f3157', hill3:'#1e5a8a', water1:'#082544', water2:'#2a78a8', sun:'#ffe9a8', r:['#030c1a','#0f3157','#3a9bb8','#ffe9b0'] },
+      netscape: { sky1:'#000080', sky2:'#c0c0c0', hill1:'#004040', hill2:'#008080', hill3:'#00c0c0', water1:'#0000a0', water2:'#60a0ff', sun:'#ffff00', r:['#000000','#000080','#008080','#ffffff'] }
+    };
+    const rgba = (c, a) => 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (a == null ? 1 : a) + ')';
+    const mix = (a, b, t) => [0, 1, 2].map(i => Math.round(a[i] + (b[i] - a[i]) * t));
+    function palette(id) {
+      const L = LOOKS[id] || LOOKS.housatonic, P = {};
+      Object.keys(L).forEach(k => { if (k !== 'r') P[k] = hexRgb(L[k]); });
+      P.r = L.r.map(hexRgb);
+      return P;
+    }
+    function rampAt(P, t) {
+      const x = Math.min(0.9999, Math.max(0, t)) * 3, i = Math.floor(x);
+      return mix(P.r[i], P.r[i + 1], x - i);
+    }
+    function lin(ctx, y1, stops) {
+      const g = ctx.createLinearGradient(0, 0, 0, y1);
+      stops.forEach(s => g.addColorStop(s[0], s[1]));
+      return g;
+    }
+    function ridge(ctx, w, h, base, amp, f, ph, fill) {
+      ctx.fillStyle = fill;
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      const step = Math.max(1, w / 220);
+      for (let x = 0; x <= w + step; x += step) {
+        const t = x / w;
+        const y = h * base - amp * h * (Math.sin(t * f * 6.283 + ph) * 0.5 + Math.sin(t * f * 2.1 * 6.283 + ph * 1.7) * 0.3 + Math.sin(t * f * 4.3 * 6.283 + ph * 0.6) * 0.2);
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(w, h);
+      ctx.closePath();
+      ctx.fill();
+    }
+    function bubbles(ctx, w, h, r, n, maxr) {
+      for (let i = 0; i < n; i++) {
+        const x = r() * w, y = r() * h, rad = (0.3 + r() * 0.7) * maxr;
+        const g = ctx.createRadialGradient(x - rad * 0.3, y - rad * 0.3, rad * 0.05, x, y, rad);
+        g.addColorStop(0, 'rgba(255,255,255,.75)');
+        g.addColorStop(0.6, 'rgba(255,255,255,.08)');
+        g.addColorStop(1, 'rgba(255,255,255,.35)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(x, y, rad, 0, 6.283);
+        ctx.fill();
+      }
+    }
+    // Textures ported from claude.html
+    const SCENES = {
+      hills(ctx, w, h, P, r) {
+        ctx.fillStyle = lin(ctx, h * 0.72, [[0, rgba(P.sky1)], [1, rgba(P.sky2)]]);
+        ctx.fillRect(0, 0, w, h);
+        const sx = w * (0.55 + r() * 0.3), sy = h * (0.22 + r() * 0.1), sr = h * 0.07;
+        const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, sr * 4);
+        g.addColorStop(0, rgba(P.sun, 0.95));
+        g.addColorStop(0.25, rgba(P.sun, 0.5));
+        g.addColorStop(1, rgba(P.sun, 0));
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = rgba(P.sun);
+        ctx.beginPath();
+        ctx.arc(sx, sy, sr, 0, 6.283);
+        ctx.fill();
+        ctx.fillStyle = rgba(P.sky2, 0.5);
+        for (let i = 0; i < 4; i++) {
+          const cx = r() * w, cy = r() * h * 0.35, cw = w * (0.07 + r() * 0.1);
+          for (let k = 0; k < 5; k++) {
+            ctx.beginPath();
+            ctx.ellipse(cx + (k - 2) * cw * 0.3, cy + Math.sin(k * 1.7) * cw * 0.05, cw * 0.3, cw * 0.11, 0, 0, 6.283);
+            ctx.fill();
+          }
+        }
+        ridge(ctx, w, h, 0.52, 0.1, 1.3, r() * 6, rgba(P.hill3));
+        ridge(ctx, w, h, 0.66, 0.12, 1.8, r() * 6, rgba(P.hill2));
+        ridge(ctx, w, h, 0.84, 0.1, 2.4, r() * 6, rgba(P.hill1));
+      },
+      ripples(ctx, w, h, P, r) {
+        ctx.fillStyle = lin(ctx, h, [[0, rgba(P.water1)], [1, rgba(P.water2)]]);
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = rgba(P.sky2, 0.3);
+        ctx.lineWidth = Math.max(1, w / 400);
+        for (let i = 0; i < 16; i++) {
+          const cx = r() * w, cy = r() * h;
+          for (let k = 1; k < 7; k++) {
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, k * w * 0.03, k * w * 0.012, 0, 0, 6.283);
+            ctx.stroke();
+          }
+        }
+        bubbles(ctx, w, h, r, 22, Math.min(w, h) * 0.08);
+      },
+      haze(ctx, w, h, P, r) {
+        ctx.fillStyle = lin(ctx, h, [[0, rgba(P.sky1)], [1, rgba(P.sky2)]]);
+        ctx.fillRect(0, 0, w, h);
+        const cols = [P.sky2, P.hill3, P.water2];
+        for (let i = 0; i < 34; i++) {
+          const x = r() * w, y = r() * h, rad = Math.min(w, h) * (0.12 + r() * 0.28);
+          const g = ctx.createRadialGradient(x, y, 0, x, y, rad), c = cols[i % 3];
+          g.addColorStop(0, rgba(c, 0.35));
+          g.addColorStop(1, rgba(c, 0));
+          ctx.fillStyle = g;
+          ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+        }
+      },
+      grain(ctx, w, h, P, r) {
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0, rgba(P.sky1));
+        g.addColorStop(0.5, rgba(P.sky2));
+        g.addColorStop(1, rgba(P.hill3));
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+        const im = ctx.getImageData(0, 0, w, h), d = im.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const n = (r() - 0.5) * 70;
+          d[i] += n; d[i + 1] += n; d[i + 2] += n;
+        }
+        ctx.putImageData(im, 0, 0);
+      }
+    };
+
+    const DEFAULTS = { src: 'image', look: 'housatonic', img: 'dither', mode: 'off', lvl: 4, px: 1, bright: 0, contrast: 0, pal: 'color', duoA: '#06324a', duoB: '#f3fdff', seed: 42 };
+    const st = Object.assign({}, DEFAULTS);
+    const imgs = { dither: null, photo: null };
+    const $ = id => document.getElementById(id);
+    const modeName = id => (MODES.find(m => m[0] === id) || MODES[0])[1];
+    const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+
+    function applyDither() {
+      const bannerImg = imgs[st.img] || imgs.dither || imgs.photo;
+      if (!bannerImg) return;
+      const canvas = $('bannerCanvas');
+      const W = bannerImg.width, H = bannerImg.height;
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.imageSmoothingEnabled = false;
+      const P = palette(st.look);
+      const off = st.mode === 'off';
+
+      // Work at reduced resolution so dot size scales the pattern
+      const w = off ? W : Math.max(1, Math.ceil(W / st.px)), h = off ? H : Math.max(1, Math.ceil(H / st.px));
+      const small = document.createElement('canvas');
+      small.width = w;
+      small.height = h;
+      const sctx = small.getContext('2d', { willReadFrequently: true });
+      sctx.imageSmoothingEnabled = true;
+      if (st.src === 'image') sctx.drawImage(bannerImg, 0, 0, w, h);
+      else SCENES[st.src](sctx, w, h, P, rng(st.seed));
+      if (off) {
+        ctx.drawImage(small, 0, 0);
+        return;
+      }
+      const imgData = sctx.getImageData(0, 0, w, h);
+      const data = imgData.data;
+      const n = w * h;
+      const k = (259 * (st.contrast * 2.55 + 255)) / (255 * (259 - st.contrast * 2.55));
+      const adj = v => Math.min(1, Math.max(0, (k * (v - 0.5) + 0.5) + st.bright / 100));
+
+      if (st.pal === 'color') {
+        const d = new Float32Array(n * 3);
+        for (let i = 0; i < n; i++)
+          for (let c = 0; c < 3; c++) d[i * 3 + c] = adj(data[i * 4 + c] / 255);
+        dither(d, w, h, 3, st.mode, st.lvl, st.seed);
+        for (let i = 0; i < n; i++)
+          for (let c = 0; c < 3; c++) data[i * 4 + c] = Math.round(d[i * 3 + c] * 255);
+      } else {
+        const d = new Float32Array(n);
+        let lo = 1, hi = 0;
+        for (let i = 0; i < n; i++) {
+          const v = adj((0.299 * data[i * 4] + 0.587 * data[i * 4 + 1] + 0.114 * data[i * 4 + 2]) / 255);
+          d[i] = v;
+          if (v < lo) lo = v;
+          if (v > hi) hi = v;
+        }
+        if (st.pal === 'tone') {
+          const span = Math.max(0.05, hi - lo);
+          for (let i = 0; i < n; i++) d[i] = (d[i] - lo) / span;
+        }
+        dither(d, w, h, 1, st.mode, st.lvl, st.seed);
+        const A = st.pal === 'duo' ? hexRgb(st.duoA) : [0, 0, 0];
+        const B = st.pal === 'duo' ? hexRgb(st.duoB) : [255, 255, 255];
+        for (let i = 0; i < n; i++) {
+          const col = st.pal === 'tone' ? rampAt(P, d[i]) : mix(A, B, d[i]);
+          for (let c = 0; c < 3; c++) data[i * 4 + c] = col[c];
+        }
+      }
+      sctx.putImageData(imgData, 0, 0);
+      ctx.drawImage(small, 0, 0, W, H);
+    }
+
+    function syncControls() {
+      $('modeSel').value = st.mode;
+      $('srcSel').value = st.src;
+      $('lookSel').value = st.look;
+      $('imgBtn').textContent = st.img === 'photo' ? 'Show dithered' : 'Show photo';
+      $('modeDisplay').textContent = modeName(st.mode);
+      $('lvl').value = st.lvl; $('lvlV').textContent = st.lvl;
+      $('px').value = st.px; $('pxV').textContent = st.px;
+      $('bright').value = st.bright; $('brightV').textContent = st.bright;
+      $('contrast').value = st.contrast; $('contrastV').textContent = st.contrast;
+      $('palSel').value = st.pal;
+      $('duoA').value = st.duoA; $('duoB').value = st.duoB;
+      $('duoRow').hidden = st.pal !== 'duo';
+    }
+
+    let timer = 0;
+    function update(immediate) {
+      syncControls();
+      clearTimeout(timer);
+      if (immediate) applyDither();
+      else timer = setTimeout(applyDither, 80);
+    }
+
+    MODES.forEach(m => {
+      const o = document.createElement('option');
+      o.value = m[0];
+      o.textContent = m[1];
+      $('modeSel').appendChild(o);
+    });
+
+    $('ditherBtn').addEventListener('click', () => {
+      const i = MODES.findIndex(m => m[0] === st.mode);
+      st.mode = MODES[(i + 1) % MODES.length][0];
+      update(true);
+    });
+    $('panelBtn').addEventListener('click', () => {
+      const p = $('ditherPanel');
+      p.hidden = !p.hidden;
+      $('panelBtn').setAttribute('aria-expanded', String(!p.hidden));
+    });
+    $('modeSel').addEventListener('change', e => { st.mode = e.target.value; update(true); });
+    $('srcSel').addEventListener('change', e => { st.src = e.target.value; update(true); });
+    $('lookSel').addEventListener('change', e => { st.look = e.target.value; update(true); });
+    $('imgBtn').addEventListener('click', () => {
+      st.img = st.img === 'photo' ? 'dither' : 'photo';
+      update(true);
+    });
+    [['lvl', 'lvl'], ['px', 'px'], ['bright', 'bright'], ['contrast', 'contrast']].forEach(([id, key]) =>
+      $(id).addEventListener('input', e => { st[key] = +e.target.value; update(false); }));
+    $('palSel').addEventListener('change', e => { st.pal = e.target.value; update(true); });
+    $('duoA').addEventListener('input', e => { st.duoA = e.target.value; update(false); });
+    $('duoB').addEventListener('input', e => { st.duoB = e.target.value; update(false); });
+    $('seedBtn').addEventListener('click', () => { st.seed = Math.floor(Math.random() * 100000); update(true); });
+    $('resetBtn').addEventListener('click', () => { Object.assign(st, DEFAULTS); update(true); });
+    syncControls();
+
+    // Load and display the banner image
+    window.addEventListener('load', () => {
+      [['dither', 'pittsfield_dither.png'], ['photo', 'pittsfield.jpeg']].forEach(([key, src]) => {
+        const im = new Image();
+        im.onload = () => { imgs[key] = im; applyDither(); };
+        im.src = src;
+      });
+    });
+  </script>
+</html>
