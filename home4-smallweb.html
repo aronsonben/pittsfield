@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to the home page for Pittsfield, Massachusetts.">
+    <title>Pittsfield, MA</title>
+    <style>
+      :root {
+        --ink: #111;
+        --paper: #fff;
+        --muted: #555;
+        --rule: #111;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: var(--ink);
+        background: var(--paper);
+      }
+
+      header,
+      main,
+      footer {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+
+      header {
+        border-bottom: 3px solid var(--rule);
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 2.25rem;
+        line-height: 1.2;
+      }
+
+      nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        list-style: none;
+        margin: 1rem 0 0;
+        padding: 0;
+      }
+
+      a {
+        color: var(--ink);
+      }
+
+      a:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 2px;
+      }
+
+      main h2 {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 0.25rem;
+      }
+
+      .links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .links li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .links a {
+        font-weight: bold;
+      }
+
+      .links span {
+        display: block;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      footer {
+        border-top: 1px solid var(--rule);
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Pittsfield, MA</h1>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Contest home</a></li>
+          <li><a href="smallweb.html" aria-current="page">Home</a></li>
+          <li><a href="https://pittsfieldma.gov" target="_blank" rel="noopener noreferrer">City of Pittsfield</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Welcome</h2>
+      <p>Welcome to the home page for Pittsfield, Massachusetts. This page is a starting point for finding things on the site.</p>
+
+      <h2>Explore</h2>
+      <ul class="links">
+        <li>
+          <a href="index.html">Contest overview</a>
+          <span>The main page comparing AI-generated homepages for the town.</span>
+        </li>
+        <li>
+          <a href="home1.html">Home page, version 1</a>
+          <span>An introduction to the site under the name "Pittsfield, MA Home Page".</span>
+        </li>
+        <li>
+          <a href="home2.html">Home page, old web version</a>
+          <span>An early-2000s style take on the same introduction.</span>
+        </li>
+        <li>
+          <a href="https://pittsfieldma.gov" target="_blank" rel="noopener noreferrer">City services</a>
+          <span>Official city information, including services and contacts. Opens in a new tab.</span>
+        </li>
+      </ul>
+    </main>
+
+    <footer>
+      <p>Pittsfield, MA. Built with plain HTML and CSS.</p>
+    </footer>
+  </body>
+</html>
